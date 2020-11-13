@@ -1,0 +1,47 @@
+apiVersion: cinder.crit.sh/v1alpha1
+kind: ClusterConfiguration
+postCritCommands:
+  - |
+    kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f /cinder/mapd.yaml
+extraPortMappings:
+  - listenAddress: 0.0.0.0
+    hostPort: 8000
+    containerPort: 30000
+    protocol: TCP
+featureGates:
+  LocalRegistry: true
+  MachineAPI: true
+files:
+  - path: "/cinder/mapd.yaml"
+    owner: "root:root"
+    permissions: "0644"
+    content: |
+      kind: DockerInfrastructureProvider
+      apiVersion: infrastructure.crit.sh/v1alpha1
+      metadata:
+        name: mapd
+        namespace: mapd-system
+      spec:
+        defaultImage: criticalstack/cinder:v1
+      ---
+      apiVersion: machine.crit.sh/v1alpha1
+      kind: InfrastructureProvider
+      metadata:
+        name: mapd
+      spec:
+        infrastructureRef:
+          apiVersion: infrastructure.crit.sh/v1alpha1
+          kind: DockerInfrastructureProvider
+          name: mapd
+          namespace: mapd-system
+      ---
+      apiVersion: machine.crit.sh/v1alpha1
+      kind: Config
+      metadata:
+        name: worker-config
+        namespace: kube-system
+      spec:
+        config: |
+          apiVersion: crit.sh/v1alpha2
+          kind: WorkerConfiguration
+          clusterName: cinder

@@ -1,0 +1,224 @@
+div.settings-parent {
+  position: relative;
+  user-select: none;
+  flex: 1 0 auto;
+}
+
+.settings-menu-toggle {
+  background: #3375e4;
+  color: #fff;
+  width: 50px;
+  justify-content: center;
+  align-items: center;
+  padding-right: 5px;
+  cursor: pointer;
+  line-height: 60px;
+  z-index: 1;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+  font-size: 2rem;
+  height: 60px;
+  margin-top: 1.25rem;
+  display: none;
+}
+
+.settings-menu-toggle:hover {
+  background-color: #2964b3;
+}
+
+div.settings-sidebar {
+  height: 100%;
+  width: 320px;
+  overflow-y: auto;
+  user-select: none;
+  background-color: #fff;
+  border-right: 1pt solid #e0e0e0;
+}
+
+div.settings-sidebar:not(.mui-drawer) {
+  position: absolute;
+  left: 0;
+  top: 21px;
+  bottom: 0;
+}
+
+.settings-sidebar:not(.mui-drawer), .settings-content {
+  transition: all .5s;
+}
+
+div.settings-content {
+  background-color: #F1F2F6;
+  height: 100%;
+  margin-left: 321px;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+div.settings-content .content {
+  position: unset;
+}
+
+div.settings-options {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  float: left;
+}
+
+.settings-options .dialog-button {
+  margin: 0 15px 15px 0 !important;
+}
+
+div.settings-close {
+  position: fixed;
+  right: 14px;
+  bottom: 24px;
+  height: 50px;
+}
+
+div.settings-close i {
+  font-size: 24px;
+  color: #cc0000;
+  margin-top: -11px;
+}
+
+div.settings-edit-label {
+  font-size: 20px;
+  color: #545454;
+  padding: 15px 0 15px 0;
+  cursor: pointer;
+  background-color: transparent;
+  transition: background-color 0.5s ease;
+}
+
+div.settings-edit-label:hover {
+  background-color: #e9e9e9;
+}
+
+div.settings-edit-label i {
+  margin-left: 10px;
+  margin-right: 20px;
+  margin-top: -3px;
+  color: #0078E7;
+  font-size: 30px;
+}
+
+div.settings-user-admin {
+  vertical-align: middle;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-left: 44px;
+  margin-top: -44px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  border-radius: 50%;
+  align-content: center;
+}
+
+div.settings-user-admin i {
+  color: #ABA9A9;
+  font-size: 11px;
+}
+
+.settings-listitem-avatar img {
+  position: absolute;
+  right: 20px;
+}
+
+.settings-cardheader-avatar img {
+  margin-right: 20px;
+}
+
+.list-entry {
+  width: 100%;
+  cursor: pointer;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 1.2vh;
+  padding-bottom: 1.2vh;
+}
+
+.list-entry:hover {
+  background-color: #e9e9e9;
+}
+
+.list-entry-active {
+  background-color: #cccccc;
+}
+
+.list-heading {
+  color: #0078e7;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  padding-top: 20px;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.list-entry-primary {
+  width: 100%;
+  font-size: 2rem;
+  color: #1a1a1a;
+  float: left;
+}
+
+.list-entry-secondary {
+  width: 100%;
+  font-size: 1.5rem;
+  color: #868686;
+}
+
+.list-entry-icon {
+  font-size: 24px;
+  float: left;
+  padding-right: 10px;
+  color: #2e2e2e;
+  margin-top: 2px;
+}
+
+.settings-control-header {
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.change-namespace-settings {
+  opacity: .9;
+  border-radius: 3px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 8px;
+}
+
+.change-namespace-settings div:focus {
+  background: unset;
+}
+
+.sso-status, .sso-status span {
+  display: flex;
+  align-items: center;
+}
+
+.sso-message {
+  margin-top: 15px;
+}
+
+.sso-status .label, .sso-message .label {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.sso-status .glyphicons {
+  font-size: 24px;
+  margin: 0 5px;
+}
+
+.sso-success .glyphicons {
+  color: #0078E7;
+}
+
+.sso-error .glyphicons {
+  color: #B13E31;
+}

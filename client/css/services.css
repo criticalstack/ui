@@ -1,0 +1,16 @@
+a.services-port-link {
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+  opacity: 0.8;
+}
+
+a.services-port-link i {
+  margin-left: 3px;
+  margin-top: -4px;
+  font-size: 10px;
+}
+
+a.services-port-link:hover {
+  opacity: 1;
+}

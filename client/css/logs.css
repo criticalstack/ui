@@ -1,0 +1,53 @@
+.container-logs-wrapper {
+  font-size: 15px;
+  line-height: 18px;
+  font-family: monospace, courier new;
+  color: #fff;
+  padding: 20px;
+  background-color: #14171B;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  position: absolute;
+  top: 65px;
+  bottom: 10px;
+  right: 10px;
+  left: 10px;
+
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+.container-logs-wrapper ::-webkit-scrollbar {
+    display: none;
+}
+
+.container-logs-wrapper .log-line {
+  margin-bottom: 2px;
+  white-space: pre-wrap;
+}
+
+.container-logs-wrapper .MuiButton-label {
+  transform: translate(24px, -24px);
+}
+
+.container-logs-wrapper.fullscreen {
+  position: fixed !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+  z-index: 9999 !important;
+}
+
+.fullscreen .fullscreen-terminal-button {
+  position: fixed !important;
+}

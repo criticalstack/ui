@@ -1,0 +1,129 @@
+div.selector-container {
+  float:left;
+  text-align: left;
+  margin-top: 4px;
+  width: 100%;
+  display: table;
+}
+
+div.selector-pair {
+  display: flex;
+  height: 30px;
+  line-height: 30px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  float: left;
+  margin-left: 5px;
+  margin-bottom: 4px;
+  font-size: 0.9em;
+  padding-right: 16px;
+  padding-left: 16px;
+  background-color: #928FC3!important;
+  border-radius: 100px;
+  position: relative;
+}
+
+tr.row-open div.selector-pair {
+  background-color: #0078E7 !important;
+  border: 1px solid #074A88 !important;
+}
+
+div.selector-container .selector-pair.hidden {
+  display: none;
+}
+
+span.selector-key {
+  font-weight: bold;
+  color: #fff;
+  float: left;
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+span.selector-split {
+  opacity: 0.7;
+  margin-left: 4px;
+  vertical-align: bottom;
+  color: #fff;
+  float: left;
+}
+
+span.selector-value {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+  margin-left: 4px;
+  float: left;
+}
+
+div.selector-popover {
+  width: 500px;
+  height: 250px;
+}
+
+div.selector-popover-selectors {
+  padding: 10px;
+  height: 80%;
+  overflow-y: auto;
+}
+
+div.selector-popover-selectors #selectors-toggle {
+  display: none;
+}
+
+div.selector-popover-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #14171B;
+  padding: 10px;
+}
+
+div.selectors {
+  float: left;
+  width: 92%;
+}
+
+div.selector * {
+  white-space: nowrap;
+}
+
+div.selector-badge {
+  vertical-align: middle;
+  display: table-cell;
+  width: 68px;
+}
+
+div.selector-badge i {
+  color: #c9c9c9;
+  font-size: 14px;
+  margin-top: 1px;
+  margin-left: 20px;
+}
+
+div.selector-badge span {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 12px;
+  width: 24px;
+  height: 24px;
+  background-color: #337AB7;
+  color: #fff;
+  border-radius: 50%;
+  float: right;
+  margin-left: -4px;
+  margin-top: -14px;
+}
+
+span.selectors-empty {
+  margin-left: 10px;
+}

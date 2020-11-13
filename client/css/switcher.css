@@ -1,0 +1,83 @@
+.switcher {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 40px;
+  border-radius: 25px;
+  margin-left: auto;
+}
+.switcher input {
+  position: relative;
+  width: 200px;
+  height: 40px;
+  border-radius: 25px;
+  background-color: #1E1E1E;
+  outline: none;
+  font-family: sans-serif;
+  margin: 0;
+  -webkit-appearance: none;
+   -moz-appearance: none;
+        appearance: none;
+}
+.switcher input:before, .switcher input:after {
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #FFFFFF;
+}
+.switcher input:before {
+  content: "Roles";
+  left: 20px;
+}
+.switcher input:after {
+  content: "Bindings";
+  right: 20px;
+}
+.switcher label {
+  z-index: 1;
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  border-radius: 20px;
+}
+.switcher.switcher-1 input {
+  transition: .25s -.1s;
+  border: 1px solid transparent;
+}
+.switcher.switcher-1 input:checked {
+  background-color: #5D6E79;
+  border: 1pt solid #4A5963;
+}
+.switcher.switcher-1 input:checked:before {
+  color: #FFFFFF;
+  transition: color .5s .2s;
+}
+.switcher.switcher-1 input:checked:after {
+  color: #CCCCCC;
+  transition: color .5s;
+}
+.switcher.switcher-1 input:checked + label {
+  left: 10px;
+  right: 100px;
+  background: #2B353B;
+  transition: left .5s, right .4s .2s;
+}
+.switcher.switcher-1 input:not(:checked) {
+  background: #37444C;
+  transition: background .5s -.1s;
+}
+.switcher.switcher-1 input:not(:checked):before {
+  color: #CCCCCC;
+  transition: color .5s;
+}
+.switcher.switcher-1 input:not(:checked):after {
+  color: #2B353B;
+  transition: color .5s .2s;
+}
+.switcher.switcher-1 input:not(:checked) + label {
+  left: 100px;
+  right: 10px;
+  background: #FFFFFF;
+  transition: left .4s .2s, right .5s, background .35s -.1s;
+}

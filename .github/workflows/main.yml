@@ -1,0 +1,129 @@
+name: pr-main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clean up
+      run: |
+        df -h
+        rm -rf /usr/share/dotnet/
+        df -h
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '^1.14.9'
+
+    - name: Install helm
+      run: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+
+    - name: Go cache
+      uses: actions/cache@v2
+      with:
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Cache Docker layers
+      uses: actions/cache@v2
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+
+    - name: Install cinder
+      run: curl -sSfL https://get.crit.sh | sh
+
+    - name: Create cinder cluster
+      run: |
+        cinder version
+        cinder create cluster -v -c hack/cinder-e2e.yaml --name ui-dev
+
+    - name: Failure logs
+      if: ${{ failure() }}
+      run: docker exec ui-dev journalctl -xu kubelet
+
+    - name: Version
+      run: echo "::set-output name=VERSION::$(make version)"
+      id: get-version
+
+    - name: Docker Build
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./Dockerfile
+        platforms: linux/amd64
+        load: true
+        build-args: VERSION=${{ steps.get-version.outputs.VERSION }}
+        tags: criticalstack/ui:${{ steps.get-version.outputs.VERSION }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache
+
+    - name: Test e2e
+      run: |
+        cinder load --name ui-dev criticalstack/ui:${{ steps.get-version.outputs.VERSION }}
+        kubectl apply -f chart/crds/
+        helm template chart --namespace critical-stack --name-template cs-ui \
+          --set identity.issuerOverride="http://$(cinder get ip --name ui-dev):30000" \
+          --set identity.issuerCAFile="" \
+          --set tls.enabled=false \
+          --set healthcheck.enabled=false \
+          --set users.admin.initialPassword.value=admin \
+          --set users.admin.template.type=local \
+          --set users.admin.template.active=true \
+          --set users.admin.template.username=admin \
+          --set users.admin.template.email=dev@criticalstack.com \
+          --set image.tag=${{ steps.get-version.outputs.VERSION }} | kubectl apply -f -
+        kubectl rollout -n critical-stack status deployment/cs-ui -w
+        kubectl wait userrequests admin --for condition=Ready
+        make test-e2e
+
+    - name: e2e failure logs
+      if: ${{ failure() }}
+      run: |
+        docker exec ui-dev kubectl --kubeconfig /etc/kubernetes/admin.conf -n critical-stack get pods -o yaml -l app.kubernetes.io/name=ui
+        docker exec ui-dev kubectl --kubeconfig /etc/kubernetes/admin.conf -n critical-stack get all
+
+    - name: Cypress Tests
+      id: cypress
+      run: |
+        cd client
+        npm install
+        npx cypress verify
+        npx cypress run --config baseUrl=http://$(cinder get ip --name ui-dev):30000
+
+    - uses: actions/upload-artifact@v2
+      if: ${{ steps.cypress.outcome == 'failure' }}
+      with:
+        name: cypress-results
+        path: client/cypress/results/**/*
+
+  chart:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install helm
+      run: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+    - name: Package chart
+      run: helm package --app-version $(make version) ./chart
+    - uses: actions/upload-artifact@v2
+      with:
+        name: chart
+        path: ui-*.tgz

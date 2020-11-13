@@ -1,0 +1,12 @@
+.user-container-name {
+  width: 10px;
+  background-color: #000;
+}
+
+.user-filter {
+  margin-right: 8px;
+  margin-top: 15px;
+  margin-left: -25px;
+  color: #888e92;
+  cursor: pointer;
+}

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "dex.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "dex.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.identity.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "dex.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "dex.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      serviceAccountName: dex
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+      - name: dex
+        image: "{{ .Values.identity.image.repository }}:{{ .Values.identity.image.tag }}"
+        imagePullPolicy: {{ .Values.identity.image.pullPolicy }}
+        command: ["/usr/local/bin/dex", "serve", "/etc/dex/cfg/config.yaml"]
+        ports:
+        - name: http
+          containerPort: 5556
+        volumeMounts:
+        - name: config
+          mountPath: /etc/dex/cfg
+      volumes:
+      - name: config
+        configMap:
+          name: dex-config

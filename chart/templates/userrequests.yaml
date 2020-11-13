@@ -1,0 +1,9 @@
+{{- range $k, $v := .Values.users }}
+---
+kind: UserRequest
+apiVersion: criticalstack.com/v1alpha1
+metadata:
+  name: {{ $k }}
+spec:
+  {{- toYaml $v | nindent 2 }}
+{{- end }}

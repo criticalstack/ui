@@ -1,0 +1,54 @@
+.__react_component_tooltip {
+  z-index: 2147483647 !important;
+  opacity: 1 !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.node-pod-status-tooltip {
+  line-height: 20px !important;
+}
+
+.tooltip-conditions {
+  max-width: 70% !important;
+}
+
+.tooltip-conditions table {
+  font-size: 12px !important;
+  border: none !important;
+}
+
+.tooltip-conditions table tr {
+  line-height: 20px;
+  height: 20px;
+  border: none !important;
+  line-height: 16px !important;
+  height: 16px !important;
+}
+
+.tooltip-conditions table td {
+  border: none !important;
+}
+
+.tooltip-conditions table th {
+  text-transform: uppercase;
+  border: none !important;
+  color: #fff !important;
+  font-weight: bold;
+}
+
+.tooltip-conditions table th, .tooltip-conditions table td {
+  padding: 5px;
+  text-align: left;
+}
+
+.tooltip-conditions table .type {
+  width: 100px;
+}
+
+.tooltip-conditions table .reason {
+  width: 132px;
+}
+
+.tooltip-conditions table .time {
+  width: 132px;
+}

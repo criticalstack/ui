@@ -1,0 +1,43 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: dex-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "dex.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation"
+data:
+  config.yaml: |
+    issuer: {{ include "dex.issuerURL" . }}
+    storage:
+      type: kubernetes
+      config:
+        inCluster: true
+    web:
+      http: 0.0.0.0:5556
+    oauth2:
+      skipApprovalScreen: true
+      alwaysShowLoginScreen: false
+    {{- with .Values.extraConfig }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sso-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "dex.labels" . | indent 4 }}
+data:
+{{- if .Values.dexProxyEndpointOverride }}
+  dexProxyEndpoint: {{ .Values.dexProxyEndpointOverride }}
+{{- else }}
+  dexProxyEndpoint: http://{{ .Values.identity.service.name }}:{{ .Values.identity.service.port }}
+{{- end }}
+  providerURL: {{ include "dex.issuerURL" . }}
+{{- if .Values.identity.issuerCAFile }}
+  providerCAFile: {{ .Values.identity.issuerCAFile }}
+{{- end }}

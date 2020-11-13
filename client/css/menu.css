@@ -1,0 +1,227 @@
+/* component header icons */
+.menu-icon-header {
+  float: left;
+  margin-top: 5px;
+  color: #e9e9e9 !important;
+  position: relative;
+  display: inline-block;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  color: rgba(0, 0, 0, 0.87);
+  fill: rgba(0, 0, 0, 0.87);
+  -webkit-user-select: none;
+}
+
+i.menu-icon-sub-header {
+  font-size: 22px !important;
+}
+
+.btn-menu-icon {
+  font-size: 25px;
+  color: #fff;
+}
+
+i.menu-icon {
+  font-size: 25px;
+  color: #fff;
+}
+
+.menu-entry-root {
+  padding-right: 42px !important;
+}
+
+.menu-entry-root:hover {
+  background-color: #f4f4f4 !important;
+  cursor: pointer !important;
+}
+
+.menu-entry {
+  font-size: 12px !important;
+  user-select: none;
+}
+
+.menu-entry.active {
+  color: #0078e7 !important;
+}
+
+i.menu-entry {
+  color: #666;
+  font-size: 25px !important;
+  display: flex;
+  justify-content: center;
+  width: 16px !important;
+}
+
+i.menu-entry.active {
+  color: #0078e7 !important;
+}
+
+.menu-icon-container {
+  color: #666 !important;
+  font-size: 14px !important;
+}
+
+tr.row-open .menu-icon-container {
+  color: #fff !important;
+  font-size: 14px !important;
+}
+
+/* inner menu icons */
+.icon-menu span.active {
+  color: #0078e7 !important;
+}
+
+.icon-menu span.active .menu-icon {
+  color: #0078e7 !important;
+}
+
+.menu-icon-warn {
+  color: #B13E31 !important;
+}
+
+.menu-icon-install {
+  color: #3375e4 !important;
+}
+
+.menu-icon-version {
+  color: #0078E7 !important;
+  cursor: default !important;
+}
+
+/* overides for submenu drop-down menu */
+.icon-text-button span {
+  text-shadow: 0px -1px 0px #000;
+  -webkit-transition: opacity 0.5s ease-in-out !important;
+  -moz-transition: opacity 0.5s ease-in-out !important;
+  -o-transition: opacity 0.5s ease-in-out !important;
+  transition: opacity 0.5s ease-in-out !important;
+  opacity: 0.6 !important;
+  color: #fff !important;
+}
+
+.icon-text-button.active span {
+  opacity: 1 !important;
+}
+
+.icon-text-button span:not([class]) {
+  padding-left: 35px !important;
+  font-size: 15px !important;
+  font-weight: 300 !important;
+  text-transform: none !important;
+}
+
+.csicon.icon-text-icon {
+  color: #fff !important;
+  position: absolute !important;
+  left: 0;
+  top: 0;
+}
+
+.glyphicons.icon-text-icon {
+  color: #fff !important;
+  position: absolute !important;
+  left: 0;
+  top: 0;
+}
+
+.icon-text-button {
+  margin-right: 20px !important;
+}
+
+.icon-text-button, .icon-text-icon {
+  background-color: transparent !important;
+  cursor: pointer !important;
+  font-size: 15px !important;
+  position: relative !important;
+  min-height: 50px !important;
+  line-height: 50px !important;
+  font-weight: 300 !important;
+  position: relative !important;
+  text-decoration: none !important;
+  text-transform: none !important;
+  padding: 0 !important;
+}
+
+.icon-text-button span:hover {
+  opacity: 1 !important;
+}
+
+.menu-button {
+  border-radius: 3px !important;
+  border: 1px solid #000;
+}
+
+.create-button-parent .menu-button {
+  margin-right: 13px;
+}
+
+.menu-button span {
+  text-transform: none !important;
+}
+
+.menu-down-arrow {
+  display: inline-block;
+  fill: #e0e0e0;
+  height: 24px;
+  width: 24px;
+  transition: all 450ms cubic-bezier(.23,1,.32,1) 0s;
+  right: 0;
+  top: 14px;
+  padding-right: 20px;
+  padding-top: 7px;
+  padding-left: 5px;
+}
+
+.menu-divider-bottom {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.menu-divider-top {
+  border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.switch-selector-root {
+  margin-left: -18px !important;
+}
+
+.switch-label-root h3 {
+  margin-left: -12px !important;
+  font-size: 12px !important;
+}
+.menu-parent {
+  width: 300px;
+  padding: 8px !important;
+}
+
+.menu-divider {
+  margin-top: 5px!important;
+  margin-bottom: 5px!important;
+}
+
+.menu-entry i,
+.menu-expansion i {
+  color: #333;
+  font-size: 24px;
+}
+
+.menu-entry-expansion {
+  font-size: 24px !important;
+  color: #c9c9c9 !important;
+  margin-top: -2px !important;
+}
+
+.menu-collapse-children {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.MuiListItem-root.Mui-disabled {
+  cursor: not-allowed !important;
+}
+
+.context-menu-icon {
+  position: absolute;
+  right: 0;
+  top: 14px;
+  cursor: pointer;
+  z-index: 10;
+}

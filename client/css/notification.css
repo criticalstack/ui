@@ -1,0 +1,20 @@
+.notification-default div {
+  font-size: 14px;
+}
+
+.notification-warn div {
+  background-color: rgb(177, 62, 49) !important;
+}
+
+.notification-warn div button {
+  color: #fff !important;
+}
+
+.notification-default [class*="MuiSnackbarContent"] {
+  max-width: unset !important;
+}
+
+.notification-default .btn-undo {
+  color: #639DFD;
+  font-weight: bold;
+}

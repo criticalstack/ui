@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marketplace
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: marketplace
+spec:
+  selector:
+    matchLabels:
+      app: marketplace
+  replicas: {{ .Values.marketplace.replicas }}
+  template:
+    metadata:
+      labels:
+        app: marketplace
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: marketplace
+      containers:
+      - name: manager
+        image: "{{ .Values.marketplace.image.repository }}:{{ .Values.marketplace.image.tag }}"
+        imagePullPolicy: {{ .Values.marketplace.image.pullPolicy }}
+        command:
+        - /manager
+        args:
+        - --enable-leader-election
+      {{- if .Values.marketplace.affinity }}
+      affinity:
+{{ toYaml .Values.marketplace.affinity | indent 8 }}
+      {{- end }}
+      {{- if .Values.marketplace.tolerations }}
+      tolerations:
+{{ toYaml .Values.marketplace.tolerations | indent 8 }}
+      {{- end }}
+      {{- if .Values.marketplace.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.marketplace.nodeSelector | indent 8 }}
+      {{- end }}
+      serviceAccount: marketplace

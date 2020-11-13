@@ -1,0 +1,35 @@
+{{- if .Values.tls.enabled -}}
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: {{ .Values.global.clusterDomain }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation"
+spec:
+  secretName: criticalstack-ui-certs
+  duration: 8760h # 365d
+  renewBefore: 360h # 15d
+  organization:
+  - Critical Stack
+  isCA: false
+  keySize: 2048
+  keyAlgorithm: rsa
+  keyEncoding: pkcs1
+  usages:
+    - server auth
+    - client auth
+  ipAddresses:
+  {{- range .Values.tls.altIPs }}
+  - {{ . }}
+  {{- end}}
+  dnsNames:
+  - {{ .Values.global.clusterDomain }}
+  {{- range .Values.tls.altNames }}
+  - {{ . }}
+  {{- end}}
+  issuerRef:
+    name: auth-proxy-ca
+    kind: ClusterIssuer
+{{- end }}

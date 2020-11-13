@@ -1,0 +1,700 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.5
+  creationTimestamp: null
+  name: applications.marketplace.criticalstack.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .metadata.ownerReferences[0].name
+    description: Chart Source
+    name: Source
+    type: string
+  - JSONPath: .appName
+    description: Name of chart
+    name: Chart Name
+    type: string
+  - JSONPath: .versions[0].version
+    description: Latest Version
+    name: Version
+    type: string
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: marketplace.criticalstack.com
+  names:
+    kind: Application
+    listKind: ApplicationList
+    plural: applications
+    shortNames:
+    - app
+    - apps
+    singular: application
+  scope: Cluster
+  subresources: {}
+  validation:
+    openAPIV3Schema:
+      description: Application is the Schema for the applications API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        appName:
+          description: The actual application name
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        versions:
+          items:
+            properties:
+              annotations:
+                additionalProperties:
+                  type: string
+                description: Annotations are additional mappings uninterpreted by
+                  Helm, made available for inspection by other applications.
+                type: object
+              apiVersion:
+                description: The API Version of this chart.
+                type: string
+              appVersion:
+                description: The version of the application enclosed inside of this
+                  chart.
+                type: string
+              created:
+                format: date-time
+                type: string
+              dependencies:
+                description: Dependencies are a list of dependencies for a chart.
+                items:
+                  description: "Dependency describes a chart upon which another chart
+                    depends. \n Dependencies can be used to express developer intent,
+                    or to capture the state of a chart."
+                  properties:
+                    alias:
+                      description: Alias usable alias to be used for the chart
+                      type: string
+                    condition:
+                      description: A yaml path that resolves to a boolean, used for
+                        enabling/disabling charts (e.g. subchart1.enabled )
+                      type: string
+                    enabled:
+                      description: Enabled bool determines if chart should be loaded
+                      type: boolean
+                    import-values:
+                      description: ImportValues holds the mapping of source values
+                        to parent key to be imported
+                      items:
+                        type: string
+                      type: array
+                    name:
+                      description: Name is the name of the dependency.
+                      type: string
+                    repository:
+                      description: The URL to the repository.
+                      type: string
+                    tags:
+                      description: Tags can be used to group charts for enabling/disabling
+                        together
+                      items:
+                        type: string
+                      type: array
+                    version:
+                      description: Version is the version (range) of this chart.
+                      type: string
+                  required:
+                  - name
+                  - repository
+                  type: object
+                type: array
+              deprecated:
+                description: Whether or not this chart is deprecated
+                type: boolean
+              description:
+                description: A one-sentence description of the chart
+                type: string
+              digest:
+                type: string
+              documents:
+                additionalProperties:
+                  type: string
+                description: Extra application documents for display in the marketplace.
+                  Map of title to string content.
+                type: object
+              home:
+                description: The URL to a relevant project page, git repo, or contact
+                  person
+                type: string
+              icon:
+                description: The URL to an icon file.
+                type: string
+              keywords:
+                description: A list of string keywords
+                items:
+                  type: string
+                type: array
+              kubeVersion:
+                description: KubeVersion is a SemVer constraint specifying the version
+                  of Kubernetes required.
+                type: string
+              maintainers:
+                description: A list of name and URL/email address combinations for
+                  the maintainer(s)
+                items:
+                  description: Maintainer describes a Chart maintainer.
+                  properties:
+                    email:
+                      description: Email is an optional email address to contact the
+                        named maintainer
+                      type: string
+                    name:
+                      description: Name is a user name or organization name
+                      type: string
+                    url:
+                      description: URL is an optional URL to an address for the named
+                        maintainer
+                      type: string
+                  type: object
+                type: array
+              removed:
+                type: boolean
+              schema:
+                description: Override chart values schema
+                format: byte
+                type: string
+              sources:
+                description: Source is the URL to the source code of this chart
+                items:
+                  type: string
+                type: array
+              type:
+                description: 'Specifies the chart type: application or library'
+                enum:
+                - application
+                - library
+                type: string
+              urls:
+                items:
+                  type: string
+                minItems: 1
+                type: array
+              version:
+                description: A SemVer 2 conformant version string of the chart
+                type: string
+            required:
+            - urls
+            type: object
+          minItems: 1
+          type: array
+      required:
+      - appName
+      - versions
+      type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: false
+  - name: v1alpha2
+    served: true
+    storage: true
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.5
+  creationTimestamp: null
+  name: releases.marketplace.criticalstack.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.chart.metadata.name
+    description: App Name
+    name: App
+    type: string
+  - JSONPath: .spec.chart.metadata.version
+    description: App Version
+    name: Version
+    type: string
+  - JSONPath: .spec.info.status
+    description: Deployment Status
+    name: Status
+    type: string
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: marketplace.criticalstack.com
+  names:
+    kind: Release
+    listKind: ReleaseList
+    plural: releases
+    singular: release
+  scope: Namespaced
+  subresources: {}
+  validation:
+    openAPIV3Schema:
+      description: Release is the Schema for the releases API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: ReleaseSpec defines the desired state of Release
+          properties:
+            chart:
+              description: Chart is the chart that was released.
+              properties:
+                lock:
+                  description: Lock is the contents of Chart.lock.
+                  properties:
+                    dependencies:
+                      description: Dependencies is the list of dependencies that this
+                        lock file has locked.
+                      items:
+                        description: "Dependency describes a chart upon which another
+                          chart depends. \n Dependencies can be used to express developer
+                          intent, or to capture the state of a chart."
+                        properties:
+                          alias:
+                            description: Alias usable alias to be used for the chart
+                            type: string
+                          condition:
+                            description: A yaml path that resolves to a boolean, used
+                              for enabling/disabling charts (e.g. subchart1.enabled
+                              )
+                            type: string
+                          enabled:
+                            description: Enabled bool determines if chart should be
+                              loaded
+                            type: boolean
+                          import-values:
+                            description: ImportValues holds the mapping of source
+                              values to parent key to be imported. Each item can be
+                              a string or pair of child/parent sublist items.
+                            format: byte
+                            type: string
+                          name:
+                            description: "Name is the name of the dependency. \n This
+                              must mach the name in the dependency's Chart.yaml."
+                            type: string
+                          repository:
+                            description: "The URL to the repository. \n Appending
+                              `index.yaml` to this string should result in a URL that
+                              can be used to fetch the repository index."
+                            type: string
+                          tags:
+                            description: Tags can be used to group charts for enabling/disabling
+                              together
+                            items:
+                              type: string
+                            type: array
+                          version:
+                            description: "Version is the version (range) of this chart.
+                              \n A lock file will always produce a single version,
+                              while a dependency may contain a semantic version range."
+                            type: string
+                        required:
+                        - name
+                        - repository
+                        type: object
+                      type: array
+                    digest:
+                      description: Digest is a hash of the dependencies in Chart.yaml.
+                      type: string
+                    generated:
+                      description: Generated is the date the lock file was last generated.
+                      type: string
+                  required:
+                  - dependencies
+                  - digest
+                  type: object
+                metadata:
+                  description: "Raw contains the raw contents of the files originally
+                    contained in the chart archive. \n This should not be used except
+                    in special cases like `helm show values`, where we want to display
+                    the raw values, comments and all. Raw []*File `json:\"-\"` Metadata
+                    is the contents of the Chartfile."
+                  properties:
+                    annotations:
+                      additionalProperties:
+                        type: string
+                      description: Annotations are additional mappings uninterpreted
+                        by Helm, made available for inspection by other applications.
+                      type: object
+                    apiVersion:
+                      description: The API Version of this chart.
+                      type: string
+                    appVersion:
+                      description: The version of the application enclosed inside
+                        of this chart.
+                      type: string
+                    condition:
+                      description: The condition to check to enable chart
+                      type: string
+                    dependencies:
+                      description: Dependencies are a list of dependencies for a chart.
+                      items:
+                        description: "Dependency describes a chart upon which another
+                          chart depends. \n Dependencies can be used to express developer
+                          intent, or to capture the state of a chart."
+                        properties:
+                          alias:
+                            description: Alias usable alias to be used for the chart
+                            type: string
+                          condition:
+                            description: A yaml path that resolves to a boolean, used
+                              for enabling/disabling charts (e.g. subchart1.enabled
+                              )
+                            type: string
+                          enabled:
+                            description: Enabled bool determines if chart should be
+                              loaded
+                            type: boolean
+                          import-values:
+                            description: ImportValues holds the mapping of source
+                              values to parent key to be imported. Each item can be
+                              a string or pair of child/parent sublist items.
+                            format: byte
+                            type: string
+                          name:
+                            description: "Name is the name of the dependency. \n This
+                              must mach the name in the dependency's Chart.yaml."
+                            type: string
+                          repository:
+                            description: "The URL to the repository. \n Appending
+                              `index.yaml` to this string should result in a URL that
+                              can be used to fetch the repository index."
+                            type: string
+                          tags:
+                            description: Tags can be used to group charts for enabling/disabling
+                              together
+                            items:
+                              type: string
+                            type: array
+                          version:
+                            description: "Version is the version (range) of this chart.
+                              \n A lock file will always produce a single version,
+                              while a dependency may contain a semantic version range."
+                            type: string
+                        required:
+                        - name
+                        - repository
+                        type: object
+                      type: array
+                    deprecated:
+                      description: Whether or not this chart is deprecated
+                      type: boolean
+                    description:
+                      description: A one-sentence description of the chart
+                      type: string
+                    home:
+                      description: The URL to a relevant project page, git repo, or
+                        contact person
+                      type: string
+                    icon:
+                      description: The URL to an icon file.
+                      type: string
+                    keywords:
+                      description: A list of string keywords
+                      items:
+                        type: string
+                      type: array
+                    kubeVersion:
+                      description: KubeVersion is a SemVer constraint specifying the
+                        version of Kubernetes required.
+                      type: string
+                    maintainers:
+                      description: A list of name and URL/email address combinations
+                        for the maintainer(s)
+                      items:
+                        description: Maintainer describes a Chart maintainer.
+                        properties:
+                          email:
+                            description: Email is an optional email address to contact
+                              the named maintainer
+                            type: string
+                          name:
+                            description: Name is a user name or organization name
+                            type: string
+                          url:
+                            description: URL is an optional URL to an address for
+                              the named maintainer
+                            type: string
+                        type: object
+                      type: array
+                    name:
+                      description: The name of the chart
+                      type: string
+                    sources:
+                      description: Source is the URL to the source code of this chart
+                      items:
+                        type: string
+                      type: array
+                    tags:
+                      description: The tags to check to enable chart
+                      type: string
+                    type:
+                      description: 'Specifies the chart type: application or library'
+                      type: string
+                    version:
+                      description: A SemVer 2 conformant version string of the chart
+                      type: string
+                  type: object
+                schema:
+                  description: Schema is an optional JSON schema for imposing structure
+                    on Values
+                  format: byte
+                  type: string
+                templates:
+                  description: Templates for this chart.
+                  items:
+                    properties:
+                      data:
+                        description: Data is the template as byte data.
+                        format: byte
+                        type: string
+                      name:
+                        description: Name is the path-like name of the template.
+                        type: string
+                    required:
+                    - data
+                    - name
+                    type: object
+                  type: array
+                values:
+                  description: Values are default config for this chart.
+                  type: object
+              required:
+              - metadata
+              type: object
+            config:
+              description: Config is the set of extra Values added to the chart. These
+                values override the default values inside of the chart.
+              type: object
+            hooks:
+              description: Hooks are all of the hooks declared for this release.
+              items:
+                description: Hook defines a hook object.
+                properties:
+                  delete_policies:
+                    description: DeletePolicies are the policies that indicate when
+                      to delete the hook
+                    items:
+                      description: HookDeletePolicy specifies the hook delete policy
+                      type: string
+                    type: array
+                  events:
+                    description: Events are the events that this hook fires on.
+                    items:
+                      description: HookEvent specifies the hook event
+                      type: string
+                    type: array
+                  kind:
+                    description: Kind is the Kubernetes kind.
+                    type: string
+                  last_run:
+                    description: LastRun indicates the date/time this was last run.
+                    properties:
+                      completed_at:
+                        description: CompletedAt indicates the date/time this hook
+                          was completed.
+                        type: string
+                      phase:
+                        description: Phase indicates whether the hook completed successfully
+                        type: string
+                      started_at:
+                        description: StartedAt indicates the date/time this hook was
+                          started
+                        type: string
+                    required:
+                    - phase
+                    type: object
+                  manifest:
+                    description: Manifest is the manifest contents.
+                    type: string
+                  name:
+                    type: string
+                  path:
+                    description: Path is the chart-relative path to the template.
+                    type: string
+                  weight:
+                    description: Weight indicates the sort order for execution among
+                      similar Hook type
+                    type: integer
+                type: object
+              type: array
+            info:
+              description: Info provides information about a release
+              properties:
+                deleted:
+                  description: Deleted tracks when this object was deleted.
+                  type: string
+                description:
+                  description: Description is human-friendly "log entry" about this
+                    release.
+                  type: string
+                first_deployed:
+                  description: FirstDeployed is when the release was first deployed.
+                  type: string
+                last_deployed:
+                  description: LastDeployed is when the release was last deployed.
+                  type: string
+                notes:
+                  description: Contains the rendered templates/NOTES.txt if available
+                  type: string
+                status:
+                  description: Status is the current state of the release
+                  type: string
+              type: object
+            manifest:
+              description: Manifest is the string representation of the rendered template.
+              type: string
+            name:
+              description: Name is the name of the release
+              type: string
+            namespace:
+              description: Namespace is the kubernetes namespace of the release.
+              type: string
+            version:
+              description: Version is an int which represents the version of the release.
+              type: integer
+          required:
+          - name
+          - namespace
+          - version
+          type: object
+        status:
+          description: ReleaseStatus defines the observed state of Release
+          properties:
+            lastUpdate:
+              format: date-time
+              type: string
+          type: object
+      type: object
+  version: v1alpha2
+  versions:
+  - name: v1alpha2
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.5
+  creationTimestamp: null
+  name: sources.marketplace.criticalstack.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .status.state
+    description: Source sync state
+    name: State
+    type: string
+  - JSONPath: .status.appCount
+    name: App Count
+    type: integer
+  - JSONPath: .status.lastUpdate
+    name: Last Update
+    type: date
+  - JSONPath: .spec.updateFrequency
+    name: Update Frequency
+    type: string
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: marketplace.criticalstack.com
+  names:
+    kind: Source
+    listKind: SourceList
+    plural: sources
+    singular: source
+  scope: Cluster
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: Source is the Schema for the sources API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: SourceSpec defines the desired state of Source
+          properties:
+            caFile:
+              type: string
+            certFile:
+              description: TODO make this pull from a secret
+              type: string
+            keyFile:
+              type: string
+            password:
+              type: string
+            skipSync:
+              type: boolean
+            updateFrequency:
+              description: Duration to sleep after updating before running again.
+                This is a naive frequency, it doesn't make any guarantees about the
+                time between updates.
+              type: string
+            url:
+              type: string
+            username:
+              description: TODO make this pull from a secret
+              type: string
+          required:
+          - url
+          type: object
+        status:
+          description: SourceStatus defines the observed state of Source
+          properties:
+            appCount:
+              type: integer
+            lastUpdate:
+              format: date-time
+              type: string
+            reason:
+              type: string
+            state:
+              type: string
+          required:
+          - state
+          type: object
+      type: object
+  version: v1alpha2
+  versions:
+  - name: v1alpha2
+    served: true
+    storage: true

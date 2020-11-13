@@ -1,0 +1,27 @@
+.pods-content {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+div.pods-resource-container {
+  text-align: left;
+  float: left;
+  clear: both;
+}
+
+div.pods-resource-title {
+  float: left;
+  font-size: 10px;
+  opacity: 0.3;
+  margin-top: 10px;
+  margin-right: 6px;
+  text-align: right;
+}
+
+i.warning {
+  color: #CA5151;
+}
+
+tr.row-open div.label-toggle {
+  color: #FFFFFF;
+}

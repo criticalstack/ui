@@ -1,0 +1,10 @@
+[book]
+authors = ["criticalstack"]
+language = "en"
+multilingual = false
+src = "src"
+title = "The Critical Stack UI Book"
+
+
+[output.html]
+default-theme = "ayu"

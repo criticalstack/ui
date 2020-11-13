@@ -1,0 +1,415 @@
+{{ if .Values.marketplace.includeDefaultApps }}
+apiVersion: marketplace.criticalstack.com/v1alpha2
+appName: drupal
+kind: Application
+metadata:
+  labels:
+    marketplace.criticalstack.com/application.name: drupal
+    marketplace.criticalstack.com/application.category.web: ''
+  name: demo.drupal
+versions:
+- apiVersion: v1
+  appVersion: 8.8.5
+  created: "2020-04-22T07:45:27Z"
+  description: One of the most versatile open source content management systems.
+  digest: 2d6207ae3dcc26bc341b59ba4303f6722113f3b6b10b10c432b53661c7207c76
+  home: http://www.drupal.org/
+  icon: https://bitnami.com/assets/stacks/drupal/img/drupal-stack-220x234.png
+  keywords:
+  - drupal
+  - cms
+  - blog
+  - http
+  - web
+  - application
+  - php
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-drupal
+  urls:
+  - https://charts.bitnami.com/bitnami/drupal-6.2.20.tgz
+  version: 6.2.20
+- apiVersion: v1
+  appVersion: 8.8.5
+  created: "2020-04-22T03:39:20Z"
+  description: One of the most versatile open source content management systems.
+  digest: cbb92d1e23066d102d9bb425400a1ca4b179fc90b203d44c38a1207eda1293f7
+  home: http://www.drupal.org/
+  icon: https://bitnami.com/assets/stacks/drupal/img/drupal-stack-220x234.png
+  keywords:
+  - drupal
+  - cms
+  - blog
+  - http
+  - web
+  - application
+  - php
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-drupal
+  urls:
+  - https://charts.bitnami.com/bitnami/drupal-6.2.19.tgz
+  version: 6.2.19
+- apiVersion: v1
+  appVersion: 8.8.5
+  created: "2020-04-16T13:27:03Z"
+  description: One of the most versatile open source content management systems.
+  digest: b596b30f34cf7ad5972a2b5f0e8163d9f59777a9a5c5d9ecd325ab6aeb372ba6
+  home: http://www.drupal.org/
+  icon: https://bitnami.com/assets/stacks/drupal/img/drupal-stack-220x234.png
+  keywords:
+  - drupal
+  - cms
+  - blog
+  - http
+  - web
+  - application
+  - php
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-drupal
+  urls:
+  - https://charts.bitnami.com/bitnami/drupal-6.2.18.tgz
+  version: 6.2.18
+---
+apiVersion: marketplace.criticalstack.com/v1alpha2
+appName: mariadb
+kind: Application
+metadata:
+  labels:
+    marketplace.criticalstack.com/application.name: mariadb
+    marketplace.criticalstack.com/application.category.data.storage: ''
+  name: demo.mariadb
+versions:
+- apiVersion: v1
+  appVersion: 10.3.23
+  created: "2020-05-13T04:31:31Z"
+  description: Fast, reliable, scalable, and easy to use open-source relational database
+    system. MariaDB Server is intended for mission-critical, heavy-load production
+    systems as well as for embedding into mass-deployed software. Highly available
+    MariaDB cluster.
+  digest: d59ee7ba1b47734d85bea48f2a61ec647122dc2cdb314e34be6a07b326debf0a
+  home: https://mariadb.org
+  icon: https://bitnami.com/assets/stacks/mariadb/img/mariadb-stack-220x234.png
+  keywords:
+  - mariadb
+  - mysql
+  - database
+  - sql
+  - prometheus
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-mariadb
+  - https://github.com/prometheus/mysqld_exporter
+  urls:
+  - https://charts.bitnami.com/bitnami/mariadb-7.4.2.tgz
+  version: 7.4.2
+- apiVersion: v1
+  appVersion: 10.3.22
+  created: "2020-05-05T11:08:38Z"
+  description: Fast, reliable, scalable, and easy to use open-source relational database
+    system. MariaDB Server is intended for mission-critical, heavy-load production
+    systems as well as for embedding into mass-deployed software. Highly available
+    MariaDB cluster.
+  digest: 0bc1f06ee8e6402ae414c5d6a1784fdc72552bab080dcd70c6cb264cba38f6dd
+  home: https://mariadb.org
+  icon: https://bitnami.com/assets/stacks/mariadb/img/mariadb-stack-220x234.png
+  keywords:
+  - mariadb
+  - mysql
+  - database
+  - sql
+  - prometheus
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-mariadb
+  - https://github.com/prometheus/mysqld_exporter
+  urls:
+  - https://charts.bitnami.com/bitnami/mariadb-7.4.1.tgz
+  version: 7.4.1
+- apiVersion: v1
+  appVersion: 10.3.22
+  created: "2020-05-01T16:31:34Z"
+  description: Fast, reliable, scalable, and easy to use open-source relational database
+    system. MariaDB Server is intended for mission-critical, heavy-load production
+    systems as well as for embedding into mass-deployed software. Highly available
+    MariaDB cluster.
+  digest: 42a0d9b492fcb4722468486bc9fbf09a9be5758e123b2e5eb09fa0485ac70937
+  home: https://mariadb.org
+  icon: https://bitnami.com/assets/stacks/mariadb/img/mariadb-stack-220x234.png
+  keywords:
+  - mariadb
+  - mysql
+  - database
+  - sql
+  - prometheus
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-mariadb
+  - https://github.com/prometheus/mysqld_exporter
+  urls:
+  - https://charts.bitnami.com/bitnami/mariadb-7.4.0.tgz
+  version: 7.4.0
+
+---
+apiVersion: marketplace.criticalstack.com/v1alpha2
+appName: nginx
+kind: Application
+metadata:
+  labels:
+    marketplace.criticalstack.com/application.name: nginx
+    marketplace.criticalstack.com/application.category.web: ''
+  name: demo.nginx
+versions:
+- apiVersion: v1
+  appVersion: 1.17.10
+  created: "2020-05-20T14:02:59Z"
+  description: Chart for the nginx server
+  digest: cd2d2c0af1e583edead23f90cc6152f541469eca89081cf3f4af2bce61af3c61
+  home: http://www.nginx.org
+  icon: https://bitnami.com/assets/stacks/nginx/img/nginx-stack-220x234.png
+  keywords:
+  - nginx
+  - http
+  - web
+  - www
+  - reverse proxy
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-nginx
+  urls:
+  - https://charts.bitnami.com/bitnami/nginx-5.4.1.tgz
+  version: 5.4.1
+- apiVersion: v1
+  appVersion: 1.17.10
+  created: "2020-05-18T11:08:29Z"
+  description: Chart for the nginx server
+  digest: 4a0ef8fbb527257592dd89d09e9b36f1b7f31b1ee677ffc2484f4241c61d41c4
+  home: http://www.nginx.org
+  icon: https://bitnami.com/assets/stacks/nginx/img/nginx-stack-220x234.png
+  keywords:
+  - nginx
+  - http
+  - web
+  - www
+  - reverse proxy
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-nginx
+  urls:
+  - https://charts.bitnami.com/bitnami/nginx-5.4.0.tgz
+  version: 5.4.0
+- apiVersion: v1
+  appVersion: 1.17.10
+  created: "2020-05-11T14:16:18Z"
+  description: Chart for the nginx server
+  digest: ffc15f972aec47daaf318dd49266bfb25bfe7986b64ccb1edd37d78123db0c2c
+  home: http://www.nginx.org
+  icon: https://bitnami.com/assets/stacks/nginx/img/nginx-stack-220x234.png
+  keywords:
+  - nginx
+  - http
+  - web
+  - www
+  - reverse proxy
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-nginx
+  urls:
+  - https://charts.bitnami.com/bitnami/nginx-5.3.1.tgz
+  version: 5.3.1
+
+---
+apiVersion: marketplace.criticalstack.com/v1alpha2
+appName: redis
+kind: Application
+metadata:
+  labels:
+    marketplace.criticalstack.com/application.name: redis
+    marketplace.criticalstack.com/application.category.data.storage: ''
+    marketplace.criticalstack.com/application.category.data.broker: ''
+  name: demo.redis
+versions:
+- apiVersion: v1
+  appVersion: 6.0.3
+  created: "2020-05-20T08:46:58Z"
+  description: Open source, advanced key-value store. It is often referred to as a
+    data structure server since keys can contain strings, hashes, lists, sets and
+    sorted sets.
+  digest: 054728f7cc66423560be540ffb999a0da71ab86d86886559e28a8c3fd7789efd
+  home: http://redis.io/
+  icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
+  keywords:
+  - redis
+  - keyvalue
+  - database
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  - email: cedric@desaintmartin.fr
+    name: desaintmartin
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-redis
+  urls:
+  - https://charts.bitnami.com/bitnami/redis-10.6.15.tgz
+  version: 10.6.15
+- apiVersion: v1
+  appVersion: 6.0.3
+  created: "2020-05-18T11:52:38Z"
+  description: Open source, advanced key-value store. It is often referred to as a
+    data structure server since keys can contain strings, hashes, lists, sets and
+    sorted sets.
+  digest: c0841352ae4174e92a8e0e7969cdcf4369f1896d866b3b24613108a7f8a0568c
+  home: http://redis.io/
+  icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
+  keywords:
+  - redis
+  - keyvalue
+  - database
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  - email: cedric@desaintmartin.fr
+    name: desaintmartin
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-redis
+  urls:
+  - https://charts.bitnami.com/bitnami/redis-10.6.14.tgz
+  version: 10.6.14
+- apiVersion: v1
+  appVersion: 6.0.1
+  created: "2020-05-06T07:31:37Z"
+  description: Open source, advanced key-value store. It is often referred to as a
+    data structure server since keys can contain strings, hashes, lists, sets and
+    sorted sets.
+  digest: b152c5cfc756844be7d32292ff8ac284ddda30fd631d43c8bd3ace868b25b879
+  home: http://redis.io/
+  icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
+  keywords:
+  - redis
+  - keyvalue
+  - database
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  - email: cedric@desaintmartin.fr
+    name: desaintmartin
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-redis
+  urls:
+  - https://charts.bitnami.com/bitnami/redis-10.6.13.tgz
+  version: 10.6.13
+
+---
+apiVersion: marketplace.criticalstack.com/v1alpha2
+appName: wordpress
+kind: Application
+metadata:
+  labels:
+    marketplace.criticalstack.com/application.name: wordpress
+    marketplace.criticalstack.com/application.category.web: ''
+  name: demo.wordpress
+versions:
+- apiVersion: v1
+  appVersion: 5.4.1
+  created: "2020-05-20T11:51:14Z"
+  description: Web publishing platform for building blogs and websites.
+  digest: d364bd4defffaa093c9a9bf90d6a6a053def4d1dbb6cd2c17bfad34d84ed812c
+  home: http://www.wordpress.com/
+  icon: https://bitnami.com/assets/stacks/wordpress/img/wordpress-stack-220x234.png
+  keywords:
+  - wordpress
+  - cms
+  - blog
+  - http
+  - web
+  - application
+  - php
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-wordpress
+  urls:
+  - https://charts.bitnami.com/bitnami/wordpress-9.3.0.tgz
+  version: 9.3.0
+- apiVersion: v1
+  appVersion: 5.4.1
+  created: "2020-05-18T17:14:07Z"
+  description: Web publishing platform for building blogs and websites.
+  digest: 3cc69e2eb5e2d27e5dcb848d7d7534ad0a830b95c45d85711bb64160d49c2994
+  home: http://www.wordpress.com/
+  icon: https://bitnami.com/assets/stacks/wordpress/img/wordpress-stack-220x234.png
+  keywords:
+  - wordpress
+  - cms
+  - blog
+  - http
+  - web
+  - application
+  - php
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-wordpress
+  urls:
+  - https://charts.bitnami.com/bitnami/wordpress-9.2.5.tgz
+  version: 9.2.5
+- apiVersion: v1
+  appVersion: 5.4.1
+  created: "2020-05-07T12:12:48Z"
+  description: Web publishing platform for building blogs and websites.
+  digest: 5ccdceaaed54e0664c60e7aad740ac8ffb8f1e32c50d82a3a33ef725ef6c7dc0
+  home: http://www.wordpress.com/
+  icon: https://bitnami.com/assets/stacks/wordpress/img/wordpress-stack-220x234.png
+  keywords:
+  - wordpress
+  - cms
+  - blog
+  - http
+  - web
+  - application
+  - php
+  maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+  removed: false
+  sources:
+  - https://github.com/bitnami/bitnami-docker-wordpress
+  urls:
+  - https://charts.bitnami.com/bitnami/wordpress-9.2.4.tgz
+  version: 9.2.4
+{{ end }}

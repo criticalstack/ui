@@ -1,0 +1,8 @@
+apiVersion: v2
+appVersion: 2.0.0
+description: criticalstack-ui
+name: ui
+version: 0.2.23
+sources:
+  - https://github.com/criticalstack/ui
+engine: gotpl

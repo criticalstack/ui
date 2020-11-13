@@ -1,0 +1,25 @@
+name: Publish docs
+on:
+  push:
+    branches:
+      - main
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Build
+      run: make -C docs/ build
+    - name: Deploy
+      run: |
+        git config user.name "$(git log -1 --format=%an)"
+        git config user.email "$(git log -1 --format=%ae)"
+        git checkout docs --
+        mv docs/book book
+        rm -r docs
+        mv book docs
+        git add docs
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update docs"; git push)

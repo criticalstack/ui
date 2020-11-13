@@ -1,0 +1,8 @@
+{
+    "baseUrl": "http://localhost:8000",
+    "adminUsername": "dev@criticalstack.com",
+    "adminPassword": "admin",
+    "screenshotsFolder": "cypress/results/screenshots",
+    "videosFolder": "cypress/results/videos",
+    "videoUploadOnPasses": false
+}

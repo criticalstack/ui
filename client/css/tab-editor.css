@@ -1,0 +1,117 @@
+.editor-tablist {
+  list-style-type: none;
+  background: #232323;
+  color: #E2E2E2;
+  max-width: 175px;
+  min-width: 175px;
+  overflow-y: auto;
+}
+
+.editor-tablist .react-tabs__tab, .add-file {
+  padding: 15px 42px 15px 30px;
+  flex: 0 1 125px;
+  cursor: pointer;
+  position: relative;
+}
+
+.editor-tablist .glyphicons {
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.tab-editor .react-tabs__tab {
+  line-height: normal;
+  height: auto;
+  word-break: break-word;
+}
+
+.file-menu {
+  display: none;
+  position: absolute;
+  right: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.file-menu .csicon {
+  top: 0;
+}
+
+.react-tabs__tab--selected .file-menu {
+  display: block;
+}
+
+ul.editor-tablist > *:not(.react-tabs__tab--selected) {
+  opacity: .8;
+  transition: .25s;
+}
+
+ul.editor-tablist > *:hover {
+  opacity: 1;
+}
+
+.add-file {
+  color: #639DFD;
+  display: flex;
+  align-items: center;
+}
+
+.add-file .glyphicons {
+  font-size: 18px;
+  left: 7px;
+}
+
+.panel-container {
+  flex-grow: 1;
+  position: relative;
+}
+
+.tab-editor,
+.tab-editor .react-tabs,
+.panel-container,
+.tab-editor .react-tabs__tab-panel--selected {
+  height: 100%;
+}
+
+.tab-editor .react-tabs {
+  overflow: hidden;
+  display: flex;
+}
+
+.tab-editor .react-tabs__tab--selected {
+  color: initial;
+  background: #E0E0E0;
+}
+
+.panel-container .markdown-body {
+  padding: 3vw 4vw;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.tab-editor .react-tabs__tab-panel--selected {
+  padding: 0;
+}
+
+.tab-editor .section-editor-controls {
+  position: relative;
+}
+
+.section-editor-controls .glyphicons {
+  cursor: pointer;
+  position: absolute;
+  z-index: 5;
+  right: 25px;
+  top: 25px;
+  color: white;
+  background: #3277e4;
+  border: 1px solid #2964b3;
+  border-radius: 4px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}

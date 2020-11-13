@@ -1,0 +1,42 @@
+{{ range $i, $rb := .Values.identity.bindings }}
+{{ with $ns := default $.Release.Namespace $rb.namespace }}
+apiVersion: rbac.authorization.k8s.io/v1
+{{- if $rb.role }}
+kind: RoleBinding
+{{- else if $rb.clusterRole }}
+kind: ClusterRoleBinding
+{{- else }}
+{{ required "rbac.bindings must have either a role or clusterRole field" "" }}
+{{- end }}
+metadata:
+  name: {{ default (printf "%s-crb-%d" $.Chart.Name $i) $rb.name }}
+{{- if $rb.role }}
+  namespace: {{ $ns }}
+{{- end }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+{{- if $rb.role }}
+  name: {{ $rb.role }}
+  kind: Role
+{{- else if $rb.clusterRole }}
+  name: {{ $rb.clusterRole }}
+  kind: ClusterRole
+{{- end }}
+subjects:
+{{- if $rb.group }}
+- kind: Group
+  name: {{ quote $rb.group }}
+{{- else if $rb.user }}
+- kind: User
+  name: {{ quote $rb.user }}
+{{- else }}
+{{ required "rbac.bindings must have either a user or group field" "" }}
+{{- end }}
+{{- if and $rb.clusterRole $rb.namespace }}
+  namespace: {{ $rb.namespace }}
+{{- else if $rb.role }}
+  namespace: {{ $ns }}
+{{- end }}
+---
+{{ end }}
+{{ end }}

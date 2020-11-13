@@ -1,0 +1,73 @@
+.avatar-dialog {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50vw;
+  max-width: 800px;
+}
+
+.avatar-dialog .frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  flex: 1 1 50%;
+  max-width: 100%;
+}
+
+.avatar-dialog canvas {
+  margin-bottom: 15px;
+}
+
+.avatar-dialog .frame:nth-child(2) img {
+  padding: 25px
+}
+
+input.avatar-file-upload {
+  display: none;
+}
+
+.avatar-dialog-usage {
+  margin-bottom: 20px;
+  line-height: 30px;
+}
+
+.avatar-dialog-usage .remove {
+  color: #0078e7;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 2px;
+}
+
+div.avatar-dialog-image {
+  height: 250px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+div.avatar-dialog-no-image {
+  color: #c9c9c9;
+  width: 250px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div.avatar-dialog-current-image i {
+  position: relative;
+  margin-top: -49px;
+  margin-left: 10px;
+  font-size: 30px;
+  background: #2d2d2d;
+  padding: 10px;
+  border-radius: 3px;
+  opacity: .8;
+  color: #f4f4f4;
+}
+
+div.avatar-dialog-current-image i:hover {
+  background-color: #730000;
+  cursor: pointer;
+}

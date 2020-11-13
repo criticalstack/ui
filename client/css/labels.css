@@ -1,0 +1,282 @@
+div.label-container {
+  float:left;
+  text-align: left;
+  margin-top: 4px;
+  display: table;
+}
+
+div.label-pair {
+  display: flex;
+  height: 30px;
+  line-height: 30px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  float: left;
+  margin-left: 5px;
+  margin-bottom: 4px;
+  font-size: 0.9em;
+  padding-right: 16px !important;
+  padding-left: 16px !important;
+  background-color: #8FC391!important;
+  border-radius: 100px;
+  position: relative;
+}
+
+tr.row-open div.label-pair {
+  background-color: #0078E7 !important;
+  border: 1px solid #074A88 !important;
+}
+
+div.label-container .label-pair.hidden {
+  display: none;
+}
+
+span.label-key {
+  font-weight: bold;
+  color: #fff !important;
+  float: left;
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+span.label-key i {
+  font-size: 0.7em;
+  position: absolute;
+  left: 10px;
+  top: 6px;
+}
+
+span.label-split {
+  margin-left: 4px;
+  vertical-align: bottom;
+  color: #fff !important;
+  float: left;
+}
+
+span.label-value {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff!important;
+  margin-left: 4px;
+  float: left;
+}
+
+div.label-pair-tag {
+  height: 30px;
+  line-height: 30px;
+  float: left;
+  margin-left: 5px;
+  margin-bottom: 4px;
+  font-size: 0.9em;
+  padding-right: 20px;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  background-color: #609bff;
+  border-radius: 100px;
+  position: relative;
+  white-space:nowrap;
+  text-shadow: rgba(0,0,0,0.18) 0 -1px 0;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+div.label-pair-tag-Role,
+div.label-pair-tag-RoleBinding {
+  color: #fff;
+  height: 30px;
+  line-height: 30px;
+  float: left;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 0.9em;
+  padding-right: 16px;
+  padding-left: 16px;
+  display: flex;
+  align-items: center;
+  background-color: #686868;
+  border-radius: 100px;
+  position: relative;
+  white-space: nowrap;
+  text-shadow: rgba(0,0,0,0.18) 0 -1px 0;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+div.label-pair-tag-ClusterRole,
+div.label-pair-tag-ClusterRoleBinding {
+  color: #fff;
+  height: 30px;
+  line-height: 30px;
+  float: left;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 0.9em;
+  padding-right: 16px;
+  padding-left: 16px;
+  display: flex;
+  align-items: center;
+  background-color: #e91e63;
+  border-radius: 100px;
+  position: relative;
+  white-space: nowrap;
+  text-shadow: rgba(0,0,0,0.18) 0 -1px 0;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+
+div.label-pair-tag-RoleBinding .label-role-icon,
+div.label-pair-tag-ClusterRoleBinding .label-role-icon {
+  cursor: pointer;
+}
+
+div.label-pair-tag-Role span,
+div.label-pair-tag-ClusterRole span,
+div.label-pair-tag-RoleBinding span,
+div.label-pair-tag-ClusterRoleBinding span {
+  color: #fff !important;
+}
+
+div.label-pair-tag-no-ns {
+  color: #535353;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  float: left;
+  margin-left: 5px;
+  margin-bottom: 4px;
+  font-size: 0.9em;
+  padding-right: 20px;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  background-color: #cdcdcd;
+  border-radius: 100px;
+  position: relative;
+  white-space: nowrap;
+  text-shadow: rgba(0,0,0,0.18) 0 -1px 0;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+span.label-value-tag {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+  float: left;
+}
+
+div.label-popover {
+  width: 500px;
+  height: 250px;
+}
+
+div.label-popover-labels {
+  padding: 10px;
+  height: 80%;
+  overflow-y: auto;
+}
+
+div.label-popover-labels #labels-toggle {
+  display: none;
+}
+
+div.label-popover-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #14171B;
+  padding: 10px;
+}
+
+div.labels {
+  float: left;
+}
+
+div.label-badge {
+  vertical-align: middle;
+  display: table-cell;
+  width: 68px;
+}
+
+div.label-badge i {
+  color: #c9c9c9;
+  font-size: 14px;
+  margin-top: 1px;
+  margin-left: 20px;
+}
+
+div.label-badge span {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 12px;
+  width: 24px;
+  height: 24px;
+  background-color: #337AB7;
+  color: #fff;
+  border-radius: 50%;
+  float: right;
+  margin-left: -4px;
+  margin-top: -14px;
+}
+
+span.labels-empty {
+  margin-left: 10px;
+  color: #757575;
+}
+
+div.label-toggle {
+  height: 24px;
+  line-height: 24px;
+  color: #333;
+  margin-left: 10px;
+  float: left;
+  cursor: pointer !important;
+  transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  opacity: .8;
+}
+
+div.label-toggle:hover {
+ opacity: 1;
+}
+
+.label-role-key {
+  margin-right: 5px;
+  font-weight: bold;
+}
+.label-role-val {
+  margin-right: 10px;
+}
+
+.label-role-icon {
+  width: 20px;
+  margin-right: 10px;
+  line-height: normal;
+  text-align: center;
+  margin-top: -2px;
+}
+
+.label-role-icon .glyphicons {
+  font-size: 20px;
+}
+
+.label-role-icon .csicon {
+  font-size: 18px;
+}

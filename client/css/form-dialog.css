@@ -1,0 +1,660 @@
+.rjsf select:focus,
+.rjsf textarea:focus,
+.rjsf input:focus {
+  outline: none !important;
+  border-color: #9ecaed !important;
+  box-shadow: 0 0 10px #9ecaed !important;
+}
+
+.rjsf * {
+  box-sizing: border-box;
+}
+
+.rjsf {
+  padding: 0;
+  font-size: .8em;
+  color: #555;
+}
+
+.rjsf fieldset {
+}
+
+.rjsf label span {
+  font-size: 1.5rem;
+}
+
+.rjsf fieldset legend {
+  font-weight: bold;
+  margin-left: -.2em;
+  font-size: 1.4em;
+  display: none;
+}
+
+.rjsf button {
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  color: #FFF;
+  border-color: #122B40;
+  padding: 1px 7px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6em;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  float: left;
+  transition: .25s;
+}
+
+.rjsf select {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 3px 6px;
+  font-size: 14px;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.rjsf input[type=text], .rjsf input[type=url], .rjsf textarea {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 3px 6px;
+  font-size: 14px;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.rjsf textarea {
+  height: 80px;
+  padding: 6px;
+  line-height: normal;
+}
+
+.rjsf textarea + .help-block {
+  margin-top: 10px;
+}
+
+.rjsf input[type=number] {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 3px 6px;
+  font-size: 14px;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.rjsf input[type=password] {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 3px 6px;
+  font-size: 14px;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.rjsf input[type=email] {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 3px 6px;
+  font-size: 14px;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.rjsf input[type=file] {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.rjsf input[readonly] {
+  background-color: #e9e9e9;
+}
+
+.rjsf .errors {
+  color: red;
+  padding-top: 20px;
+}
+
+.rjsf .field {
+  padding-top: 1em;
+  clear: left;
+}
+
+.field-object .field-object {
+  padding-top: 0;
+}
+
+.rjsf .field label, .react-select label {
+  font-weight: bold;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.rjsf .field input[type=text] {
+  margin-bottom: 15px;
+}
+
+.rjsf .field input[type=password] {
+  margin-bottom: 15px;
+}
+
+.rjsf .field input[type=email] {
+  margin-bottom: 15px;
+}
+
+.rjsf .field input[type=checkbox] {
+  margin-right: 10px;
+  height: 20px;
+  width: 20px;
+  min-width: 20px;
+}
+
+.checkbox label {
+  font-size: 12px !important;
+  font-weight: normal !important;
+}
+
+.checkboxes {
+  margin-bottom: 20px;
+}
+
+.checkboxes span:first-child {
+  display: flex;
+  line-height: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.rjsf .field select {
+  display: block;
+}
+
+.rjsf .array-item-list {
+}
+
+.rjsf .array-item-add button:hover, .add-btn-icon:hover {
+  background-color: #2964b3 !important;
+}
+
+.rjsf .array-item-remove, .remove-btn-icon {
+  background-color: #B13E31 !important;
+}
+
+.rjsf .array-item-remove:hover, .remove-btn-icon:hover {
+  background-color: #98352a!important;
+}
+
+.rjsf .btn i {
+  margin-top: 2px;
+}
+
+.rjsf .array-item-add button {
+  float: left;
+}
+
+.rjsf .array-item-add button, .add-btn-icon, .remove-btn-icon {
+  transition: .25s;
+  margin-right: 5px;
+  color: #FFF;
+  padding: 1px 7px;
+  font-size: 14px;
+  line-height: 1.6em;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-weight: bold;
+  background-color: #0078e7;
+}
+
+.add-btn-icon, .remove-btn-icon {
+  transition: .25s;
+}
+
+.remove-btn-icon {
+  margin-left: auto;
+}
+
+.add-btn-icon i, .remove-btn-icon i {
+  line-height: inherit;
+  top: 0;
+}
+
+.rjsf p.array-item-add {
+  height: 2em;
+  float: left;
+  margin-bottom: 10px;
+}
+
+.rjsf p.array-item-remove {
+  height: 2em;
+  float: left;
+  margin-bottom: 10px;
+  padding-top: 2px;
+}
+
+.rjsf .field-array-of-string input[type=text] {
+  width: calc(100% - 38px);
+}
+
+.rjsf .field-array-of-string input[type=password] {
+  width: calc(100% - 38px);
+}
+
+.rjsf .field-array-of-string input[type=email] {
+  width: calc(100% - 38px);
+}
+
+.rjsf .field-array-of-string .array-item-remove {
+  float: right;
+  width: 30px;
+  margin-top: -2.3em;
+}
+
+.rjsf div.field-description {
+  margin-bottom: 5px;
+}
+
+.rjsf p.field-description {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+.help-block {
+  margin-top: -10px;
+  margin-bottom: 5px;
+}
+
+.form-dialog-parent {
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.form-dialog-title {
+  padding: 20px;
+  font-size: 25px;
+  color: #e9e9e9 !important;
+  background-color: #1D2529;
+}
+
+.form-dialog-title-icon {
+	margin-top: 0px;
+	margin-right: 18px;
+	color: #0078e7;
+	font-size: 36px;
+}
+
+.form-dialog-title-doclink {
+	float: right;
+	margin-right: 2px;
+	color: #0078e7;
+	font-size: 36px;
+}
+
+.form-dialog-title-doclink span {
+  float: right;
+  color: #fff;
+  font-size: 16px;
+  margin-left: 2px;
+  margin-top: 13px;
+  display: inline-block;
+}
+
+.form-dialog-body-title {
+  padding: 20px;
+  font-size: 25px;
+  color: #e9e9e9 !important;
+  background-color: #1D2529;
+}
+
+.form-dialog-body {
+  padding-top: 0 !important;
+  max-height: 600px !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  display: block;
+  position: relative;
+  min-height: 400px;
+}
+
+.form-dialog-content {
+  width: 75% !important;
+  max-width: 75% !important;
+}
+
+.form-dialog-content-small {
+  width: auto;
+}
+
+.form-dialog-buttons {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: -79px;
+  left: 0;
+  padding-left: 23px;
+  background-color: #1D2529;
+  width: 100%;
+  height: 80px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+.btn-group {
+  display: initial !important;
+}
+
+#root__description {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  color: #666;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.rjsf i.glyphicon {
+  display: none;
+}
+
+.rjsf .btn-add::after {
+  font-family: "glyphicons";
+  content: "\ea39";
+}
+
+.rjsf .array-item-move-up::after {
+  font-family: "glyphicons";
+  content: "\eba4";
+}
+
+.rjsf .array-item-move-down::after {
+  font-family: "glyphicons";
+  content: "\ea0e";
+}
+
+.rjsf .array-item-remove::after {
+  font-family: "glyphicons";
+  content: "\e901";
+}
+
+.btn.btn-info {
+  display: none;
+}
+
+.btn-default-action {
+  overflow: visible !important;
+  height: 0 !important;
+  width: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+.rjsf .custom-description {
+  font-size: 14px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.rjsf fieldset .array-fields legend {
+  display: block;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-left: 0;
+}
+
+.rjsf .array-fields .field-array-of-string .array-item-remove {
+  float: none;
+  margin-top: 0;
+  position: absolute;
+  top: 12px;
+  right: 2px;
+}
+
+.rjsf .array-fields p.array-item-add {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.rjsf .array-fields .field-array-of-string input[type=text] {
+  width: inherit;
+  margin: 5px 0;
+  padding-right: 43px;
+}
+
+.array-fields .array-item {
+  position: relative;
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.rjsf .array-fields  .field {
+  padding-top: 0;
+}
+
+.array-fields.nested .array-item {
+  padding-top: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #3277e4;
+  margin-bottom: 15px;
+  margin-right: 0;
+  display: block;
+}
+
+.array-fields.nested .array-item .array-item {
+  border-bottom: none;
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.array-fields.nested .field-array-of-string .array-item-remove {
+ top: 50%;
+ transform: translateY(-50%);
+ margin-right: 5px;
+}
+
+.array-fields.nested .array-item-remove {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: 0;
+}
+
+.array-field.nested .array-item-add {
+  height: auto;
+}
+
+.grid-3-col .checkboxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.grid-3-col .control-label {
+  margin-bottom: 5px;
+}
+
+.img-preview-input {
+  display: flex;
+  align-items: center
+}
+.img-preview-input img {
+  margin-right: 1rem;
+  width: 100%;
+  object-fit: contain;
+  max-width: 48px;
+  max-height: 48px;
+}
+
+.img-preview-input input {
+  margin-top: 15px !important;
+}
+
+.react-select > div {
+  margin-bottom: 15px;
+}
+
+.disclaimer {
+  position: relative;
+  margin: 8px 0px;
+  font-size: 1.4rem;
+  line-height: normal;
+  color: #555;
+  padding-left: 25px;
+}
+
+.disclaimer .glyphicons {
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.toggle-order .glyphicons,
+.label-info .glyphicons {
+  padding: 3px;
+  opacity: .65;
+  cursor: pointer;
+}
+
+.toggle-order .glyphicons:hover,
+.label-info .glyphicons:hover {
+  opacity: 1;
+}
+
+.label-info {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.label-info .glyphicons {
+  font-size: 17px;
+}
+
+.label-info,
+.field-group legend,
+.field-group.legend,
+.toggle-order-btn {
+  color: #555;
+}
+
+.required-label {
+  color: red;
+  font-style: italic;
+  margin-left: auto;
+  margin-top: 5px;
+}
+
+.field-group legend, .field-group.legend {
+  display: block !important;
+  width: 100%;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  text-align: center;
+  padding-bottom: 7px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #3277e4;
+}
+
+.field-group .array-item {
+  position: relative;
+}
+
+.field-group .array-item-remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.field-group .array-item-move-up,
+.field-group .array-item-move-down,
+.field-group .array-item:only-child .array-item-remove {
+  display: none;
+}
+
+.react-select, .field-group .array-item {
+  border-bottom: 1px solid #3277e4;
+  padding: 0 0 15px;
+  margin-bottom: 15px;
+}
+
+.input-checkbox {
+  padding: 0 !important;
+  margin-top: -5px;
+  display: inline-block;
+}
+
+.toggle-order {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-order-btn {
+  font-size: 20px;
+  display: inline-flex;
+  margin: 7px 0 -28px;
+}
+
+.array-item-move-up,
+.array-item-move-down {
+  background-color: #666!important;
+  border: 1px solid #4e4d4d!important;
+  color: #fff!important;
+}
+
+.array-item-move-up:hover,
+.array-item-move-down:hover {
+  background-color: #4e4d4d!important;
+}
+
+.text-danger {
+  padding-bottom: 5px;
+  color: #b13e31;
+}
+
+input.form-control {
+  width: 100%;
+}

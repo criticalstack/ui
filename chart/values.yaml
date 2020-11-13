@@ -1,0 +1,131 @@
+# Default values for criticalstack-ui
+global:
+  clusterDomain: cluster.local
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+debug: false
+
+replicas: 1
+
+image:
+  repository: criticalstack/ui
+  tag: 1.0
+  pullPolicy: IfNotPresent
+
+tls:
+  enabled: true
+
+  # Provide additional ip addresses for the ui certificate.
+  altIPs: []
+
+  # Provide additional dns names for the ui certificate.
+  altNames: []
+
+service:
+  type: NodePort
+  nodePort: 30000
+  port: 8000
+  targetPort: 8000
+
+healthcheck:
+  enabled: true
+
+# Additional container environment variables
+# Example: Configure proxy variables
+# env:
+#   NO_PROXY: localhost,127.0.0.1
+#
+env: {}
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 200Mi
+  requests:
+    cpu: 100m
+    memory: 200Mi
+
+tolerations:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+    operator: Exists
+
+prometheusEndpoint: "http://prometheus-server:9090"
+apiserverURL: ""
+
+# users:
+#   admin:
+#     initialPassword:
+#       value: admin
+#     template:
+#       defaultNamespace: critical-stack
+#       type: local
+#       active: true
+#       email: dev@criticalstack.com
+#       username: Cluster Administrator
+
+identity:
+  enabled: true
+
+  replicas: 1
+
+  image:
+    repository: dexidp/dex
+    tag: v2.25.0
+    pullPolicy: IfNotPresent
+
+  service:
+    name: dex
+    type: ClusterIP
+    port: 5556
+
+  issuerCAFile: /etc/criticalstack-ui-certs/ca.crt
+
+  # Override the domain used when generating issuerURL and redirectURIs,
+  # otherwise global.clusterDomain will be used. Setting this effectively
+  # configures the following values:
+  #
+  #   issuerURL: {{ issuerOverride }}/dex
+  #   redirectURIs:
+  #   - {{ issuerOverride }}/sso/callback
+  #   - {{ issuerOverride }}/kubeconfig/download
+  issuerOverride: ""
+
+  # issuerURL allows setting the specific URL to be used for the issuer. This
+  # does nothing if issuerOverride is set.
+  issuerURL: ""
+
+  # redirectURIs allows setting the specific redirect URIs to be used for the
+  # issuer callback. This does nothing if issuerOverride is set.
+  redirectURIs: # []
+
+  # List of oauth2 clients. The "critical-stack" client is included by default.
+  clients: []
+
+  # List of dex connectors to be used. The "authproxy" connector is included by
+  # default.
+  connectors: {}
+
+  # Specify RBAC bindings for identity groups/users. This allows usage of
+  # roles and clusterroles.
+  # Example:
+  #   - name: "cs-cluster-admin"
+  #     group: "criticalstack:Developers Team"
+  #     clusterRole: cluster-admin
+  #
+  bindings:
+  - name: "cs-cluster-admin"
+    user: "dev@criticalstack.com"
+    clusterRole: cluster-admin
+
+marketplace:
+  includeDefaultApps: true
+  replicas: 1
+  image:
+    repository: criticalstack/marketplace
+    tag: v0.1
+    pullPolicy: IfNotPresent
+  nodeSelector: {}

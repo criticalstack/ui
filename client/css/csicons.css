@@ -1,0 +1,224 @@
+@font-face {
+  font-family: 'critical-stack';
+  src:  url('../fonts/critical-stack.eot?k8iimz');
+  src:  url('../fonts/critical-stack.eot?k8iimz#iefix') format('embedded-opentype'),
+    url('../fonts/critical-stack.ttf?k8iimz') format('truetype'),
+    url('../fonts/critical-stack.woff?k8iimz') format('woff'),
+    url('../fonts/critical-stack.svg?k8iimz#critical-stack') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.csicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  vertical-align: top;
+  speak: none;
+  line-height: 1;
+  font-family: 'critical-stack' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.csicon-admission-controllers:before {
+  content: "\e900";
+}
+.csicon-autoscale:before {
+  content: "\e901";
+}
+.csicon-component-services:before {
+  content: "\e902";
+}
+.csicon-component-statuses:before {
+  content: "\e903";
+}
+.csicon-config:before {
+  content: "\e904";
+}
+.csicon-config-maps:before {
+  content: "\e905";
+}
+.csicon-containers:before {
+  content: "\e906";
+}
+.csicon-cpu:before {
+  content: "\e907";
+}
+.csicon-critical-stack-outline:before {
+  content: "\e908";
+}
+.csicon-mp-critical-stack:before {
+  content: "\e909";
+}
+.csicon-cron-jobs:before {
+  content: "\e90a";
+}
+.csicon-daemon-sets:before {
+  content: "\e90b";
+}
+.csicon-deployments:before {
+  content: "\e90c";
+}
+.csicon-endpoints:before {
+  content: "\e90d";
+}
+.csicon-events:before {
+  content: "\e90e";
+}
+.csicon-gear:before {
+  content: "\e90f";
+}
+.csicon-ingress:before {
+  content: "\e910";
+}
+.csicon-jobs:before {
+  content: "\e911";
+}
+.csicon-limit-ranges:before {
+  content: "\e912";
+}
+.csicon-load-balancer-1:before {
+  content: "\e913";
+}
+.csicon-load-balancer-2:before {
+  content: "\e914";
+}
+.csicon-load-balancer-3:before {
+  content: "\e915";
+}
+.csicon-marketplace:before {
+  content: "\e916";
+}
+.csicon-memory:before {
+  content: "\e917";
+}
+.csicon-more:before {
+  content: "\e918";
+}
+.csicon-mp-application-security:before {
+  content: "\e919";
+}
+.csicon-mp-cicd:before {
+  content: "\e91a";
+}
+.csicon-mp-data-broker:before {
+  content: "\e91b";
+}
+.csicon-mp-data-storage:before {
+  content: "\e91c";
+}
+.csicon-mp-development:before {
+  content: "\e91d";
+}
+.csicon-mp-information-security:before {
+  content: "\e91e";
+}
+.csicon-mp-logging:before {
+  content: "\e91f";
+}
+.csicon-mp-monitoring:before {
+  content: "\e920";
+}
+.csicon-mp-networking:before {
+  content: "\e921";
+}
+.csicon-mp-tools:before {
+  content: "\e922";
+}
+.csicon-mp-web:before {
+  content: "\e923";
+}
+.csicon-namespace:before {
+  content: "\e924";
+}
+.csicon-node-ports:before {
+  content: "\e925";
+}
+.csicon-nodes {
+  transform: rotate(90deg);
+}
+.csicon-nodes:before {
+  content: "\e926";
+}
+.csicon-persistent-volumes:before {
+  content: "\e927";
+}
+.csicon-persistent-volume-claims:before {
+  content: "\e928";
+}
+.csicon-pod-presets:before {
+  content: "\e929";
+}
+.csicon-pods:before {
+  content: "\e92a";
+}
+.csicon-pod-security-policies:before {
+  content: "\e92b";
+}
+.csicon-replica-sets:before {
+  content: "\e92c";
+}
+.csicon-replication-controller:before {
+  content: "\e92d";
+}
+.csicon-resource-quotas:before {
+  content: "\e92e";
+}
+.csicon-secrets:before {
+  content: "\e92f";
+}
+.csicon-service-accounts:before {
+  content: "\e930";
+}
+.csicon-services:before {
+  content: "\e931";
+}
+.csicon-services-discovery:before {
+  content: "\e932";
+}
+.csicon-settings-console:before {
+  content: "\e933";
+}
+.csicon-settings-editor:before {
+  content: "\e934";
+}
+.csicon-settings-manage-users:before {
+  content: "\e935";
+}
+.csicon-settings-metrics:before {
+  content: "\e936";
+}
+.csicon-settings-provider:before {
+  content: "\e937";
+}
+.csicon-settings-tutorial:before {
+  content: "\e938";
+}
+.csicon-settings-user:before {
+  content: "\e939";
+}
+.csicon-stateful-sets:before {
+  content: "\e93a";
+}
+.csicon-status-active:before {
+  content: "\e93b";
+}
+.csicon-status-inactive:before {
+  content: "\e93c";
+}
+.csicon-storage:before {
+  content: "\e93d";
+}
+.csicon-storage-classes:before {
+  content: "\e93e";
+}
+.csicon-workloads:before {
+  content: "\e93f";
+}

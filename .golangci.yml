@@ -1,0 +1,43 @@
+# golangci-lint config file reference: https://github.com/golangci/golangci-lint
+
+run:
+  # include test files or not, default is true
+  tests: true
+
+  timeout: 5m
+
+  skip-dirs:
+    - vendor
+    - client
+
+linters:
+  disable-all: true
+  enable-all: false
+  fast: true
+  # TODO: eventually enable errcheck and gosec
+  enable:
+    - govet
+    - gofmt
+    - golint
+    - goimports
+    - unused
+    - unparam
+    - misspell
+    - nakedret
+    - gosimple
+    - structcheck
+
+# all available settings of specific linters
+linters-settings:
+  govet:
+    # TODO: change this to true
+    check-shadowing: false
+  golint:
+    min-confidence: 0.8
+  gofmt:
+    simplify: true
+  goimports:
+  unused:
+    check-exported: false
+  unparam:
+    check-exported: false

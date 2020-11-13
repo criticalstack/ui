@@ -1,0 +1,6 @@
+apiVersion: cinder.crit.sh/v1alpha1
+kind: ClusterConfiguration
+controlPlaneConfiguration:
+  node:
+    podSubnet: "10.153.0.0/16"
+    serviceSubnet: "10.154.0.0/16"

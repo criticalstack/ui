@@ -1,0 +1,33 @@
+name: Package tagged charts
+
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'chart/v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Prepare
+      id: prep
+      run: |
+        echo ::set-output name=version::${GITHUB_REF#refs/tags/chart/}
+        echo ::set-output name=app::$(git describe --match "v*" --abbrev=0 --tags $(git rev-list --tags --max-count=1)) 
+    - name: Install helm
+      run: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+    - name: Generate chart
+      run: |
+          mkdir -p dist
+          helm dependency update ./chart
+          helm package --version ${{ steps.prep.outputs.version }} --app-version ${{ steps.prep.outputs.app }} --destination ./dist ./chart
+    - uses: criticalstack/upsert-release-assets@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_name: ${{ github.ref }} 

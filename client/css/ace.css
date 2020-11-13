@@ -1,0 +1,17 @@
+.ace_meta.ace_tag, .ace-twilight .ace_variable {
+    color: #789CB5 !important;
+}
+
+.ace-twilight .ace_string {
+    color: #66AF62 !important;
+}
+
+.ace_search_field {
+  color: black;
+}
+
+.error-marker {
+  color: red;
+  background:  black;
+  position: absolute;
+}

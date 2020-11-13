@@ -1,0 +1,16 @@
+domain: criticalstack.com
+repo: github.com/criticalstack/ui
+resources:
+- group: criticalstack.com
+  kind: UserRequest
+  version: v1alpha1
+- group: criticalstack.com
+  kind: UserRequestList
+  version: v1alpha1
+- group: criticalstack.com
+  kind: User
+  version: v1alpha1
+- group: criticalstack.com
+  kind: UserList
+  version: v1alpha1
+version: "2"

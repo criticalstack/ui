@@ -1,0 +1,33 @@
+kind: Connector
+apiVersion: dex.coreos.com/v1
+metadata:
+  name: cs-ui
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "dex.labels" $ | indent 4 }}
+id: cs-ui
+name: cs-ui
+type: authproxy
+config: ""
+---
+{{- range $k, $v := .Values.identity.connectors }}
+kind: Connector
+apiVersion: dex.coreos.com/v1
+metadata:
+  name: {{ $k }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+{{- if $v.default }}
+    criticalstack.com/dex.default: "true"
+{{- end }}
+{{ include "dex.labels" $ | indent 4 }}
+id: {{ $k }}
+name: {{ $v.name }}
+type: {{ $v.type }}
+{{- with $v.config }}
+config: {{ toJson . | b64enc }}
+{{- else }}
+config: ""
+{{- end }}
+---
+{{- end }}

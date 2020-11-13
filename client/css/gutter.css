@@ -1,0 +1,130 @@
+div.gutter {
+  position: fixed;
+  margin-top: 41px;
+  right: 25px;
+  height: 60vh;
+  width: 320px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  border-radius: 10px;
+  border: 2px dashed #d5d5d5;
+  user-select: none;
+}
+
+div.gutter-header {
+  padding: 20px 10px;
+  font-size: 16px;
+  color: rgb(233, 233, 233);
+  background-color: rgb(29, 37, 41);
+  margin-top: -2px;
+  margin-left: -2px;
+  margin-right: -2px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  text-align: left;
+}
+
+div.gutter-content {
+  padding: 10px;
+  height: 100%;
+}
+
+div.gutter-header .icon-left {
+  margin-right: 8px;
+  margin-top: -2px;
+  color: #0078e7;
+  font-size: 24px;
+}
+
+div.gutter-header .icon-right {
+  margin-top: -2px;
+  color: #fff;
+  font-size: 24px;
+  float: right;
+}
+
+div.gutter-empty {
+  display: flex;
+  height: 90%;
+  justify-content: center;
+  align-items: center;
+  color: #676767;
+}
+
+div.gutter-empty i {
+  font-size: 42px;
+  margin-right: 8px;
+}
+
+div.gutter-footer {
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  height: 60px;
+  line-height: 60px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  text-align: left;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-top: 1px solid;
+  display: flex;
+  background: #000;
+  align-items: center;
+}
+
+div.card {
+  width: 200px;
+  height: 250px;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #d4d4d4;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  padding: 0.5rem 1rem;
+  margin-right: 50px;
+  margin-bottom: 50px;
+  cursor: move;
+  float: left;
+}
+
+.gutter-card {
+  background: #f4f4f4;
+  grid-template-columns: 50px 1fr 50px;
+  display: grid;
+  height: 50px;
+  line-height: 50px;
+  margin-top: 10px;
+  text-align: left;
+  width: 100%;
+  border: 1px dashed #c9c9c9;
+  border-radius: 10px;
+}
+
+.gutter-card-icon {
+  padding-left: 10px;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  color: #acb0b2;
+}
+
+.gutter-card-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 190px;
+}
+
+.gutter-card-action {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  color: #cc0000;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+

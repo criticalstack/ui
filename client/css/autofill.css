@@ -1,0 +1,14 @@
+.login-box input:-webkit-autofill,
+.login-box input:-webkit-autofill:hover,
+.login-box input:-webkit-autofill:focus
+.login-box input:-webkit-autofill,
+.login-box textarea:-webkit-autofill,
+.login-box textarea:-webkit-autofill:hover
+.login-box textarea:-webkit-autofill:focus,
+.login-box select:-webkit-autofill,
+.login-box select:-webkit-autofill:hover,
+.login-box select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  -webkit-box-shadow: none;
+  transition: background-color 5000s ease-in-out 0s;
+}

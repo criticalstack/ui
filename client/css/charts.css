@@ -1,0 +1,172 @@
+canvas{
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+div.sparkchart-pending {
+  width: 150px;
+  height: 12.5px;
+}
+
+div.node-charts div.sparkchart-pending {
+  margin-bottom: 20px;
+}
+
+div.sparkchart-pending i {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #d3d3d3;
+  font-size: 14px;
+}
+
+div.sparkchart-pending span {
+  color: #6f6f6f;
+  font-size: 12px;
+}
+
+div.sparkchart-parent-default {
+  width: 150px;
+  position: relative;
+  margin-top: 4px;
+}
+
+div.sparkchart-parent-box {
+  float: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border: 1pt solid #c9c9c9;
+  background-color: white;
+  padding: 13px;
+  border-radius: 3px;
+}
+
+div.sparkchart-title-normal {
+  font-size: 1em;
+  color: #c9c9c9;
+  margin-bottom: 10px;
+}
+
+div.sparkchart-title-big {
+  font-size: 1.5em;
+  color: #545454;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+div.sparkchart-tip {
+  height: 15px;
+}
+
+div.sparkchart-tip-key {
+  width: 30px;
+  text-align: right;
+  float: left;
+  color: #949494;
+}
+
+div.sparkchart-tip-val {
+  font-weight: bold;
+  margin-left: 10px;
+  float: left;
+  clear: right;
+}
+
+div.sparkchart-overlay-msg-left {
+  font-size: 10px;
+  display: inline-block;
+  color: #c8c8c8;
+  padding: 4px 0px;
+  border-radius: 3px;
+  float: left;
+}
+
+div.sparkchart-overlay-msg-right {
+  font-size: 10px;
+  display: inline-block;
+  color: #c8c8c8;
+  padding: 4px 0px;
+  border-radius: 3px;
+  float: right;
+}
+
+div.chart-container {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #fff;
+  border: 1pt solid #dedede;
+  background-color: white;
+  padding: 13px;
+  border-radius: 3px;
+  margin: 10px;
+}
+
+div.chart-container canvas {
+  height: 250px !important;
+  width: 100% !important;
+}
+
+div.chart-all-label {
+  font-size: 12px;
+  color: #888;
+  width: 100%;
+  text-align: right;
+  margin-top: -14px;
+  padding-bottom: 6px;
+  text-transform: lowercase;
+}
+
+div.chart-all-pods {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #fff;
+  border: 1pt solid #dedede;
+  background-color: white;
+  padding: 13px;
+  border-radius: 3px;
+  margin-bottom: 16px;
+}
+
+div.chart-all-pods canvas {
+  height: 250px !important;
+  width: 100% !important;
+}
+
+div.chart-pending {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div.chart-pending i {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #d3d3d3;
+  font-size: 14px;
+}
+
+div.chart-pending span {
+  color: #6f6f6f;
+  font-size: 12px;
+}
+
+.sl-hover-elem, .sl-point-circle {
+  opacity: 0;
+}
+
+.sparklines-tooltip:hover .sl-point-circle {
+  opacity: 1;
+  transition: .5s;
+}
+
+.sl-info {
+  font-size: 18px;
+  float: left;
+}
+
+.sparkchart-overlay-msg-left + .sl-info {
+  margin-left: 5px;
+}

@@ -1,0 +1,39 @@
+kind: OAuth2Client
+apiVersion: dex.coreos.com/v1
+metadata:
+  name: mnzgs5djmnqwylltorqwg26l6koojbbcemsq
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "dex.labels" . | indent 4 }}
+name: critical-stack
+id: critical-stack
+secret: {{ .Values.identity.clientSecret | default (randAlphaNum 24 | quote) }}
+public: false
+redirectURIs:
+{{ include "dex.redirectURIs" . }}
+---
+{{- range $k, $v := .Values.identity.clients }}
+{{- if not $v.disabled }}
+kind: OAuth2Client
+apiVersion: dex.coreos.com/v1
+metadata:
+  name: {{ $v.resourceName | default $v.name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+{{ include "dex.labels" $ | indent 4 }}
+name: {{ $k }}
+public: {{ $v.public | default false }}
+logoURL: {{ $v.logoURL }}
+id: {{ $v.id | default $k }}
+secret: {{ $v.secret }}
+{{- with $v.redirectURIs }}
+redirectURIs:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
+{{- with $v.trustedPeers }}
+trustedPeers:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
+---
+{{- end }}
+{{- end }}

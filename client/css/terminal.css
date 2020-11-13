@@ -1,0 +1,55 @@
+/* XTERM Terminal needs the base css rules imported in the next line  */
+@import "../node_modules/xterm/css/xterm.css";
+
+.container-terminal-wrapper {
+  position: absolute;
+  top: 65px;
+  bottom: 10px;
+  right: 10px;
+  left: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  z-index: 999;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.container-terminal-wrapper .MuiButton-label {
+  transform: translate(24px, -24px);
+}
+
+.terminal {
+  padding: 20px 80px 20px 20px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.container-terminal-wrapper.fullscreen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 99vh;
+  width: 99vw;
+  z-index: 9999 !important;
+  transition: all 0.2s ease;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.xterm-viewport::-webkit-scrollbar {
+    display: none;
+}
+
+.xterm-viewport {
+    /* Hide scrollbar for IE and Edge */
+  -ms-overflow-style: none !important;
+  height: calc(100% + 1px);
+  border-radius: 10px;
+  border: 1px solid #5178bc;
+}
