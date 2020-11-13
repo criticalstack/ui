@@ -19,7 +19,13 @@ The Critical Stack UI! See [the design docs](https://criticalstack.github.io/ui/
 
 ## Installation
 
-Deployable as a Helm chart: see TODO docs link
+Deployable as a Helm chart:
+
+```shell
+helm install cs-ui https://github.com/criticalstack/ui/releases/download/chart%2Fv1.0.0/ui-v1.0.0.tgz
+```
+
+See the [installation docs](https://criticalstack.github.io/ui/installation.html) for more.
 
 ## Troubleshooting
 
