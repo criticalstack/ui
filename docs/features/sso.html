@@ -1,0 +1,330 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>SSO - The Critical Stack UI Book</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../design.html"><strong aria-hidden="true">1.</strong> Design</a></li><li class="chapter-item expanded "><a href="../installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../configuration.html"><strong aria-hidden="true">3.</strong> Configuration</a></li><li class="chapter-item expanded "><a href="../features/features.html"><strong aria-hidden="true">4.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../features/user-management.html"><strong aria-hidden="true">4.1.</strong> User Management</a></li><li class="chapter-item expanded "><a href="../features/marketplace.html"><strong aria-hidden="true">4.2.</strong> App Marketplace</a></li><li class="chapter-item expanded "><a href="../features/metrics.html"><strong aria-hidden="true">4.3.</strong> Metrics</a></li><li class="chapter-item expanded "><a href="../features/sso.html" class="active"><strong aria-hidden="true">4.4.</strong> SSO</a></li><li class="chapter-item expanded "><a href="../features/machine-api.html"><strong aria-hidden="true">4.5.</strong> Machine API</a></li><li class="chapter-item expanded "><a href="../features/stackapps.html"><strong aria-hidden="true">4.6.</strong> StackApps</a></li><li class="chapter-item expanded "><a href="../features/shell.html"><strong aria-hidden="true">4.7.</strong> Developer Shell</a></li></ol></li><li class="chapter-item expanded "><a href="../contributing/contributing.html"><strong aria-hidden="true">5.</strong> Contributing</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../contributing/building.html"><strong aria-hidden="true">5.1.</strong> Building</a></li><li class="chapter-item expanded "><a href="../contributing/testing.html"><strong aria-hidden="true">5.2.</strong> Testing</a></li><li class="chapter-item expanded "><a href="../contributing/docs.html"><strong aria-hidden="true">5.3.</strong> Docs</a></li></ol></li><li class="chapter-item expanded "><a href="../tips.html"><strong aria-hidden="true">6.</strong> Tips</a></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">7.</strong> FAQ</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Critical Stack UI Book</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#sso" id="sso">SSO</a></h1>
+<p>Because the Critical Stack UI utilizes <a href="https://dexidp.io">Dex</a> as its identity provider, enabling SSO is as simple as
+configuring Dex. We provide several convenient methods for accomplishing this task.</p>
+<h2><a class="header" href="#ui" id="ui">UI</a></h2>
+<p>Administrators can configure Dex <a href="https://dexidp.io/docs/connectors/">connectors</a> from the UI by visiting the &quot;SSO
+Provider&quot; menu under &quot;Settings&quot;.</p>
+<p>The &quot;Connectors&quot; section allows a user to create, edit, and delete existing connectors.</p>
+<p><strong>Note:</strong> by default an <code>authproxy</code> connector exists to connect the UI with Dex, which allows local users to <a href="/design.html#dex">download a
+valid Kubeconfig</a>.</p>
+<p><img src="/images/sso-connector.gif" alt="sso connector" /></p>
+<p>When creating a new connector, selecting the <code>type</code> will allow you to enter the relevant configuration data for that
+type - currently the UI supports creating <strong>GitHub</strong>, <strong>OIDC</strong>, and <strong>LDAP</strong> connectors via form - but more can be added upon
+request.</p>
+<p><strong>Note:</strong> when creating a connector through the UI, the redirect URI will be auto-filled. In the case that it needs to
+be changed, the <em>path</em> used should always be <code>/dex/callback</code>. In almost all cases, the full redirect URI should be
+<code>&lt;user login URL&gt;/dex/callback</code>.</p>
+<p>When more than one connector (excluding the <code>authproxy</code>) is present, the UI login screen will link to Dex's landing page
+so that a user can choose the desired identity provider - rather than linking to the provider directly.</p>
+<p>By right-clicking a connector and choosing &quot;Set as default&quot;, it can be made to show up on the login screen even if there
+are other choices available (avoiding the need for users to visit the Dex landing page). This is accomplished
+by applying the label <code>criticalstack.com/dex.default</code> to the <code>Connector</code> resource.</p>
+<h2><a class="header" href="#helm-values" id="helm-values">Helm Values</a></h2>
+<p>Connectors can also be created at the time of chart installation by passing specific values to Helm. The
+<code>identity.connectors</code> map provides this configuration data, for example:</p>
+<pre><code class="language-yaml">identity:
+  connectors:
+    my-connector:
+      name: MyConnector
+      type: oidc
+      config:
+        issuer: https://my-connector.com
+        clientID: my_client_id
+        clientSecret: my_client_secret
+        redirectURI: http://localhost:8000/dex/callback
+        default: true
+        anyOtherConfig:
+        - added
+        - here
+    github:
+      name: GitHub
+      type: github
+      config:
+        clientID: my_client_id
+        clientSecret: my_client_secret
+        redirectURI: http://localhost:8000/dex/callback
+</code></pre>
+<p>The following connector resources (in addition to an <code>authproxy</code>) would be created:</p>
+<pre><code class="language-yaml">kind: Connector
+apiVersion: dex.coreos.com/v1
+metadata:
+  name: github
+  namespace: critical-stack
+  labels:
+    criticalstack.com/dex.default: &quot;true&quot;
+id: github
+name: GitHub
+type: github
+config: eyJjbGllbnRJRCI6Im15X2NsaWVudF9pZCIsImNsaWVudFNlY3JldCI6Im15X2NsaWVudF9zZWNyZXQiLCJyZWRpcmVjdFVSSSI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9kZXgvY2FsbGJhY2sifQ==
+---
+kind: Connector
+apiVersion: dex.coreos.com/v1
+metadata:
+  name: my-connector
+  namespace: critical-stack
+id: my-connector
+name: MyConnector
+type: oidc
+config: eyJhbnlPdGhlckNvbmZpZyI6WyJhZGRlZCIsImhlcmUiXSwiY2xpZW50SUQiOiJteV9jbGllbnRfaWQiLCJjbGllbnRTZWNyZXQiOiJteV9jbGllbnRfc2VjcmV0IiwiaXNzdWVyIjoiaHR0cHM6Ly9teS1jb25uZWN0b3IuY29tIiwicmVkaXJlY3RVUkkiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvZGV4L2NhbGxiYWNrIn0=
+</code></pre>
+<p>Any values in the <code>config</code> property of a connector are directly marshaled to JSON and then base64 encoded.</p>
+<h2><a class="header" href="#kube-apiserver-oidc-configuration" id="kube-apiserver-oidc-configuration">kube-apiserver OIDC configuration</a></h2>
+<p>The <code>kube-apiserver</code> must be configured for OIDC for it to fully leverage the UI-Dex integration. This will allow Kubernetes RBAC to be tied to the OIDC grants returned by Dex.</p>
+<p>The following arguments must be set on the <code>kube-apiserver</code>:</p>
+<pre><code class="language-bash">--oidc-issuer-url=https://&lt;criticalstack-ui-url&gt;/dex
+--oidc-client-id=critical-stack
+--oidc-username-claim=email
+--oidc-groups-claim=groups
+</code></pre>
+<p>If the UI is being served with a non-root-trusted CA certificate (as in the auth-proxy config mentioned above), the CA will also need to be set:</p>
+<pre><code class="language-bash">--oidc-ca-file=/etc/kubernetes/pki/auth-proxy-ca.crt
+</code></pre>
+<p>If <a href="https://github.com/criticalstack/crit">crit</a> is used to bootstrap the cluster, these arguments can be provided in the crit <a href="https://pkg.go.dev/github.com/criticalstack/crit@v1.0.1/pkg/config/v1alpha2#ControlPlaneConfiguration">ControlPlaneConfig</a> as follows:</p>
+<pre><code class="language-yaml">kubeAPIServer:
+  extraArgs:
+    oidc-ca-file: /etc/kubernetes/pki/auth-proxy-ca.crt
+    oidc-client-id: critical-stack
+    oidc-groups-claim: groups
+    oidc-issuer-url: &quot;https://&lt;criticalstack-ui-url&gt;/dex&quot;
+    oidc-username-claim: email
+</code></pre>
+<p>Check the full <code>kube-apiserver</code> argument reference <a href="https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/">here</a> for more information.</p>
+<h2><a class="header" href="#replacing-dex" id="replacing-dex">Replacing Dex</a></h2>
+<p>TODO</p>
+<ul>
+<li>configuring a non-default sso provider</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../features/metrics.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../features/machine-api.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../features/metrics.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../features/machine-api.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

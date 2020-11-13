@@ -1,0 +1,328 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Design - The Critical Stack UI Book</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="design.html" class="active"><strong aria-hidden="true">1.</strong> Design</a></li><li class="chapter-item expanded "><a href="installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="configuration.html"><strong aria-hidden="true">3.</strong> Configuration</a></li><li class="chapter-item expanded "><a href="features/features.html"><strong aria-hidden="true">4.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="features/user-management.html"><strong aria-hidden="true">4.1.</strong> User Management</a></li><li class="chapter-item expanded "><a href="features/marketplace.html"><strong aria-hidden="true">4.2.</strong> App Marketplace</a></li><li class="chapter-item expanded "><a href="features/metrics.html"><strong aria-hidden="true">4.3.</strong> Metrics</a></li><li class="chapter-item expanded "><a href="features/sso.html"><strong aria-hidden="true">4.4.</strong> SSO</a></li><li class="chapter-item expanded "><a href="features/machine-api.html"><strong aria-hidden="true">4.5.</strong> Machine API</a></li><li class="chapter-item expanded "><a href="features/stackapps.html"><strong aria-hidden="true">4.6.</strong> StackApps</a></li><li class="chapter-item expanded "><a href="features/shell.html"><strong aria-hidden="true">4.7.</strong> Developer Shell</a></li></ol></li><li class="chapter-item expanded "><a href="contributing/contributing.html"><strong aria-hidden="true">5.</strong> Contributing</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="contributing/building.html"><strong aria-hidden="true">5.1.</strong> Building</a></li><li class="chapter-item expanded "><a href="contributing/testing.html"><strong aria-hidden="true">5.2.</strong> Testing</a></li><li class="chapter-item expanded "><a href="contributing/docs.html"><strong aria-hidden="true">5.3.</strong> Docs</a></li></ol></li><li class="chapter-item expanded "><a href="tips.html"><strong aria-hidden="true">6.</strong> Tips</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">7.</strong> FAQ</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Critical Stack UI Book</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#design" id="design">Design</a></h1>
+<h2><a class="header" href="#components" id="components">Components</a></h2>
+<p>The Critical Stack UI depends on the following components, which are deployed:</p>
+<ul>
+<li>Kubernetes CRDs for users, applications, and dex configuration</li>
+<li>Services and Deployments for each of:
+<ul>
+<li>UI
+<ul>
+<li>Runs <a href="../controllers/">controllers</a></li>
+<li>Serves <a href="../client/">client</a> pages</li>
+<li>Proxies <a href="#kubernetes-api">Kubernetes API requests &amp; WebSocket connections</a></li>
+<li><a href="#dex">Proxies Dex traffic</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/dexidp/dex">Dex</a>
+<ul>
+<li>See the SSO <a href="/features/sso.html">integration docs</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/criticalstack/marketplace">marketplace</a></li>
+</ul>
+</li>
+</ul>
+<p>In addition, existing services within the cluster are utilized when available:</p>
+<ul>
+<li><a href="/features/metrics.html">Prometheus</a> (metrics collection/aggregation)</li>
+<li><a href="https://github.com/criticalstack/stackapps">StackApps</a> CRDs (see <a href="./features/stackapps.html">docs</a>)</li>
+</ul>
+<h2><a class="header" href="#kubernetes-api" id="kubernetes-api">Kubernetes API</a></h2>
+<p>All interactions with the Kubernetes API (creating and modifying resources, for example) are performed by the UI
+deployment's Service Account on behalf of the acting user. The service account <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#user-impersonation">impersonates</a> the user (and any groups they may belong to) in order to properly scope the permissions (see <a href="#rbac">RBAC</a> below) of the user's session.</p>
+<p><strong>Note</strong>: because the UI is able to be used for cluster management (by a user with the appropriate role), the service
+account in use has elevated permissions - by default a binding to the ClusterRole <code>cluster-admin</code>. As with any privileged tool, this means
+that appropriate care should be taken when deploying and exposing the UI.</p>
+<p>Most requests to the Kubernetes API server are proxied through a generic <code>/resources</code> endpoint which will apply the
+appropriate impersonation information, validate inputs, and format the output for use by the frontend client.</p>
+<p>In order to provide streaming logs, resource watches, and container shells, the UI server also proxies WebSocket
+connections. If you are experiencing issues with these features, there may be a problem establishing the websocket
+connection (commonly a load balancer is not configured appropriately) - see the <a href="./faq.html">FAQ</a> for more info.</p>
+<h2><a class="header" href="#rbac" id="rbac">RBAC</a></h2>
+<p>Because all user-initiated interactions with the Kubernetes cluster utilize impersonation (see above), <em>authorization</em>
+for requests is effectively delegated to the Kubernetes API server. This has several benefits:</p>
+<ul>
+<li>Permissions will always be consistent between the UI and direct interaction (i.e. <code>kubectl</code>)</li>
+<li>User abilities can be controlled via declarative resources (Roles and RoleBindings) fully compatible with the
+Kubertentes ecosystem</li>
+<li>The surface area for vulnerabilities to be created/exploited is substantially smaller</li>
+</ul>
+<p>The core Kubernetes RBAC model refers to users &quot;lazily&quot;, only as the <a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects">subjects</a> of bindings. These users do not (necessarily) correspond to any sort of existing resource, it is up to the authentication service (in this case, <a href="#dex">Dex</a>) to declare and keep track of these entities (the same is true of <em>Groups</em>).</p>
+<p><a name="users"></a></p>
+<p>The Critical Stack UI introduces a Custom Resource Definition for a cluster-level <code>User</code> resource to the Kubernetes API:</p>
+<pre><code class="language-shell">$ kubectl get users
+NAME                                                              EMAIL                   ACTIVE   USERNAME                  AGE
+sy3e5vknpktgkezpehh3rv76v5helr6vgnrm26feoz67stsosg6ef4jbdb2uegk   dev@criticalstack.com   true     &quot;Cluster Administrator&quot;   2d22h
+</code></pre>
+<p>These users correspond with subjects in rolebindings by their associated email address. Note that the resource name is
+obtained as a hash of the user's email in order to meet <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names">naming
+requirements</a>. This ensures that only
+one user may exist in the cluster with a given email address.</p>
+<p>The above user may be granted a role by creating the following <code>RoleBinding</code>:</p>
+<pre><code class="language-yaml">apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: my-admin-role-binding
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: my-role
+subjects:
+- kind: User
+  name: &quot;dev@criticalstack.com&quot;
+  apiGroup: rbac.authorization.k8s.io
+</code></pre>
+<p>Users have groups, at a minimum <code>system:authenticated</code> with others returned by Dex depending on SSO provider. The
+groups correspond with Groups in bindings:</p>
+<pre><code class="language-yaml"># ...
+subjects:
+- kind: Group
+  name: &quot;frontend-admins&quot;
+  apiGroup: rbac.authorization.k8s.io
+</code></pre>
+<p>See <a href="./user-management.html">user management</a> for more information about the use of <code>User</code> resources.</p>
+<h2><a class="header" href="#dex" id="dex">Dex</a></h2>
+<p><a href="https://github.com/dexidp/dex">Dex</a> is an authentication &quot;portal&quot; which uses <em>connectors</em> to integrate with a
+<a href="https://github.com/dexidp/dex#connectors">variety</a> of upstream identity providers.</p>
+<p>By configuring the Kubernetes API server to use Dex <a href="https://dexidp.io/docs/kubernetes">as an OIDC provider</a>, your
+cluster can be setup to trust the tokens Dex issues to authenticated users. The CS UI provides a convenient method for
+retrieving a token from Dex and downloading it in a <code>kubeconfig</code>:</p>
+<p><img src="./images/kubeconfig.gif" alt="downloading a kubeconfig" /></p>
+<p>In the configuration deployed by the UI <a href="/chart">helm chart</a> the UI server acts as a proxy for all traffic to Dex -
+requests to the <code>cs-ui</code> service with paths beginning <code>/dex/</code> are proxied to the <code>cs-ui-dex</code> Kubernetes service. This
+serves several purposes:</p>
+<ul>
+<li>The Dex service does not need to be directly exposed to external traffic</li>
+<li>The Kubernetes API Server uses the UI endpoint as its OIDC issuer, which is assumed to already have a trusted SSL
+certificate for end-users</li>
+<li>CS UI acts as a builtin <code>authproxy</code> connector for Dex, allowing non-SSO (&quot;local&quot;) users to generate Dex tokens</li>
+</ul>
+<p><strong>Note:</strong> by default, Dex serves traffic over HTTP. If HTTPS communication between the UI deployment and Dex service is
+desired, additional configuration is required.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+                            <a rel="next" href="installation.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+                    <a rel="next" href="installation.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

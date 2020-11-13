@@ -1,0 +1,355 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>User Management - The Critical Stack UI Book</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../design.html"><strong aria-hidden="true">1.</strong> Design</a></li><li class="chapter-item expanded "><a href="../installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../configuration.html"><strong aria-hidden="true">3.</strong> Configuration</a></li><li class="chapter-item expanded "><a href="../features/features.html"><strong aria-hidden="true">4.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../features/user-management.html" class="active"><strong aria-hidden="true">4.1.</strong> User Management</a></li><li class="chapter-item expanded "><a href="../features/marketplace.html"><strong aria-hidden="true">4.2.</strong> App Marketplace</a></li><li class="chapter-item expanded "><a href="../features/metrics.html"><strong aria-hidden="true">4.3.</strong> Metrics</a></li><li class="chapter-item expanded "><a href="../features/sso.html"><strong aria-hidden="true">4.4.</strong> SSO</a></li><li class="chapter-item expanded "><a href="../features/machine-api.html"><strong aria-hidden="true">4.5.</strong> Machine API</a></li><li class="chapter-item expanded "><a href="../features/stackapps.html"><strong aria-hidden="true">4.6.</strong> StackApps</a></li><li class="chapter-item expanded "><a href="../features/shell.html"><strong aria-hidden="true">4.7.</strong> Developer Shell</a></li></ol></li><li class="chapter-item expanded "><a href="../contributing/contributing.html"><strong aria-hidden="true">5.</strong> Contributing</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../contributing/building.html"><strong aria-hidden="true">5.1.</strong> Building</a></li><li class="chapter-item expanded "><a href="../contributing/testing.html"><strong aria-hidden="true">5.2.</strong> Testing</a></li><li class="chapter-item expanded "><a href="../contributing/docs.html"><strong aria-hidden="true">5.3.</strong> Docs</a></li></ol></li><li class="chapter-item expanded "><a href="../tips.html"><strong aria-hidden="true">6.</strong> Tips</a></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">7.</strong> FAQ</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Critical Stack UI Book</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#user-management" id="user-management">User Management</a></h1>
+<p>As mentioned in the <a href="/design.html#users">design docs</a>, the Critical Stack UI introduces the <code>User</code> resource to represent
+application users. </p>
+<h2><a class="header" href="#overview" id="overview">Overview</a></h2>
+<p>Users contain identifying information and some basic metadata:</p>
+<pre><code class="language-yaml">apiVersion: criticalstack.com/v1alpha1
+kind: User
+metadata:
+  # unique hash of email address
+  name: sy3e5vknpktgkezpehh3rv76v5helr6vgnrm26feoz67stsosg6ef4jbdb2uegk
+type: local
+active: true
+defaultNamespace: critical-stack
+email: dev@criticalstack.com
+username: Cluster Administrator
+</code></pre>
+<p>There are two flavors of user, determined by their <code>type</code> field:</p>
+<ul>
+<li><code>local</code> users are created manually and log in with an email and password</li>
+<li><code>sso</code> users are created &quot;lazily&quot; on first log in (see <a href="./sso.html">SSO</a>) and do not have a password</li>
+</ul>
+<p>When Dex authenticates an SSO user (creating the <code>User</code> resource if necessary), it attaches <code>group</code> information obtained
+from the identity provider. These groups are used for matching role binding <em>subjects</em> when determining user
+permissions.</p>
+<p>Local user passwords are salted and hashed, stored as <code>Secret</code> resources in the <code>critical-stack</code> namespace. Users are
+given role bindings that allow them to get and modify their own properties for the purpose of
+changing profile data.</p>
+<h2><a class="header" href="#creation" id="creation">Creation</a></h2>
+<p>There are multiple ways to create a user. A <code>local</code> user may be created through the UI via the &quot;Manage Users&quot; screen,
+under &quot;Settings&quot;. During the creation process, an administrator can choose to assign a <code>ClusterRole</code> as a convenient way
+to provide immediate access to the user. If a specific namespace is chosen, the <code>ClusterRole</code> is granted via a
+<code>RoleBinding</code> in that namespace - otherwise &quot;Cluster Wide&quot; must be checked to indicate that a <code>ClusterRoleBinding</code> will
+be created.</p>
+<p><img src="/images/user-creation-roles.png" alt="user creation roles" /></p>
+<p>Any cluster roles with the <strong>label</strong> <code>criticalstack.com/rbac=defaults</code> will show up as options in this list, giving you a way to add
+additional &quot;canned&quot; roles to the user creation process. The description is pulled from an <strong>annotation</strong> named
+<code>criticalstack.com/description</code>.</p>
+<p>Once created, all users and any corresponding (cluster) roles and bindings maybe found under &quot;Cluster&quot; &gt; &quot;Access Control&quot;.</p>
+<p><img src="/images/user-creation.gif" alt="user creation" /></p>
+<p>The <code>User</code> Custom Resource should not typically be created directly - instead, create a <code>UserRequest</code> which will be
+reconciled by the users controller (part of the UI deployment).</p>
+<p>A simple <code>UserRequest</code> resource might look like:</p>
+<pre><code class="language-yaml">apiVersion: criticalstack.com/v1alpha1
+kind: UserRequest
+metadata:
+  # human-readable name
+  name: admin
+spec:
+  template:
+    type: local
+    active: true
+    defaultNamespace: critical-stack
+    email: dev@criticalstack.com
+    username: Cluster Administrator
+</code></pre>
+<p>The <code>UserRequest</code>'s <code>.spec.template</code> field will become the properties of the created <code>User</code> object.</p>
+<p>One key difference is that the name of the resource need not be a deterministic value derived from the email address.
+This makes it possible to create resources directly without access to the hashing function used (i.e. from within Helm
+templates).</p>
+<p>In the above example the created user does not have a password set, meaning they will be unable to log in. The
+<code>UserRequest</code> provides a couple of methods for setting an initial user password:</p>
+<ul>
+<li>For simple cases like local development, an initial password can be set on the user request itself:</li>
+</ul>
+<pre><code class="language-yaml"># ...
+spec:
+  initialPassword:
+    value: Winter20
+  template: # ...
+</code></pre>
+<p><strong>Note</strong>: that this will generate hashed password data from the provided plaintext password on initial user creation.
+The password text remains in the <code>UserRequest</code> resource, but updating it will not change the created user's password.</p>
+<p>Another method is to reference a secret, rather than embedding a plaintext password directly:</p>
+<pre><code class="language-yaml"># ...
+spec:
+  initialPassword:
+    secretRef:
+      name: my-initial-password
+      namespace: default
+      key: &quot;&quot;        # field to read from secret data - if omitted, use the first
+      consume: false # if true, remove the secret after generating password data
+  template: # ...
+</code></pre>
+<p>The <code>key</code> and <code>consume</code> fields are optional to provide additional flexibility.</p>
+<p>A user created via the UI or <code>UserRequest</code> CRD has a default <code>ClusterRole</code> and <code>ClusterRoleBinding</code> created for them,
+allowing <code>get</code>, <code>update</code>, and <code>patch</code> actions on their <code>UserRequest</code> resource, as well as <code>get</code> on their <code>User</code>.</p>
+<p>To disable this behavior, set <code>.spec.skipUserBindings</code> to <code>true</code>.</p>
+<p><strong>Note</strong>: all resources created by the <code>UserRequest</code> controller are owned by the <code>UserRequest</code> object - when deleted,
+the <code>User</code>, password data <code>Secret</code>, and any created RBAC resources will be deleted.</p>
+<h2><a class="header" href="#status" id="status">Status</a></h2>
+<p>The <code>UserRequest</code> resource has a <code>status</code> subresource which indicates whether the corresponding <code>User</code> has been created by
+the controller. The <code>.status.user</code> field is the name of the created user resource, while <code>.status.conditions</code> signals if the <code>User</code> is
+ready. This allows for a process to depend on user creation:</p>
+<pre><code class="language-shell">kubectl wait userrequests admin --for condition=Ready
+</code></pre>
+<p>This functionality is used by our automated tests to ensure that a user is available before attempting to log in.</p>
+<h2><a class="header" href="#user-fields" id="user-fields">User Fields</a></h2>
+<p>The <code>active</code> property indicates whether a user can log in or not, and can be toggled from the user-management screen in
+the UI:</p>
+<p><img src="/images/togg-active-user.gif" alt="toggle user active" /></p>
+<p>Users have a default namespace, which will be their &quot;landing page&quot; upon login. From the &quot;Settings&quot; area of the UI, a
+user can change their default namespace, as well as upload an avatar or reset their password.</p>
+<h2><a class="header" href="#permissions" id="permissions">Permissions</a></h2>
+<p>See <a href="/design.html#rbac">RBAC</a> for an overview of the permission model used throughout the UI.</p>
+<p>The access summary screen (&quot;Cluster&quot; &gt; &quot;Access Control&quot; &gt; &quot;Access&quot;) displays an overview of <code>User</code> and <code>Group</code> subjects
+that have bound roles and cluster roles:</p>
+<p><img src="/images/access-summary.png" alt="access summary" /></p>
+<p>Known users and groups will be listed here. By right-clicking a subject, you can quickly add additional role bindings and cluster
+role bindings for that subject.</p>
+<h3><a class="header" href="#role-bindings-and-cluster-role-bindings" id="role-bindings-and-cluster-role-bindings">Role Bindings and Cluster Role Bindings</a></h3>
+<p>When creating a role binding or a cluster role binding, note that you are not limited to subjects that show up in the selection
+dropdown - typing a name will allow you to create a new subject:</p>
+<p><img src="/images/binding-create-subject.gif" alt="subject naming" /></p>
+<h3><a class="header" href="#roles-and-cluster-roles" id="roles-and-cluster-roles">Roles and Cluster Roles</a></h3>
+<p>When creating roles and cluster roles, note that you are not limited to the API groups, Resources, and Verbs that show up in their respective selection dropdowns - typing in a new value will allow you to create a new group, resource, or verb. </p>
+<p><img src="/images/roles-new-values.gif" alt="new values" /></p>
+<p>Also note that when creating a new role, you can either start with selecting an API group and then the resources or by selecting a resource first and then the API group.</p>
+<p><img src="/images/roles-create-rule.gif" alt="create rules" /></p>
+<h2><a class="header" href="#initial-roles" id="initial-roles">Initial Roles</a></h2>
+<p>Initial role bindings will be created on installation depending on the values passed to the UI Helm chart. See
+<a href="/gettingstarted/configuration#rbac">configuration</a> for more information.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../features/features.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../features/marketplace.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../features/features.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../features/marketplace.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

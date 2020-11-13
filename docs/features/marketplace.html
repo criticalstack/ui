@@ -1,0 +1,331 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>App Marketplace - The Critical Stack UI Book</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../design.html"><strong aria-hidden="true">1.</strong> Design</a></li><li class="chapter-item expanded "><a href="../installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../configuration.html"><strong aria-hidden="true">3.</strong> Configuration</a></li><li class="chapter-item expanded "><a href="../features/features.html"><strong aria-hidden="true">4.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../features/user-management.html"><strong aria-hidden="true">4.1.</strong> User Management</a></li><li class="chapter-item expanded "><a href="../features/marketplace.html" class="active"><strong aria-hidden="true">4.2.</strong> App Marketplace</a></li><li class="chapter-item expanded "><a href="../features/metrics.html"><strong aria-hidden="true">4.3.</strong> Metrics</a></li><li class="chapter-item expanded "><a href="../features/sso.html"><strong aria-hidden="true">4.4.</strong> SSO</a></li><li class="chapter-item expanded "><a href="../features/machine-api.html"><strong aria-hidden="true">4.5.</strong> Machine API</a></li><li class="chapter-item expanded "><a href="../features/stackapps.html"><strong aria-hidden="true">4.6.</strong> StackApps</a></li><li class="chapter-item expanded "><a href="../features/shell.html"><strong aria-hidden="true">4.7.</strong> Developer Shell</a></li></ol></li><li class="chapter-item expanded "><a href="../contributing/contributing.html"><strong aria-hidden="true">5.</strong> Contributing</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../contributing/building.html"><strong aria-hidden="true">5.1.</strong> Building</a></li><li class="chapter-item expanded "><a href="../contributing/testing.html"><strong aria-hidden="true">5.2.</strong> Testing</a></li><li class="chapter-item expanded "><a href="../contributing/docs.html"><strong aria-hidden="true">5.3.</strong> Docs</a></li></ol></li><li class="chapter-item expanded "><a href="../tips.html"><strong aria-hidden="true">6.</strong> Tips</a></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">7.</strong> FAQ</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Critical Stack UI Book</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#marketplace" id="marketplace">Marketplace</a></h1>
+<p>The Critical Stack Marketplace provides a repository of &quot;building blocks&quot; for application developers. It allows for easy access to premade kubernetes resources. The marketplace can be populated by adding sources, or by individually adding applications.</p>
+<h2><a class="header" href="#overview" id="overview">Overview</a></h2>
+<p>A marketplace application is a packaged &quot;component&quot; (a Helm chart wrapped in additional metadata) in the cluster's marketplace catalog. They are versioned, and can be installed by a user into a cluster namespace. Applications can be <a href="#adding-applications-directly">added individually</a> or by <a href="#marketplace-source-configuration">adding a source</a>. When a source is added, all applications under that source will be added to the marketplace when reconciled by the source controller (part of the UI marketplace deployment).</p>
+<h2><a class="header" href="#marketplace-source-configuration" id="marketplace-source-configuration">Marketplace Source Configuration</a></h2>
+<p>A source is any <a href="https://helm.sh/docs/topics/chart_repository/">Helm repo</a> that supplies metadata and assets (aka Helm charts) for one or more applications. Sources may be added to a cluster by a cluster administrator. This may be done via the UI or via the CRD. </p>
+<h3><a class="header" href="#source-configuration-via-ui" id="source-configuration-via-ui">Source Configuration via UI</a></h3>
+<p>A source may be added and configured through the UI via the &quot;Sources&quot; screen, under &quot;Settings&quot;. When adding a source to the cluster, a unique name and the source URL are required. Optionally, the UI also provides the ability to configure a username and password for the sources that require it.</p>
+<p><img src="/images/mp-source-configuration.gif" alt="source configuration" /></p>
+<h3><a class="header" href="#source-configuration-via-crd" id="source-configuration-via-crd">Source Configuration via CRD</a></h3>
+<p>A <code>Source</code> Custom Resource can be created to directly add a marketplace source to the cluster.</p>
+<p>A simple <code>Source</code> resource may look like:</p>
+<pre><code class="language-yaml">apiVersion: marketplace.criticalstack.com/v1alpha2
+kind: Source
+metadata:
+  name: sample-source
+  labels:
+    created-by: dev-criticalstack-com
+spec:
+  url: 'https://charts.helm.sh/stable'
+</code></pre>
+<h2><a class="header" href="#marketplace-application-configuration" id="marketplace-application-configuration">Marketplace Application Configuration</a></h2>
+<p>Applications with schema configurations (<a href="#editing-applications">adding schema configurations</a>) will need to have their configuration form completed and saved before being able to install the application.</p>
+<p>If an application has schema configurations, the schema configuration form can be found under the application detail page. The application detail page may be accessed by selecting &quot;Learn More&quot; on the application tile cards. From this page, there are two methods for accessing the configuration form:</p>
+<ul>
+<li>directly selecting the &quot;Configuration&quot; tab</li>
+<li>clicking &quot;Configure App&quot; in the application card on the right side of the page</li>
+</ul>
+<p><img src="/images/mp-app-configuration.gif" alt="app configuration" /></p>
+<h2><a class="header" href="#marketplace-application-preview" id="marketplace-application-preview">Marketplace Application Preview</a></h2>
+<p>By default, application previews are enabled and can be seen after clicking &quot;Preview &amp; Install App&quot;. Application previews can be disabled by toggling off &quot;Include dry run&quot;. The application preview will show the resources the application will be deploy into the cluster without actually deploying the resources. The preview will also show the anticipated status of the resource and how deploying the resource will impact any existing resource limits and quotas. After seeing the preview, the user can choose whether or not to confirm the installation.</p>
+<p><img src="/images/mp-app-preview.gif" alt="app_preview" /></p>
+<h2><a class="header" href="#marketplace-application-releases" id="marketplace-application-releases">Marketplace Application Releases</a></h2>
+<p>An application may be installed multiple times. Each installation creates a new application release. All the installations (aka releases) for an application may be found in that application's app detail page under the &quot;Installations&quot; tab. Application releases may also be found under <strong>Data Center &gt; Workloads &gt; App Releases</strong>. This page will show all applications releases including the Helm chart installations that were not installed via marketplace. </p>
+<h2><a class="header" href="#advance-configurations" id="advance-configurations">Advance Configurations</a></h2>
+<h3><a class="header" href="#enablingdisabling-marketplace" id="enablingdisabling-marketplace">Enabling/Disabling Marketplace</a></h3>
+<p>When enabled, the marketplace may be found on the top navbar in the UI. Marketplace is enabled when one or more sources or applications exists on the cluster. When all sources and applications are removed from the cluster, marketplace will be disabled and it will be removed from the UI.</p>
+<h3><a class="header" href="#source-sync" id="source-sync">Source Sync</a></h3>
+<p>The sync status of a source can be seen in the Marketplace Sources table under &quot;Settings&quot;. </p>
+<p><img src="/images/mp-source-sync.png" alt="source sync" /></p>
+<p>The interval for when a source will try to sync can be edited by modifying the <code>updateFrequency</code> value in the <code>Source</code> resource. By default, this value is empty so the source will not update.</p>
+<pre><code class="language-yaml"># ...
+spec:
+  updateFrequency: 100ms
+  # ...
+</code></pre>
+<p>A source can also be explicitly configured to not sync by setting the <code>skipSync</code> flag to true in the <code>Source</code> resource.</p>
+<pre><code class="language-yaml"># ...
+spec:
+  skipSync: true
+  # ...
+</code></pre>
+<h3><a class="header" href="#adding-applications-directly" id="adding-applications-directly">Adding Applications Directly</a></h3>
+<p>Applications may be added directly by creating and applying an <code>Application</code> Custom Resource.</p>
+<p>A simple <code>Application</code> resource may look like:</p>
+<pre><code class="language-yaml">apiVersion: marketplace.criticalstack.com/v1alpha2
+appName: sample
+kind: Application
+metadata:
+  labels:
+    marketplace.criticalstack.com/application.name: sample
+    marketplace.criticalstack.com/source.name: demo
+  name: demo.sample
+versions:
+- apiVersion: v1
+  appVersion: 1.17.10
+  description: Chart for the sample resource
+  home: http://www.sample.org
+  icon: # URL for the icon
+  keywords: # ...
+  maintainers: # email and name of this chart's maintainers
+  removed: false
+  sources: # optional URL to the source code of this chart
+  urls: # URL to where this chart is stored
+  version: 5.4.1
+# ...
+</code></pre>
+<p><code>Application</code> resources that are without a marketplace source can remove the source label: <code>marketplace.criticalstack.com/source.name</code>.</p>
+<h3><a class="header" href="#editing-applications" id="editing-applications">Editing Applications</a></h3>
+<p>After being added to marketplace, applications can be edited under their application detail page by selecting the &quot;Edit&quot; icon in the application card.</p>
+<p><img src="/images/mp-app-edit.gif" alt="app edit" /></p>
+<p>An application can be edited through the UI by selecting &quot;Simple&quot; edit. The user will first have to select a version of the application to edit before continuing. The user will be able to edit the application details (i.e. name, icon, application tags), documents, and configuration form.</p>
+<p>Additional documents may be added in the &quot;Edit Documents&quot; section and will appear as additional pages in the application navigation tabs. Existing documents, except <code>README.md</code>, may also be removed from the application and subsequently from the navigation tabs.</p>
+<p>Additional schema may also be added for configuration in the &quot;Edit Configuration Form&quot; section. A preview of the configuration form is shown to display how the form will look and to check for any validations. The user may also decide to exclude the schema - this will only remove the schema that the user may have added or changed and will revert the schema configuration form to the default one.</p>
+<h3><a class="header" href="#app-categories" id="app-categories">App Categories</a></h3>
+<p>Categories can be added to application to allow for marketplace to filter by category. They can be added via the UI under the application detail page by clicking the &quot;Edit&quot; icon in the application card and then selecting &quot;Categories&quot;. Categories may also be applied by directly adding the respective labels to the application metadata. The category name will be part of the label key that maps to an empty value:</p>
+<pre><code class="language-yaml">labels:    
+    marketplace.criticalstack.com/application.category.application.security: ''
+    marketplace.criticalstack.com/application.category.cicd: ''
+    marketplace.criticalstack.com/application.category.data.broker: ''
+    marketplace.criticalstack.com/application.category.data.storage: ''
+    marketplace.criticalstack.com/application.category.development: ''
+    marketplace.criticalstack.com/application.category.information.security: ''
+    marketplace.criticalstack.com/application.category.monitoring: ''
+    marketplace.criticalstack.com/application.category.networking: ''
+    marketplace.criticalstack.com/application.category.web: ''
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../features/user-management.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../features/metrics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../features/user-management.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../features/metrics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

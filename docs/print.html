@@ -1,0 +1,1030 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Critical Stack UI Book</title>
+        
+        <meta name="robots" content="noindex" />
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="design.html"><strong aria-hidden="true">1.</strong> Design</a></li><li class="chapter-item expanded "><a href="installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="configuration.html"><strong aria-hidden="true">3.</strong> Configuration</a></li><li class="chapter-item expanded "><a href="features/features.html"><strong aria-hidden="true">4.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="features/user-management.html"><strong aria-hidden="true">4.1.</strong> User Management</a></li><li class="chapter-item expanded "><a href="features/marketplace.html"><strong aria-hidden="true">4.2.</strong> App Marketplace</a></li><li class="chapter-item expanded "><a href="features/metrics.html"><strong aria-hidden="true">4.3.</strong> Metrics</a></li><li class="chapter-item expanded "><a href="features/sso.html"><strong aria-hidden="true">4.4.</strong> SSO</a></li><li class="chapter-item expanded "><a href="features/machine-api.html"><strong aria-hidden="true">4.5.</strong> Machine API</a></li><li class="chapter-item expanded "><a href="features/stackapps.html"><strong aria-hidden="true">4.6.</strong> StackApps</a></li><li class="chapter-item expanded "><a href="features/shell.html"><strong aria-hidden="true">4.7.</strong> Developer Shell</a></li></ol></li><li class="chapter-item expanded "><a href="contributing/contributing.html"><strong aria-hidden="true">5.</strong> Contributing</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="contributing/building.html"><strong aria-hidden="true">5.1.</strong> Building</a></li><li class="chapter-item expanded "><a href="contributing/testing.html"><strong aria-hidden="true">5.2.</strong> Testing</a></li><li class="chapter-item expanded "><a href="contributing/docs.html"><strong aria-hidden="true">5.3.</strong> Docs</a></li></ol></li><li class="chapter-item expanded "><a href="tips.html"><strong aria-hidden="true">6.</strong> Tips</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">7.</strong> FAQ</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Critical Stack UI Book</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#design" id="design">Design</a></h1>
+<h2><a class="header" href="#components" id="components">Components</a></h2>
+<p>The Critical Stack UI depends on the following components, which are deployed:</p>
+<ul>
+<li>Kubernetes CRDs for users, applications, and dex configuration</li>
+<li>Services and Deployments for each of:
+<ul>
+<li>UI
+<ul>
+<li>Runs <a href="../controllers/">controllers</a></li>
+<li>Serves <a href="../client/">client</a> pages</li>
+<li>Proxies <a href="design.html#kubernetes-api">Kubernetes API requests &amp; WebSocket connections</a></li>
+<li><a href="design.html#dex">Proxies Dex traffic</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/dexidp/dex">Dex</a>
+<ul>
+<li>See the SSO <a href="/features/sso.html">integration docs</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/criticalstack/marketplace">marketplace</a></li>
+</ul>
+</li>
+</ul>
+<p>In addition, existing services within the cluster are utilized when available:</p>
+<ul>
+<li><a href="/features/metrics.html">Prometheus</a> (metrics collection/aggregation)</li>
+<li><a href="https://github.com/criticalstack/stackapps">StackApps</a> CRDs (see <a href="./features/stackapps.html">docs</a>)</li>
+</ul>
+<h2><a class="header" href="#kubernetes-api" id="kubernetes-api">Kubernetes API</a></h2>
+<p>All interactions with the Kubernetes API (creating and modifying resources, for example) are performed by the UI
+deployment's Service Account on behalf of the acting user. The service account <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#user-impersonation">impersonates</a> the user (and any groups they may belong to) in order to properly scope the permissions (see <a href="design.html#rbac">RBAC</a> below) of the user's session.</p>
+<p><strong>Note</strong>: because the UI is able to be used for cluster management (by a user with the appropriate role), the service
+account in use has elevated permissions - by default a binding to the ClusterRole <code>cluster-admin</code>. As with any privileged tool, this means
+that appropriate care should be taken when deploying and exposing the UI.</p>
+<p>Most requests to the Kubernetes API server are proxied through a generic <code>/resources</code> endpoint which will apply the
+appropriate impersonation information, validate inputs, and format the output for use by the frontend client.</p>
+<p>In order to provide streaming logs, resource watches, and container shells, the UI server also proxies WebSocket
+connections. If you are experiencing issues with these features, there may be a problem establishing the websocket
+connection (commonly a load balancer is not configured appropriately) - see the <a href="./faq.html">FAQ</a> for more info.</p>
+<h2><a class="header" href="#rbac" id="rbac">RBAC</a></h2>
+<p>Because all user-initiated interactions with the Kubernetes cluster utilize impersonation (see above), <em>authorization</em>
+for requests is effectively delegated to the Kubernetes API server. This has several benefits:</p>
+<ul>
+<li>Permissions will always be consistent between the UI and direct interaction (i.e. <code>kubectl</code>)</li>
+<li>User abilities can be controlled via declarative resources (Roles and RoleBindings) fully compatible with the
+Kubertentes ecosystem</li>
+<li>The surface area for vulnerabilities to be created/exploited is substantially smaller</li>
+</ul>
+<p>The core Kubernetes RBAC model refers to users &quot;lazily&quot;, only as the <a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects">subjects</a> of bindings. These users do not (necessarily) correspond to any sort of existing resource, it is up to the authentication service (in this case, <a href="design.html#dex">Dex</a>) to declare and keep track of these entities (the same is true of <em>Groups</em>).</p>
+<p><a name="users"></a></p>
+<p>The Critical Stack UI introduces a Custom Resource Definition for a cluster-level <code>User</code> resource to the Kubernetes API:</p>
+<pre><code class="language-shell">$ kubectl get users
+NAME                                                              EMAIL                   ACTIVE   USERNAME                  AGE
+sy3e5vknpktgkezpehh3rv76v5helr6vgnrm26feoz67stsosg6ef4jbdb2uegk   dev@criticalstack.com   true     &quot;Cluster Administrator&quot;   2d22h
+</code></pre>
+<p>These users correspond with subjects in rolebindings by their associated email address. Note that the resource name is
+obtained as a hash of the user's email in order to meet <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names">naming
+requirements</a>. This ensures that only
+one user may exist in the cluster with a given email address.</p>
+<p>The above user may be granted a role by creating the following <code>RoleBinding</code>:</p>
+<pre><code class="language-yaml">apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: my-admin-role-binding
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: my-role
+subjects:
+- kind: User
+  name: &quot;dev@criticalstack.com&quot;
+  apiGroup: rbac.authorization.k8s.io
+</code></pre>
+<p>Users have groups, at a minimum <code>system:authenticated</code> with others returned by Dex depending on SSO provider. The
+groups correspond with Groups in bindings:</p>
+<pre><code class="language-yaml"># ...
+subjects:
+- kind: Group
+  name: &quot;frontend-admins&quot;
+  apiGroup: rbac.authorization.k8s.io
+</code></pre>
+<p>See <a href="./user-management.html">user management</a> for more information about the use of <code>User</code> resources.</p>
+<h2><a class="header" href="#dex" id="dex">Dex</a></h2>
+<p><a href="https://github.com/dexidp/dex">Dex</a> is an authentication &quot;portal&quot; which uses <em>connectors</em> to integrate with a
+<a href="https://github.com/dexidp/dex#connectors">variety</a> of upstream identity providers.</p>
+<p>By configuring the Kubernetes API server to use Dex <a href="https://dexidp.io/docs/kubernetes">as an OIDC provider</a>, your
+cluster can be setup to trust the tokens Dex issues to authenticated users. The CS UI provides a convenient method for
+retrieving a token from Dex and downloading it in a <code>kubeconfig</code>:</p>
+<p><img src="./images/kubeconfig.gif" alt="downloading a kubeconfig" /></p>
+<p>In the configuration deployed by the UI <a href="/chart">helm chart</a> the UI server acts as a proxy for all traffic to Dex -
+requests to the <code>cs-ui</code> service with paths beginning <code>/dex/</code> are proxied to the <code>cs-ui-dex</code> Kubernetes service. This
+serves several purposes:</p>
+<ul>
+<li>The Dex service does not need to be directly exposed to external traffic</li>
+<li>The Kubernetes API Server uses the UI endpoint as its OIDC issuer, which is assumed to already have a trusted SSL
+certificate for end-users</li>
+<li>CS UI acts as a builtin <code>authproxy</code> connector for Dex, allowing non-SSO (&quot;local&quot;) users to generate Dex tokens</li>
+</ul>
+<p><strong>Note:</strong> by default, Dex serves traffic over HTTP. If HTTPS communication between the UI deployment and Dex service is
+desired, additional configuration is required.</p>
+<h1><a class="header" href="#installation" id="installation">Installation</a></h1>
+<p>Deploy the included <a href="https://github.com/criticalstack/ui/tree/main/chart">Helm chart</a> to your Kubernetes cluster:</p>
+<pre><code class="language-shell">helm upgrade --install cs ./chart \
+  --create-namespace \
+  --namespace critical-stack
+</code></pre>
+<p><strong>Don't have a cluster handy? Check out <a href="installation.html#cinder">cinder 🔥</a>!</strong></p>
+<p>The default chart installation depends on <a href="https://github.com/jetstack/cert-manager">Cert Manager</a> being installed to
+generate certificates. If you'd rather skip this, pass <code>--set tls.enabled=false</code> to Helm.</p>
+<p>Visit the UI service endpoint:</p>
+<pre><code class="language-shell">$ kubectl get service -n critical-stack cs-ui
+NAME    TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+cs-ui   NodePort   10.254.244.88   &lt;none&gt;        8000:30000/TCP   12s
+</code></pre>
+<h2><a class="header" href="#developing-locally" id="developing-locally">Developing Locally</a></h2>
+<p><em>Skip to the <a href="installation.html#tldr">tl;dr?</a></em></p>
+<p>The Critical Stack UI is best developed with <a href="https://docs.crit.sh/cinder-guide/overview.html">cinder</a> and <a href="https://docs.tilt.dev/install.html">tilt</a>:</p>
+<pre><code class="language-shell">git clone github.com/criticalstack/ui
+</code></pre>
+<p><strong>Note:</strong> If you clone the repo into a directory <em>within</em> <code>$GOPATH</code>, make sure that
+you have <code>$GO111MODULE</code> set to <code>on</code>.</p>
+<h3><a class="header" href="#requirements" id="requirements">Requirements</a></h3>
+<ol>
+<li>Go 1.14+: to build server code</li>
+<li>NodeJS and NPM: to build client code</li>
+<li>Docker: for local testing and to build container images</li>
+<li>kubectl: for local testing; see the <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">installation guide</a></li>
+<li>Helm 3: see the <a href="https://helm.sh/docs/intro/install/">installation guide</a></li>
+</ol>
+<h3><a class="header" href="#cinder" id="cinder">Cinder</a></h3>
+<p>Run the following to install <a href="https://docs.crit.sh/cinder-guide/overview.html">cinder</a> and setup a local development cluster:</p>
+<pre><code class="language-shell">make cinder
+</code></pre>
+<p>The required version of <code>cinder</code> will be installed to <code>hack/tools/bin/cinder</code>.</p>
+<p><strong>Note:</strong> if you would like to provide a different binary, you may set the <code>CINDER</code> variable when calling <code>make</code>:</p>
+<pre><code class="language-shell">CINDER=/usr/local/bin/cinder make cinder
+</code></pre>
+<p>The configuration file used by <code>make cinder</code> is <a href="">hack/cinder.yaml</a>, and the created cluster will be named <code>ui-dev</code>.</p>
+<p>Cinder is deployed with the <code>LocalRegistry</code> <a href="https://docs.crit.sh/cinder-guide/features.html#local-registry">feature gate</a> enabled, allowing rapid iteration when building container images locally.</p>
+<p>In addition, <a href="https://github.com/criticalstack/machine-api">machine-api</a> and <a href="https://github.com/criticalstack/machine-api-provider-docker">machine-api-provider-docker</a> are installed, allowing you to <a href="./docs/machine-api.html">deploy additional worker nodes</a> to your local cluster as Docker containers.</p>
+<h3><a class="header" href="#get-tilted" id="get-tilted">Get Tilt(ed)</a></h3>
+<pre><code class="language-shell">curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash
+</code></pre>
+<p><strong>Note:</strong> this will not run on older versions of tilt, make sure to have <code>&gt;= v0.15.0</code>.</p>
+<p>Now you're ready to run:</p>
+<pre><code class="language-shell">tilt up
+</code></pre>
+<h3><a class="header" href="#log-in" id="log-in">Log In</a></h3>
+<p>Once Tilt has finished installing resources, you can log in to the UI. By default, the Kubernetes Service attached
+to the UI deployment listens on <code>nodePort: 30000</code>, meaning it is accessible at <code>http://$(cinder get ip --name ui-dev):30000</code>.</p>
+<p>For convenience, cinder <a href="./hack/cinder.yaml">is configured</a> with:</p>
+<pre><code class="language-yaml">extraPortMappings:
+- listenAddress: 0.0.0.0
+  hostPort: 8000
+  containerPort: 30000
+  protocol: TCP
+</code></pre>
+<p>So that you can reach the UI by pointing your browser at <a href="http://localhost:8000">http://localhost:8000</a>.</p>
+<p>The <a href="./chart/values.yaml">chart values</a> do not specify a default user, but the <a href="./Tiltfile">Tiltfile</a> does for the purpose of local
+development. The email address is <code>dev@criticalstack.com</code>, and the initial password is <code>admin</code>. See
+<a href="/configuration.html">configuration</a> for more detail on changing initial credentials.</p>
+<h3><a class="header" href="#tldr" id="tldr">tl;dr</a></h3>
+<p>It really wasn't that much, but ok.</p>
+<p>First time setup:</p>
+<pre><code class="language-shell"># install helm
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+# install tilt
+curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash
+</code></pre>
+<p>Setup your local cluster &amp; start tilt</p>
+<pre><code class="language-shell">make cinder
+tilt up
+</code></pre>
+<p>Click <a href="http://localhost:8000">http://localhost:8000</a>. Log in with email <code>dev@criticalstack.com</code> and password <code>admin</code>.</p>
+<h1><a class="header" href="#configuration" id="configuration">Configuration</a></h1>
+<ul>
+<li>configuring chart for deployment</li>
+<li>configuring local setup with tilt</li>
+<li>initial users (link to user management)</li>
+<li>initial sso connectors (link)</li>
+<li>initial rbac</li>
+</ul>
+<h1><a class="header" href="#features" id="features">Features</a></h1>
+<h1><a class="header" href="#user-management" id="user-management">User Management</a></h1>
+<p>As mentioned in the <a href="features//design.html#users">design docs</a>, the Critical Stack UI introduces the <code>User</code> resource to represent
+application users. </p>
+<h2><a class="header" href="#overview" id="overview">Overview</a></h2>
+<p>Users contain identifying information and some basic metadata:</p>
+<pre><code class="language-yaml">apiVersion: criticalstack.com/v1alpha1
+kind: User
+metadata:
+  # unique hash of email address
+  name: sy3e5vknpktgkezpehh3rv76v5helr6vgnrm26feoz67stsosg6ef4jbdb2uegk
+type: local
+active: true
+defaultNamespace: critical-stack
+email: dev@criticalstack.com
+username: Cluster Administrator
+</code></pre>
+<p>There are two flavors of user, determined by their <code>type</code> field:</p>
+<ul>
+<li><code>local</code> users are created manually and log in with an email and password</li>
+<li><code>sso</code> users are created &quot;lazily&quot; on first log in (see <a href="features/./sso.html">SSO</a>) and do not have a password</li>
+</ul>
+<p>When Dex authenticates an SSO user (creating the <code>User</code> resource if necessary), it attaches <code>group</code> information obtained
+from the identity provider. These groups are used for matching role binding <em>subjects</em> when determining user
+permissions.</p>
+<p>Local user passwords are salted and hashed, stored as <code>Secret</code> resources in the <code>critical-stack</code> namespace. Users are
+given role bindings that allow them to get and modify their own properties for the purpose of
+changing profile data.</p>
+<h2><a class="header" href="#creation" id="creation">Creation</a></h2>
+<p>There are multiple ways to create a user. A <code>local</code> user may be created through the UI via the &quot;Manage Users&quot; screen,
+under &quot;Settings&quot;. During the creation process, an administrator can choose to assign a <code>ClusterRole</code> as a convenient way
+to provide immediate access to the user. If a specific namespace is chosen, the <code>ClusterRole</code> is granted via a
+<code>RoleBinding</code> in that namespace - otherwise &quot;Cluster Wide&quot; must be checked to indicate that a <code>ClusterRoleBinding</code> will
+be created.</p>
+<p><img src="features//images/user-creation-roles.png" alt="user creation roles" /></p>
+<p>Any cluster roles with the <strong>label</strong> <code>criticalstack.com/rbac=defaults</code> will show up as options in this list, giving you a way to add
+additional &quot;canned&quot; roles to the user creation process. The description is pulled from an <strong>annotation</strong> named
+<code>criticalstack.com/description</code>.</p>
+<p>Once created, all users and any corresponding (cluster) roles and bindings maybe found under &quot;Cluster&quot; &gt; &quot;Access Control&quot;.</p>
+<p><img src="features//images/user-creation.gif" alt="user creation" /></p>
+<p>The <code>User</code> Custom Resource should not typically be created directly - instead, create a <code>UserRequest</code> which will be
+reconciled by the users controller (part of the UI deployment).</p>
+<p>A simple <code>UserRequest</code> resource might look like:</p>
+<pre><code class="language-yaml">apiVersion: criticalstack.com/v1alpha1
+kind: UserRequest
+metadata:
+  # human-readable name
+  name: admin
+spec:
+  template:
+    type: local
+    active: true
+    defaultNamespace: critical-stack
+    email: dev@criticalstack.com
+    username: Cluster Administrator
+</code></pre>
+<p>The <code>UserRequest</code>'s <code>.spec.template</code> field will become the properties of the created <code>User</code> object.</p>
+<p>One key difference is that the name of the resource need not be a deterministic value derived from the email address.
+This makes it possible to create resources directly without access to the hashing function used (i.e. from within Helm
+templates).</p>
+<p>In the above example the created user does not have a password set, meaning they will be unable to log in. The
+<code>UserRequest</code> provides a couple of methods for setting an initial user password:</p>
+<ul>
+<li>For simple cases like local development, an initial password can be set on the user request itself:</li>
+</ul>
+<pre><code class="language-yaml"># ...
+spec:
+  initialPassword:
+    value: Winter20
+  template: # ...
+</code></pre>
+<p><strong>Note</strong>: that this will generate hashed password data from the provided plaintext password on initial user creation.
+The password text remains in the <code>UserRequest</code> resource, but updating it will not change the created user's password.</p>
+<p>Another method is to reference a secret, rather than embedding a plaintext password directly:</p>
+<pre><code class="language-yaml"># ...
+spec:
+  initialPassword:
+    secretRef:
+      name: my-initial-password
+      namespace: default
+      key: &quot;&quot;        # field to read from secret data - if omitted, use the first
+      consume: false # if true, remove the secret after generating password data
+  template: # ...
+</code></pre>
+<p>The <code>key</code> and <code>consume</code> fields are optional to provide additional flexibility.</p>
+<p>A user created via the UI or <code>UserRequest</code> CRD has a default <code>ClusterRole</code> and <code>ClusterRoleBinding</code> created for them,
+allowing <code>get</code>, <code>update</code>, and <code>patch</code> actions on their <code>UserRequest</code> resource, as well as <code>get</code> on their <code>User</code>.</p>
+<p>To disable this behavior, set <code>.spec.skipUserBindings</code> to <code>true</code>.</p>
+<p><strong>Note</strong>: all resources created by the <code>UserRequest</code> controller are owned by the <code>UserRequest</code> object - when deleted,
+the <code>User</code>, password data <code>Secret</code>, and any created RBAC resources will be deleted.</p>
+<h2><a class="header" href="#status" id="status">Status</a></h2>
+<p>The <code>UserRequest</code> resource has a <code>status</code> subresource which indicates whether the corresponding <code>User</code> has been created by
+the controller. The <code>.status.user</code> field is the name of the created user resource, while <code>.status.conditions</code> signals if the <code>User</code> is
+ready. This allows for a process to depend on user creation:</p>
+<pre><code class="language-shell">kubectl wait userrequests admin --for condition=Ready
+</code></pre>
+<p>This functionality is used by our automated tests to ensure that a user is available before attempting to log in.</p>
+<h2><a class="header" href="#user-fields" id="user-fields">User Fields</a></h2>
+<p>The <code>active</code> property indicates whether a user can log in or not, and can be toggled from the user-management screen in
+the UI:</p>
+<p><img src="features//images/togg-active-user.gif" alt="toggle user active" /></p>
+<p>Users have a default namespace, which will be their &quot;landing page&quot; upon login. From the &quot;Settings&quot; area of the UI, a
+user can change their default namespace, as well as upload an avatar or reset their password.</p>
+<h2><a class="header" href="#permissions" id="permissions">Permissions</a></h2>
+<p>See <a href="features//design.html#rbac">RBAC</a> for an overview of the permission model used throughout the UI.</p>
+<p>The access summary screen (&quot;Cluster&quot; &gt; &quot;Access Control&quot; &gt; &quot;Access&quot;) displays an overview of <code>User</code> and <code>Group</code> subjects
+that have bound roles and cluster roles:</p>
+<p><img src="features//images/access-summary.png" alt="access summary" /></p>
+<p>Known users and groups will be listed here. By right-clicking a subject, you can quickly add additional role bindings and cluster
+role bindings for that subject.</p>
+<h3><a class="header" href="#role-bindings-and-cluster-role-bindings" id="role-bindings-and-cluster-role-bindings">Role Bindings and Cluster Role Bindings</a></h3>
+<p>When creating a role binding or a cluster role binding, note that you are not limited to subjects that show up in the selection
+dropdown - typing a name will allow you to create a new subject:</p>
+<p><img src="features//images/binding-create-subject.gif" alt="subject naming" /></p>
+<h3><a class="header" href="#roles-and-cluster-roles" id="roles-and-cluster-roles">Roles and Cluster Roles</a></h3>
+<p>When creating roles and cluster roles, note that you are not limited to the API groups, Resources, and Verbs that show up in their respective selection dropdowns - typing in a new value will allow you to create a new group, resource, or verb. </p>
+<p><img src="features//images/roles-new-values.gif" alt="new values" /></p>
+<p>Also note that when creating a new role, you can either start with selecting an API group and then the resources or by selecting a resource first and then the API group.</p>
+<p><img src="features//images/roles-create-rule.gif" alt="create rules" /></p>
+<h2><a class="header" href="#initial-roles" id="initial-roles">Initial Roles</a></h2>
+<p>Initial role bindings will be created on installation depending on the values passed to the UI Helm chart. See
+<a href="features//gettingstarted/configuration#rbac">configuration</a> for more information.</p>
+<h1><a class="header" href="#marketplace" id="marketplace">Marketplace</a></h1>
+<p>The Critical Stack Marketplace provides a repository of &quot;building blocks&quot; for application developers. It allows for easy access to premade kubernetes resources. The marketplace can be populated by adding sources, or by individually adding applications.</p>
+<h2><a class="header" href="#overview-1" id="overview-1">Overview</a></h2>
+<p>A marketplace application is a packaged &quot;component&quot; (a Helm chart wrapped in additional metadata) in the cluster's marketplace catalog. They are versioned, and can be installed by a user into a cluster namespace. Applications can be <a href="features/marketplace.html#adding-applications-directly">added individually</a> or by <a href="features/marketplace.html#marketplace-source-configuration">adding a source</a>. When a source is added, all applications under that source will be added to the marketplace when reconciled by the source controller (part of the UI marketplace deployment).</p>
+<h2><a class="header" href="#marketplace-source-configuration" id="marketplace-source-configuration">Marketplace Source Configuration</a></h2>
+<p>A source is any <a href="https://helm.sh/docs/topics/chart_repository/">Helm repo</a> that supplies metadata and assets (aka Helm charts) for one or more applications. Sources may be added to a cluster by a cluster administrator. This may be done via the UI or via the CRD. </p>
+<h3><a class="header" href="#source-configuration-via-ui" id="source-configuration-via-ui">Source Configuration via UI</a></h3>
+<p>A source may be added and configured through the UI via the &quot;Sources&quot; screen, under &quot;Settings&quot;. When adding a source to the cluster, a unique name and the source URL are required. Optionally, the UI also provides the ability to configure a username and password for the sources that require it.</p>
+<p><img src="features//images/mp-source-configuration.gif" alt="source configuration" /></p>
+<h3><a class="header" href="#source-configuration-via-crd" id="source-configuration-via-crd">Source Configuration via CRD</a></h3>
+<p>A <code>Source</code> Custom Resource can be created to directly add a marketplace source to the cluster.</p>
+<p>A simple <code>Source</code> resource may look like:</p>
+<pre><code class="language-yaml">apiVersion: marketplace.criticalstack.com/v1alpha2
+kind: Source
+metadata:
+  name: sample-source
+  labels:
+    created-by: dev-criticalstack-com
+spec:
+  url: 'https://charts.helm.sh/stable'
+</code></pre>
+<h2><a class="header" href="#marketplace-application-configuration" id="marketplace-application-configuration">Marketplace Application Configuration</a></h2>
+<p>Applications with schema configurations (<a href="features/marketplace.html#editing-applications">adding schema configurations</a>) will need to have their configuration form completed and saved before being able to install the application.</p>
+<p>If an application has schema configurations, the schema configuration form can be found under the application detail page. The application detail page may be accessed by selecting &quot;Learn More&quot; on the application tile cards. From this page, there are two methods for accessing the configuration form:</p>
+<ul>
+<li>directly selecting the &quot;Configuration&quot; tab</li>
+<li>clicking &quot;Configure App&quot; in the application card on the right side of the page</li>
+</ul>
+<p><img src="features//images/mp-app-configuration.gif" alt="app configuration" /></p>
+<h2><a class="header" href="#marketplace-application-preview" id="marketplace-application-preview">Marketplace Application Preview</a></h2>
+<p>By default, application previews are enabled and can be seen after clicking &quot;Preview &amp; Install App&quot;. Application previews can be disabled by toggling off &quot;Include dry run&quot;. The application preview will show the resources the application will be deploy into the cluster without actually deploying the resources. The preview will also show the anticipated status of the resource and how deploying the resource will impact any existing resource limits and quotas. After seeing the preview, the user can choose whether or not to confirm the installation.</p>
+<p><img src="features//images/mp-app-preview.gif" alt="app_preview" /></p>
+<h2><a class="header" href="#marketplace-application-releases" id="marketplace-application-releases">Marketplace Application Releases</a></h2>
+<p>An application may be installed multiple times. Each installation creates a new application release. All the installations (aka releases) for an application may be found in that application's app detail page under the &quot;Installations&quot; tab. Application releases may also be found under <strong>Data Center &gt; Workloads &gt; App Releases</strong>. This page will show all applications releases including the Helm chart installations that were not installed via marketplace. </p>
+<h2><a class="header" href="#advance-configurations" id="advance-configurations">Advance Configurations</a></h2>
+<h3><a class="header" href="#enablingdisabling-marketplace" id="enablingdisabling-marketplace">Enabling/Disabling Marketplace</a></h3>
+<p>When enabled, the marketplace may be found on the top navbar in the UI. Marketplace is enabled when one or more sources or applications exists on the cluster. When all sources and applications are removed from the cluster, marketplace will be disabled and it will be removed from the UI.</p>
+<h3><a class="header" href="#source-sync" id="source-sync">Source Sync</a></h3>
+<p>The sync status of a source can be seen in the Marketplace Sources table under &quot;Settings&quot;. </p>
+<p><img src="features//images/mp-source-sync.png" alt="source sync" /></p>
+<p>The interval for when a source will try to sync can be edited by modifying the <code>updateFrequency</code> value in the <code>Source</code> resource. By default, this value is empty so the source will not update.</p>
+<pre><code class="language-yaml"># ...
+spec:
+  updateFrequency: 100ms
+  # ...
+</code></pre>
+<p>A source can also be explicitly configured to not sync by setting the <code>skipSync</code> flag to true in the <code>Source</code> resource.</p>
+<pre><code class="language-yaml"># ...
+spec:
+  skipSync: true
+  # ...
+</code></pre>
+<h3><a class="header" href="#adding-applications-directly" id="adding-applications-directly">Adding Applications Directly</a></h3>
+<p>Applications may be added directly by creating and applying an <code>Application</code> Custom Resource.</p>
+<p>A simple <code>Application</code> resource may look like:</p>
+<pre><code class="language-yaml">apiVersion: marketplace.criticalstack.com/v1alpha2
+appName: sample
+kind: Application
+metadata:
+  labels:
+    marketplace.criticalstack.com/application.name: sample
+    marketplace.criticalstack.com/source.name: demo
+  name: demo.sample
+versions:
+- apiVersion: v1
+  appVersion: 1.17.10
+  description: Chart for the sample resource
+  home: http://www.sample.org
+  icon: # URL for the icon
+  keywords: # ...
+  maintainers: # email and name of this chart's maintainers
+  removed: false
+  sources: # optional URL to the source code of this chart
+  urls: # URL to where this chart is stored
+  version: 5.4.1
+# ...
+</code></pre>
+<p><code>Application</code> resources that are without a marketplace source can remove the source label: <code>marketplace.criticalstack.com/source.name</code>.</p>
+<h3><a class="header" href="#editing-applications" id="editing-applications">Editing Applications</a></h3>
+<p>After being added to marketplace, applications can be edited under their application detail page by selecting the &quot;Edit&quot; icon in the application card.</p>
+<p><img src="features//images/mp-app-edit.gif" alt="app edit" /></p>
+<p>An application can be edited through the UI by selecting &quot;Simple&quot; edit. The user will first have to select a version of the application to edit before continuing. The user will be able to edit the application details (i.e. name, icon, application tags), documents, and configuration form.</p>
+<p>Additional documents may be added in the &quot;Edit Documents&quot; section and will appear as additional pages in the application navigation tabs. Existing documents, except <code>README.md</code>, may also be removed from the application and subsequently from the navigation tabs.</p>
+<p>Additional schema may also be added for configuration in the &quot;Edit Configuration Form&quot; section. A preview of the configuration form is shown to display how the form will look and to check for any validations. The user may also decide to exclude the schema - this will only remove the schema that the user may have added or changed and will revert the schema configuration form to the default one.</p>
+<h3><a class="header" href="#app-categories" id="app-categories">App Categories</a></h3>
+<p>Categories can be added to application to allow for marketplace to filter by category. They can be added via the UI under the application detail page by clicking the &quot;Edit&quot; icon in the application card and then selecting &quot;Categories&quot;. Categories may also be applied by directly adding the respective labels to the application metadata. The category name will be part of the label key that maps to an empty value:</p>
+<pre><code class="language-yaml">labels:    
+    marketplace.criticalstack.com/application.category.application.security: ''
+    marketplace.criticalstack.com/application.category.cicd: ''
+    marketplace.criticalstack.com/application.category.data.broker: ''
+    marketplace.criticalstack.com/application.category.data.storage: ''
+    marketplace.criticalstack.com/application.category.development: ''
+    marketplace.criticalstack.com/application.category.information.security: ''
+    marketplace.criticalstack.com/application.category.monitoring: ''
+    marketplace.criticalstack.com/application.category.networking: ''
+    marketplace.criticalstack.com/application.category.web: ''
+</code></pre>
+<h1><a class="header" href="#resource-utilization-metrics" id="resource-utilization-metrics">Resource utilization metrics</a></h1>
+<p>The CS UI can display resource utilization metrics if a correctly configured Prometheus instance exists in the cluster.</p>
+<p>The following examples show how to set up a either a standalone Prometheus, or a managed instance with Prometheus Operator.</p>
+<h2><a class="header" href="#standalone-prometheus" id="standalone-prometheus">Standalone Prometheus</a></h2>
+<p>A standalone Prometheus can be deployed using the <a href="https://github.com/prometheus-community/helm-charts">official Helm chart</a> and <a href="https://github.com/criticalstack/ui/blob/main/hack/prometheus/standalone.yaml">this sample values.yaml</a></p>
+<h2><a class="header" href="#operated-prometheus" id="operated-prometheus">Operated Prometheus</a></h2>
+<p>If a properly configured <a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack">Prometheus Operator</a> is running in the cluster already, a suitable instance can be deployed via CRD in the CS UI namespace with this configuration: </p>
+<pre><code class="language-yaml">apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+spec:
+  tolerations:
+    - effect: NoSchedule
+      key: node.kubernetes.io/not-ready
+      operator: &quot;Exists&quot;
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+      operator: &quot;Exists&quot;
+  additionalScrapeConfigs:
+  - job_name: kubernetes-service-endpoints
+    kubernetes_sd_configs:
+    - role: endpoints
+    relabel_configs:
+    - action: keep
+      regex: true
+      source_labels:
+      - __meta_kubernetes_service_annotation_prometheus_io_scrape
+    - action: replace
+      regex: (https?)
+      source_labels:
+      - __meta_kubernetes_service_annotation_prometheus_io_scheme
+      target_label: __scheme__
+    - action: replace
+      regex: (.+)
+      source_labels:
+      - __meta_kubernetes_service_annotation_prometheus_io_path
+      target_label: __metrics_path__
+    - action: replace
+      regex: ([^:]+)(?::\d+)?;(\d+)
+      replacement: $1:$2
+      source_labels:
+      - __address__
+      - __meta_kubernetes_service_annotation_prometheus_io_port
+      target_label: __address__
+    - action: labelmap
+      regex: __meta_kubernetes_service_label_(.+)
+    - action: replace
+      source_labels:
+      - __meta_kubernetes_namespace
+      target_label: kubernetes_namespace
+    - action: replace
+      source_labels:
+      - __meta_kubernetes_service_name
+      target_label: kubernetes_name
+    - action: replace
+      source_labels:
+      - __meta_kubernetes_pod_node_name
+      target_label: kubernetes_node
+  - job_name: kubernetes-services
+    kubernetes_sd_configs:
+    - role: service
+    metrics_path: /probe
+    params:
+      module:
+      - http_2xx
+    relabel_configs:
+    - action: keep
+      regex: true
+      source_labels:
+      - __meta_kubernetes_service_annotation_prometheus_io_probe
+    - source_labels:
+      - __address__
+      target_label: __param_target
+    - replacement: blackbox
+      target_label: __address__
+    - source_labels:
+      - __param_target
+      target_label: instance
+    - action: labelmap
+      regex: __meta_kubernetes_service_label_(.+)
+    - source_labels:
+      - __meta_kubernetes_namespace
+      target_label: kubernetes_namespace
+    - source_labels:
+      - __meta_kubernetes_service_name
+      target_label: kubernetes_name
+  - job_name: kubernetes-pods
+    kubernetes_sd_configs:
+    - role: pod
+    relabel_configs:
+    - action: keep
+      regex: true
+      source_labels:
+      - __meta_kubernetes_pod_annotation_prometheus_io_scrape
+    - action: replace
+      regex: (.+)
+      source_labels:
+      - __meta_kubernetes_pod_annotation_prometheus_io_path
+      target_label: __metrics_path__
+    - action: replace
+      regex: ([^:]+)(?::\d+)?;(\d+)
+      replacement: $1:$2
+      source_labels:
+      - __address__
+      - __meta_kubernetes_pod_annotation_prometheus_io_port
+      target_label: __address__
+    - action: labelmap
+      regex: __meta_kubernetes_pod_label_(.+)
+    - action: replace
+      source_labels:
+      - __meta_kubernetes_namespace
+      target_label: kubernetes_namespace
+    - action: replace
+      source_labels:
+      - __meta_kubernetes_pod_name
+      target_label: kubernetes_pod_name
+</code></pre>
+<p>A full sample Prometheus Operator <a href="https://github.com/criticalstack/ui/blob/main/hack/prometheus/operated.yaml">values.yaml is available here.</a>. Note the relabeling configs.</p>
+<h3><a class="header" href="#configure-cs-ui" id="configure-cs-ui">Configure CS UI</a></h3>
+<p>To finish setting up resource metrics in the UI, set the Prometheus endpoint in the CS UI Helm <a href="features/../../../chart/values.yaml">values.yaml</a> and deploy. The default value is <code>http://prometheus-server:9090</code>.</p>
+<h1><a class="header" href="#sso" id="sso">SSO</a></h1>
+<p>Because the Critical Stack UI utilizes <a href="https://dexidp.io">Dex</a> as its identity provider, enabling SSO is as simple as
+configuring Dex. We provide several convenient methods for accomplishing this task.</p>
+<h2><a class="header" href="#ui" id="ui">UI</a></h2>
+<p>Administrators can configure Dex <a href="https://dexidp.io/docs/connectors/">connectors</a> from the UI by visiting the &quot;SSO
+Provider&quot; menu under &quot;Settings&quot;.</p>
+<p>The &quot;Connectors&quot; section allows a user to create, edit, and delete existing connectors.</p>
+<p><strong>Note:</strong> by default an <code>authproxy</code> connector exists to connect the UI with Dex, which allows local users to <a href="features//design.html#dex">download a
+valid Kubeconfig</a>.</p>
+<p><img src="features//images/sso-connector.gif" alt="sso connector" /></p>
+<p>When creating a new connector, selecting the <code>type</code> will allow you to enter the relevant configuration data for that
+type - currently the UI supports creating <strong>GitHub</strong>, <strong>OIDC</strong>, and <strong>LDAP</strong> connectors via form - but more can be added upon
+request.</p>
+<p><strong>Note:</strong> when creating a connector through the UI, the redirect URI will be auto-filled. In the case that it needs to
+be changed, the <em>path</em> used should always be <code>/dex/callback</code>. In almost all cases, the full redirect URI should be
+<code>&lt;user login URL&gt;/dex/callback</code>.</p>
+<p>When more than one connector (excluding the <code>authproxy</code>) is present, the UI login screen will link to Dex's landing page
+so that a user can choose the desired identity provider - rather than linking to the provider directly.</p>
+<p>By right-clicking a connector and choosing &quot;Set as default&quot;, it can be made to show up on the login screen even if there
+are other choices available (avoiding the need for users to visit the Dex landing page). This is accomplished
+by applying the label <code>criticalstack.com/dex.default</code> to the <code>Connector</code> resource.</p>
+<h2><a class="header" href="#helm-values" id="helm-values">Helm Values</a></h2>
+<p>Connectors can also be created at the time of chart installation by passing specific values to Helm. The
+<code>identity.connectors</code> map provides this configuration data, for example:</p>
+<pre><code class="language-yaml">identity:
+  connectors:
+    my-connector:
+      name: MyConnector
+      type: oidc
+      config:
+        issuer: https://my-connector.com
+        clientID: my_client_id
+        clientSecret: my_client_secret
+        redirectURI: http://localhost:8000/dex/callback
+        default: true
+        anyOtherConfig:
+        - added
+        - here
+    github:
+      name: GitHub
+      type: github
+      config:
+        clientID: my_client_id
+        clientSecret: my_client_secret
+        redirectURI: http://localhost:8000/dex/callback
+</code></pre>
+<p>The following connector resources (in addition to an <code>authproxy</code>) would be created:</p>
+<pre><code class="language-yaml">kind: Connector
+apiVersion: dex.coreos.com/v1
+metadata:
+  name: github
+  namespace: critical-stack
+  labels:
+    criticalstack.com/dex.default: &quot;true&quot;
+id: github
+name: GitHub
+type: github
+config: eyJjbGllbnRJRCI6Im15X2NsaWVudF9pZCIsImNsaWVudFNlY3JldCI6Im15X2NsaWVudF9zZWNyZXQiLCJyZWRpcmVjdFVSSSI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9kZXgvY2FsbGJhY2sifQ==
+---
+kind: Connector
+apiVersion: dex.coreos.com/v1
+metadata:
+  name: my-connector
+  namespace: critical-stack
+id: my-connector
+name: MyConnector
+type: oidc
+config: eyJhbnlPdGhlckNvbmZpZyI6WyJhZGRlZCIsImhlcmUiXSwiY2xpZW50SUQiOiJteV9jbGllbnRfaWQiLCJjbGllbnRTZWNyZXQiOiJteV9jbGllbnRfc2VjcmV0IiwiaXNzdWVyIjoiaHR0cHM6Ly9teS1jb25uZWN0b3IuY29tIiwicmVkaXJlY3RVUkkiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvZGV4L2NhbGxiYWNrIn0=
+</code></pre>
+<p>Any values in the <code>config</code> property of a connector are directly marshaled to JSON and then base64 encoded.</p>
+<h2><a class="header" href="#kube-apiserver-oidc-configuration" id="kube-apiserver-oidc-configuration">kube-apiserver OIDC configuration</a></h2>
+<p>The <code>kube-apiserver</code> must be configured for OIDC for it to fully leverage the UI-Dex integration. This will allow Kubernetes RBAC to be tied to the OIDC grants returned by Dex.</p>
+<p>The following arguments must be set on the <code>kube-apiserver</code>:</p>
+<pre><code class="language-bash">--oidc-issuer-url=https://&lt;criticalstack-ui-url&gt;/dex
+--oidc-client-id=critical-stack
+--oidc-username-claim=email
+--oidc-groups-claim=groups
+</code></pre>
+<p>If the UI is being served with a non-root-trusted CA certificate (as in the auth-proxy config mentioned above), the CA will also need to be set:</p>
+<pre><code class="language-bash">--oidc-ca-file=/etc/kubernetes/pki/auth-proxy-ca.crt
+</code></pre>
+<p>If <a href="https://github.com/criticalstack/crit">crit</a> is used to bootstrap the cluster, these arguments can be provided in the crit <a href="https://pkg.go.dev/github.com/criticalstack/crit@v1.0.1/pkg/config/v1alpha2#ControlPlaneConfiguration">ControlPlaneConfig</a> as follows:</p>
+<pre><code class="language-yaml">kubeAPIServer:
+  extraArgs:
+    oidc-ca-file: /etc/kubernetes/pki/auth-proxy-ca.crt
+    oidc-client-id: critical-stack
+    oidc-groups-claim: groups
+    oidc-issuer-url: &quot;https://&lt;criticalstack-ui-url&gt;/dex&quot;
+    oidc-username-claim: email
+</code></pre>
+<p>Check the full <code>kube-apiserver</code> argument reference <a href="https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/">here</a> for more information.</p>
+<h2><a class="header" href="#replacing-dex" id="replacing-dex">Replacing Dex</a></h2>
+<p>TODO</p>
+<ul>
+<li>configuring a non-default sso provider</li>
+</ul>
+<h1><a class="header" href="#machine-api-and-worker-management" id="machine-api-and-worker-management">Machine API and Worker Management</a></h1>
+<p>The Critical Stack UI uses <a href="https://github.com/criticalstack/machine-api">machine-api</a> to manage the lifecycle of worker
+nodes in the cluster.</p>
+<p>When running locally via cinder, machine-api (<code>mapi</code>) and <a href="https://github.com/criticalstack/machine-api-provider-docker">machine-api-provider-docker</a> (<code>mapd</code>) are installed automatically. From the &quot;Nodes&quot; screen, you will have the option to create a new worker node (i.e. a Docker container on your host) which will automatically join the cluster.</p>
+<p>TODO:</p>
+<ul>
+<li>running with cinder and mapd
+<ul>
+<li>gif</li>
+</ul>
+</li>
+<li>running in aws</li>
+<li>worker configs</li>
+<li>dynamic configuration discovery</li>
+</ul>
+<h1><a class="header" href="#stackapps" id="stackapps">StackApps</a></h1>
+<p>Integration with the Critical Stack <a href="https://github.com/criticalstack/stackapps">StackApps</a> component.</p>
+<ul>
+<li>Requirements and Installation</li>
+<li>Verification/Signing Keys</li>
+<li>Drift detection</li>
+<li>StackValues</li>
+</ul>
+<h2><a class="header" href="#planned-features" id="planned-features">Planned Features</a></h2>
+<ul>
+<li>Revision management</li>
+<li>StackValue configuration</li>
+</ul>
+<h1><a class="header" href="#developer-shell" id="developer-shell">Developer Shell</a></h1>
+<p>In addition to providing a shell interface for running pods, the Critical Stack UI enables developers to launch a
+&quot;developer shell&quot; job quickly and easily - then attach to it. The default container image used is <code>bitnami/kubectl</code>,
+allowing a user to interact with the cluster directly using familiar tools.</p>
+<h2><a class="header" href="#permissions-1" id="permissions-1">Permissions</a></h2>
+<p>The developer shell is launched, by default, in the current user's &quot;default namespace&quot;. The container uses the <code>default</code>
+Service Account in that namespace. If that service account has no roles bound to it, you will not be able to interact
+meaningfully with the cluster using the credentials provided by the shell.</p>
+<h2><a class="header" href="#persistence" id="persistence">Persistence</a></h2>
+<p>A <code>1Gi</code> persistent volume is created on demand when a user requests their first developer shell. The volume is mounted
+as <code>/data</code> in the container, and intended to be used for persisting data across sessions (it could make sense to store a
+user's home directory here).</p>
+<h2><a class="header" href="#planned-features-1" id="planned-features-1">Planned Features</a></h2>
+<ul>
+<li>Customized base image</li>
+<li>Persistent history/home directory storage</li>
+<li>Choosing service account and role from the UI</li>
+</ul>
+<h1><a class="header" href="#contributing" id="contributing">Contributing</a></h1>
+<p>Link to <a href="contributing//installation.html#developing-locally">developing locally</a>.</p>
+<h1><a class="header" href="#building" id="building">Building</a></h1>
+<p>Tilt will build the necessary components automatically, but should you feel the need to do it yourself there are a
+variety of <code>make</code> targets available:</p>
+<pre><code>$ make help
+
+Usage:
+  make &lt;target&gt;
+
+Building
+  build            Build client and server
+  client           Build client code
+  client-dev       Dev build of client code
+  server           Build the go binary
+  manifests        Generate CRD manifests
+  image            Build and tag container images
+  image-push       Push container images
+
+Running
+  cinder           Start and configure a cinder cluster for local development
+  cinder-cleanup   Delete the cinder cluster
+
+Testing
+  test             Run go tests
+  vtest            Run go tests with -v
+  test-e2e         Run e2e tests
+  lint             Lint codebase
+  lint-full        Run slower linters to detect possible issues
+
+Helpers
+  clean            Cleanup the project folders
+  help             Display this help
+</code></pre>
+<h1><a class="header" href="#testing" id="testing">Testing</a></h1>
+<h2><a class="header" href="#unit-tests" id="unit-tests">Unit Tests</a></h2>
+<p>Unit tests focus on individual pieces of logic - a single function - and don’t require any additional services to execute. They are a quick way to get the initial feel on the current implementation, but have the risk of integration bugs slipping through.</p>
+<p>Unit tests are currently being developed using <a href="https://golang.org/pkg/testing/">go test</a>. </p>
+<p>TODO: unit tests (and TESTS env var for focused testing)</p>
+<ul>
+<li>Setting <code>KUBEBUILDER_ASSETS</code> in makefile (link to kubebuilder book on testing)</li>
+</ul>
+<h2><a class="header" href="#controller-tests" id="controller-tests">Controller Tests</a></h2>
+<p>Controller tests are the integration tests for Kubernetes controllers and focus on testing the behavior of an entire controller or the interactions between two or more controllers. The tests run on a test environment using <a href="https://github.com/kubernetes-sigs/controller-runtime/tree/master/pkg/envtest">envtest</a> where one or more controllers are configured to run against the test cluster. This will allow the controllers to interact as if they are in a real environment by creating/updating Kubernetes objects and waiting for the controllers to take action.</p>
+<p>Controller tests are currently being developed using <a href="http://onsi.github.io/ginkgo/">ginkgo</a> and <a href="http://onsi.github.io/gomega/">gomega</a> following the framework set up by <a href="https://book.kubebuilder.io/cronjob-tutorial/writing-tests.html">Kubebuilder</a>. </p>
+<h2><a class="header" href="#end-to-end-tests" id="end-to-end-tests">End-to-End Tests</a></h2>
+<p>End-to-end tests are used to verify that all components are working as expected in a realistic environment. </p>
+<p>Currently, end-to-end tests are developed using <a href="https://golang.org/pkg/testing/">go test</a> and are placed under <a href="contributing/">./e2e/</a> in the repo.</p>
+<p>E2E tests will require a local cluster be up and running with all the core Critical Stack components. This may be done <a href="contributing//installation.html#tldr">using Tilt</a>.</p>
+<h2><a class="header" href="#cypress-tests" id="cypress-tests">Cypress Tests</a></h2>
+<p>Cypress tests are end-to-end tests that use a web browser to simulate user insteraction with the UI.</p>
+<p>They can be run inside the <a href="contributing/">./client/</a> folder with <code>npx cypress open</code>.</p>
+<h2><a class="header" href="#running-tests" id="running-tests">Running Tests</a></h2>
+<p>Tests may be run via Tilt or via the command line.</p>
+<p>When running tests via Tilt, the Tilt UI can be used: </p>
+<p><img src="contributing//images/test-tilt.gif" alt="testing on tilt" /></p>
+<p>The <code>test</code> section will run both the unit tests and the controller tests while the <code>test-e2e</code> section will run the e2e tests. Each section may be rerun by clicking the refresh icon and can be seen by selecting the section in the sidebar. </p>
+<p>When running the tests locally through the command line, the following <code>make</code> targets are used:</p>
+<ul>
+<li><code>make test</code> : Run all Go unit tests, including Kubernetes controller tests.</li>
+<li><code>make test-e2e</code> : Run e2e tests in <a href="contributing/">./e2e/</a> on an existing cluster (based on KUBECONFIG).</li>
+<li><code>make lint</code> : Run golangci-linter.</li>
+</ul>
+<p><strong>Note</strong> that when running the e2e tests locally, it needs a local server to be up and running. Whether or not Tilt is used to run the tests, it will still be used to deploy the server before running the tests.</p>
+<h2><a class="header" href="#linting" id="linting">Linting</a></h2>
+<p>Linting is used to analyze the source code to flag programming errors, bugs, stylistic errors, and any suspicious contructs.</p>
+<p><a href="https://github.com/golangci/golangci-lint">golangci</a> is currently used to lint the code.</p>
+<p>The linter can be run in the command line by running <code>make lint</code>.</p>
+<h1><a class="header" href="#documentation" id="documentation">Documentation</a></h1>
+<p>This documentation is generated from markdown using <a href="https://rust-lang.github.io/mdBook/">mdbook</a>.</p>
+<p>Use the Makefile in the <code>client/</code> directory to update and view docs.</p>
+<pre><code class="language-shell">$ cd client/
+$ make build
+</code></pre>
+<p>The appropriate version of <code>mdbook</code> will automatically be installed to <code>./client/bin/mdbook</code>.</p>
+<p>To see a live-reloading preview of changes:</p>
+<pre><code class="language-shell">$ make serve
+</code></pre>
+<p>Open <a href="http://localhost:3000">localhost:3000</a> to view your rendered pages.</p>
+<h1><a class="header" href="#tips" id="tips">Tips</a></h1>
+<p>there are probably some</p>
+<h2><a class="header" href="#directory-structure" id="directory-structure">Directory Structure</a></h2>
+<pre><code class="language-bash">.
+├── api         # Kubernetes CRD base types
+├── bin         # Built executable binaries
+├── chart       # The UI helm chart
+├── client      # All client code and built code
+├── cmd         # Go main-package code
+├── controllers # Controllers for defined CRDs
+├── docs        # Markdown documentation
+├── e2e         # End-to-end tests
+├── hack        # Files used in local development
+└── internal    # Internal Go packages
+</code></pre>
+<h1><a class="header" href="#frequently-asked-questions" id="frequently-asked-questions">Frequently Asked Questions</a></h1>
+<p>General:</p>
+<ul>
+<li>Ensure that docker is installed and that the docker daemon is running. Your
+current user must have permission to interact with docker (e.g. you have the
+<code>docker</code> group).</li>
+<li>Sometimes you need to start fresh, run <code>make cinder-cleanup</code> to delete your local cinder cluster.</li>
+</ul>
+<p>How do I ...?</p>
+<ul>
+<li>Download A Kubeconfig
+<ul>
+<li>The dropdown menu to the left of the Critical Stack logo contains a link to download a kubeconfig. See <a href="/design.html#dex">Dex</a> for a visualization of downloading a kubeconfig.</li>
+</ul>
+</li>
+<li>Change My Password
+<ul>
+<li>To change your own password, navigate to the dropdown menu to the left of the Critical Stack logo and select &quot;Settings&quot;. From the &quot;User Profile&quot; tab select &quot;Password&quot; and enter your old password and your new password. An administrator can change your password by selecting &quot;Manage Users&quot; in &quot;Settings&quot;, right-clicking on your user, and selecting &quot;Reset Password&quot;.</li>
+</ul>
+</li>
+<li>Change My Default Namespace
+<ul>
+<li>Navigate to the dropdown menu to the left of the Critical Stack logo and select &quot;Settings&quot;. From the &quot;User Profile&quot; tab select &quot;Change Default Namespace&quot; and select your new default namespace from the dropdown menu.</li>
+</ul>
+</li>
+<li>Change Section Editor Modes
+<ul>
+<li>Navigate to the dropdown menu to the left of the Critical Stack logo and select &quot;Settings&quot;. Under &quot;User Interface&quot; select &quot;Section Editor&quot;. On this screen you can change the editor font size, the editor format (YAML or JSON), and the editor mode (vim or emacs).</li>
+</ul>
+</li>
+<li>Change The Default Kubeconfig Template
+<ul>
+<li>In the critical-stack namespace select Data Center, then navigate to &quot;Config&quot; -&gt; &quot;Config Maps&quot;. Right-click on kubeconfig-template and select &quot;Edit&quot;.</li>
+</ul>
+</li>
+<li><a href="/features/marketplace.html#adding-applications-directly">Add Marketplace Applications Directly</a></li>
+</ul>
+<p>Why ...?</p>
+<ul>
+<li>hack/tools/bin</li>
+<li>websocket problems</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
