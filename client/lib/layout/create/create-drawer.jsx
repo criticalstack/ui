@@ -6,17 +6,6 @@ import h from "../../helpers";
 import CreateContent from "./create-content";
 
 const useStyles = makeStyles(() => ({
-  root: {
-    // position: "fixed",
-    // bottom: "10px",
-    // right: "20px",
-    // zIndex: 1000
-  },
-  drawer: {
-    // width: "100%",
-    // height: "100%",
-    // flexShrink: 0,
-  },
   drawerPaper: {
     width: "100%",
     height: "100%",
