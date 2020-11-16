@@ -7,16 +7,15 @@ import CreateContent from "./create-content";
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: "flex",
-    position: "fixed",
-    bottom: "10px",
-    right: "20px",
-    zIndex: 1000
+    // position: "fixed",
+    // bottom: "10px",
+    // right: "20px",
+    // zIndex: 1000
   },
   drawer: {
-    width: "100%",
-    height: "100%",
-    flexShrink: 0,
+    // width: "100%",
+    // height: "100%",
+    // flexShrink: 0,
   },
   drawerPaper: {
     width: "100%",
@@ -28,18 +27,13 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingRight: "20px",
-    paddingBottom: "20px",
+    padding: "10px 7px 10px 20px",
     backgroundColor: "#31383d"
   },
   drawerHeaderTitle: {
-    float: "left",
-    marginLeft: "19px",
     display: "flex",
-    justifyContent: "center",
     alignItems: "center",
     fontSize: "40px",
-    marginBottom: "-10px",
     color: "#fff"
   },
   drawerHeaderDefault: {
