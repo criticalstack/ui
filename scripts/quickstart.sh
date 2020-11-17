@@ -159,7 +159,6 @@ spec:
     username: Administrator
 EOF
     fi
-#     * setup dex connector for github?
 fi
 DOC=""
 
