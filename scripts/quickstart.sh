@@ -141,13 +141,13 @@ DOC="Prometheus is used to provide cluster metrics. See https://criticalstack.gi
 if prompt_bool "🗠  Install prometheus and prometheus-adapter Helm charts?"; then
     echo "Downloading prometheus chart values ..."
     PROMETHEUS_CHART_VALUES="$(mktemp --tmpdir prom-values.XXXXXX.yaml)"
-    if ! curl -sfL -o "$PROMETHEUS_CHART_VALUES" \
+    if ! curl -sfL -w '' -o "$PROMETHEUS_CHART_VALUES" \
         "https://github.com/criticalstack/ui/raw/main/hack/prometheus/standalone.yaml"; then
         echo "Failed to download prometheus chart values."
         exit 1
     fi
     PROMETHEUS_ADAPTER_CHART_VALUES="$(mktemp --tmpdir prom-adapter-values.XXXXXX.yaml)"
-    if ! curl -sfL -o "$PROMETHEUS_CHART_VALUES" \
+    if ! curl -sfL -w '' -o "$PROMETHEUS_CHART_VALUES" \
         "https://github.com/criticalstack/ui/raw/main/hack/prometheus/adapter.yaml"; then
         echo "Failed to download prometheus-adapter chart values."
         exit 1
