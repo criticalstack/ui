@@ -1,6 +1,41 @@
 #!/bin/sh
 # shellcheck shell=dash
 
+usage() {
+    cat 1>&2 <<EOF
+Critical Stack Quickstart
+USAGE:
+    quickstart.sh [FLAGS] [OPTIONS]
+FLAGS:
+    -y          Disable confirmation prompt.
+    -h, --help  Prints help information
+OPTIONS:
+    TODO
+EOF
+}
+
+need_prompt="yes"
+
+for arg in "$@"; do
+    case "$arg" in
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        -y)
+            need_prompt="no"
+            ;;
+        *)
+            ;;
+    esac
+done
+
+if [ "$need_prompt" = "yes" ] && [ ! -t 0 ]; then
+    # No interactive stdin, save the rest of the script and execute
+    eval "$(cat /dev/stdin)" </dev/tty
+    exit
+fi
+
 PROMETHEUS_REPO_URL="https://prometheus-community.github.io/helm-charts"
 : "${PROMETHEUS_CHART_VERSION:=11.16.8}"
 : "${PROMETHEUS_ADAPTER_CHART_VERSION:=2.7.0}"
@@ -30,6 +65,7 @@ if [ -z "$NO_COLORS" ]; then
 fi
 
 prompt_bool() {
+    [ "$need_prompt" = "yes" ] || return 0
     while true; do
         read -r -p "${bold}$1 [Y/n$([ -z "$DOC" ] || echo "/?")]${normal} " answer
         case "$answer" in
@@ -84,7 +120,7 @@ if should_create_cluster; then
         [ -n "$DEBUG" ] && echo ", version:" && $CINDER_BIN version || echo "!"
     fi
 
-    echo "🖧 ${bold}Creating a local cluster ...${normal}"
+    echo "🖧  ${bold}Creating a local cluster ...${normal}"
     CLUSTER_NAME="critical-stack"
     run_and_print $CINDER_BIN create cluster --name "$CLUSTER_NAME" -c - <<EOF || exit 1
 apiVersion: cinder.crit.sh/v1alpha1
@@ -97,10 +133,13 @@ extraPortMappings:
 featureGates:
   MachineAPI: true
 EOF
+else
+    echo "Using existing cluster ($(kubectl config current-context))"
 fi
 
 DOC="Prometheus is used to provide cluster metrics. See https://criticalstack.github.io/ui/features/metrics.html"
 if prompt_bool "🗠  Install prometheus and prometheus-adapter Helm charts?"; then
+    echo "Downloading prometheus chart values ..."
     PROMETHEUS_CHART_VALUES="$(mktemp --tmpdir prom-values.XXXXXX.yaml)"
     if ! curl -sfL -o "$PROMETHEUS_CHART_VALUES" \
         "https://github.com/criticalstack/ui/raw/main/hack/prometheus/standalone.yaml"; then
@@ -114,13 +153,13 @@ if prompt_bool "🗠  Install prometheus and prometheus-adapter Helm charts?"; t
         exit 1
     fi
 
-    # install prometheus
+    echo "Installing prometheus Helm chart ..."
     run_and_print helm upgrade --install -n critical-stack prometheus \
         --repo="${PROMETHEUS_REPO_URL}" \
         --version="${PROMETHEUS_CHART_VERSION}" \
         prometheus -f "$PROMETHEUS_CHART_VALUES" >/dev/null
 
-    # install prometheus-adapter
+    echo "Installing prometheus-adapter Helm chart ..."
     run_and_print helm upgrade --install -n critical-stack prometheus-adapter \
         --repo="${PROMETHEUS_REPO_URL}" \
         --version="${PROMETHEUS_ADAPTER_CHART_VERSION}" \
@@ -130,20 +169,22 @@ DOC=""
 
 DOC="A tool for developers and cluster administrators. See https://criticalstack.github.io/ui/"
 if prompt_bool "📦 Install Critical Stack UI?"; then
+    echo "Installing Critical Stack UI Helm chart ..."
     run_and_print helm upgrade --install -n critical-stack cs-ui \
         --set tls.enabled=false \
         --set identity.issuerCAFile="" \
-        "$UI_CHART_URL"
+        "$UI_CHART_URL" >/dev/null
 
     DOC="This user can log in to the UI and will be granted the cluster-admin ClusterRole."
     if prompt_bool "👤 Create a default user?"; then
         DEFAULT_EMAIL="dev@criticalstack.com"
         DEFAULT_PASS="admin"
-        read -r -p "Email? [${DEFAULT_EMAIL}] " email
+        [ "$need_prompt" = "no" ] || read -r -p "Email? [${DEFAULT_EMAIL}] " email
         : "${email:=$DEFAULT_EMAIL}"
-        read -r -p "Password? [default is \"${DEFAULT_PASS}\"] " -s password && echo
+        [ "$need_prompt" = "no" ] || read -r -p "Password? [default is \"${DEFAULT_PASS}\"] " -s password && echo
         : "${password:=$DEFAULT_PASS}"
-        cat <<EOF | kubectl apply -f -
+        echo "Creating default user \"${email}\" ..."
+        kubectl apply -f - <<EOF >/dev/null
 kind: UserRequest
 apiVersion: criticalstack.com/v1alpha1
 metadata:
@@ -164,13 +205,15 @@ DOC=""
 
 DOC="Tools for monitoring kernel-level activity. See https://github.com/criticalstack/swoll/"
 if prompt_bool "💪 Install Swoll?"; then
-    run_and_print helm upgrade --install -n critical-stack --repo "$SWOLL_CHART_REPO" swoll swoll
+    echo "Installing swoll Helm chart ..."
+    run_and_print helm upgrade --install -n critical-stack --repo "$SWOLL_CHART_REPO" swoll swoll >/dev/null
 fi
 DOC=""
 
 DOC="Secure, reproducible application deployment and lifecycle management. See https://criticalstack.github.io/stackapps/"
 if prompt_bool "🥞 Install StackApps?"; then
-    run_and_print helm upgrade --install -n critical-stack cs-stackapps "$STACKAPPS_CHART_URL"
+    echo "Installing StackApps Helm chart ..."
+    run_and_print helm upgrade --install -n critical-stack cs-stackapps "$STACKAPPS_CHART_URL" >/dev/null
 fi
 DOC=""
 
