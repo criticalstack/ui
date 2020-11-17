@@ -4,6 +4,12 @@
 
 The Critical Stack UI! See [the design docs](https://criticalstack.github.io/ui/design.html) for more details.
 
+For a quick and easy local setup:
+
+```shell
+curl -sSfL https://get.crit.sh/quickstart | sh
+```
+
 ![demo](./docs/src/images/demo.gif)
 
 ## Features
@@ -22,7 +28,7 @@ The Critical Stack UI! See [the design docs](https://criticalstack.github.io/ui/
 Deployable as a Helm chart:
 
 ```shell
-helm install cs-ui https://github.com/criticalstack/ui/releases/download/chart%2Fv1.0.0/ui-v1.0.0.tgz
+helm install cs-ui https://github.com/criticalstack/ui/releases/download/chart%2Fv1.0.0/ui-v1.0.1.tgz
 ```
 
 See the [installation docs](https://criticalstack.github.io/ui/installation.html) for more.
