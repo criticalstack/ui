@@ -4,13 +4,15 @@
 
 The Critical Stack UI! See [the design docs](https://criticalstack.github.io/ui/design.html) for more details.
 
+![demo](./docs/src/images/demo.gif)
+
 For a quick and easy local setup:
 
 ```shell
 curl -sSfL https://get.crit.sh/quickstart | sh
 ```
 
-![demo](./docs/src/images/demo.gif)
+[![asciicast](https://asciinema.org/a/373515.svg)](https://asciinema.org/a/373515)
 
 ## Features
 
