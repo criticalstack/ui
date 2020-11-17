@@ -29,8 +29,6 @@ if [ -z "$NO_COLORS" ]; then
     normal=$(tput sgr0)
 fi
 
-# TODO(ktravis): add "?" for "help" to display help
-
 prompt_bool() {
     while true; do
         read -r -p "${bold}$1 [Y/n$([ -z "$DOC" ] || echo "/?")]${normal} " answer
@@ -52,7 +50,6 @@ should_create_cluster() {
         prompt_bool "🖧  Use existing cluster ($(kubectl config current-context))?" )
 }
 
-# * check for helm, install if needed
 if ! $HAS_HELM; then
     echo "${bold}⚓Helm is not installed, installing ...${normal}"
     read -r -p "Install to ... [$DEFAULT_INSTALL_DIR] " INSTALL_DIR
