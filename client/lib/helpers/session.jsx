@@ -148,7 +148,9 @@ export default {
         let result = data.context.result;
         window.localStorage["cs-config"] = JSON.stringify(result);
         window.localStorage["csos-user"] = JSON.stringify(result.user);
-        window.localStorage["csos-namespace"] = _.get(result.user, "defaultNamespace", "default");
+        if (!window.localStorage["csos-namespace"]) {
+          window.localStorage["csos-namespace"] = _.get(result.user, "defaultNamespace", "default");
+        }
         h.Vent.emit("main-menu:update");
         return callback(true);
       },
