@@ -86,3 +86,8 @@
   padding: 20px;
   background: #fff;
 }
+
+.create-drawer .cs-tabs .react-tabs__tab-panel--selected {
+  position: relative;
+  flex-grow: 1;
+}
