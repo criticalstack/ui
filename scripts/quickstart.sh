@@ -198,6 +198,18 @@ spec:
     defaultNamespace: critical-stack
     type: local
     username: Administrator
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: User
+  name: "$email"
 EOF
     fi
 fi
