@@ -12,6 +12,7 @@ import NodeWorkerCreate from "../../lib/datacenter/nodes/create";
 import PVCStorageClassCreate from "../../lib/datacenter/persistent-volume-claims/sc-create";
 import PVCPersistentVolumeCreate from "../../lib/datacenter/persistent-volume-claims/pv-create";
 import PodPresetCreate from "../../lib/datacenter/pod-presets/create";
+import RBACCreate from "../../lib/cluster/rbac/create";
 import ResourceQuotaCreate from "../../lib/datacenter/resource-quotas/create";
 import SecretCreate from "../../lib/datacenter/secrets/create";
 import ServiceAccountCreate from "../../lib/datacenter/service-accounts/create";
@@ -29,12 +30,14 @@ const resourceMetadata = {
   ClusterRole: {
     icon: "glyphicons glyphicons-file-lock",
     doc: "https://kubernetes.io/docs/reference/access-authn-authz/rbac/#clusterrole-example",
-    route: "clusterroles"
+    route: "clusterroles",
+    wizard: RBACCreate
   },
   ClusterRoleBinding: {
     icon: "glyphicons glyphicons-paired",
     doc: "https://kubernetes.io/docs/reference/access-authn-authz/rbac/#clusterrolebinding-example",
-    route: "clusterrolebindings"
+    route: "clusterrolebindings",
+    wizard: RBACCreate
   },
   ConfigMap: {
     icon: "csicon csicon-config-maps",
@@ -187,12 +190,14 @@ const resourceMetadata = {
   Role: {
     icon: "glyphicons glyphicons-file-lock",
     doc: "https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-example",
-    route: "roles"
+    route: "roles",
+    wizard: RBACCreate
   },
   RoleBinding: {
     icon: "glyphicons glyphicons-paired",
     doc: "https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-example",
-    route: "rolebindings"
+    route: "rolebindings",
+    wizard: RBACCreate
   },
   Secret: {
     icon: "csicon csicon-secrets",

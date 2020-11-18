@@ -91,7 +91,7 @@ export default withRouter(function Wizards(props) {
         style={{
           backgroundColor: thisContext ? "aliceblue" : "none"
         }}
-        onClick={() => resource.wizard(props)}
+        onClick={() => resource.wizard(props, resource.route)}
       >
         <div
           className={classes.entry}
