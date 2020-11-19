@@ -20,6 +20,7 @@ import {
 } from "../../lib/settings/general/schemas/password-force-reset";
 import connectorCreate from "../../lib/settings/general/sso/create";
 import YAML from "js-yaml";
+import resourceMetadata from "./resource-metadata";
 
 let menus = {};
 
@@ -788,6 +789,7 @@ menus["rbac-access"] = (d, multi) => {
       "verb": "create",
       "action": function() {
         h.Vent.emit("link", "/cluster/rbac/rolebindings", d);
+        resourceMetadata.RoleBinding.wizard({}, "rolebindings")
       }
     },
     {
@@ -797,6 +799,7 @@ menus["rbac-access"] = (d, multi) => {
       "verb": "create",
       "action": function() {
         h.Vent.emit("link", "/cluster/rbac/clusterrolebindings", d);
+        resourceMetadata.RoleBinding.wizard({}, "clusterrolebindings")
       }
     }
   ];

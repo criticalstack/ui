@@ -2,7 +2,6 @@ import h from "../../helpers";
 import Session from "../../helpers/session";
 
 export default ({}, route) => {
-  // let self = this;
   let type;
   let namespace = Session.namespace();
   let title = "";
@@ -33,7 +32,6 @@ export default ({}, route) => {
 
   h.Vent.emit("rbac:form-dialog:open", {
     isEdit: false,
-    open: true,
     type,
     title,
     icon: "glyphicons glyphicons-plus",
@@ -49,9 +47,6 @@ export default ({}, route) => {
           h.Vent.emit("notification", {
             message: `The ${type} ${x.metadata.name} was successfully added`
           });
-
-          h.Vent.emit("rbac:form-dialog:close");
-          // self.props.closeFormDialog();
 
           if (callback && typeof callback === "function") {
             return callback();

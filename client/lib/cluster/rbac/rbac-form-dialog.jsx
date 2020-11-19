@@ -24,9 +24,15 @@ class RBACFormDialog extends React.Component {
     super(props);
 
     this.state = {
+      callbackUrl: false,
+      dialogClass: "",
+      formData: {},
+      icon: "",
+      invalidName: false,
+      isEdit: false,
+      isLoading: true,
+      namespace: "",
       open: false,
-      type: "",
-      namespace: Session.namespace(),
       // Roles
       rawResources: [],
       rules: [{
@@ -44,11 +50,17 @@ class RBACFormDialog extends React.Component {
           name: {}
         }
       ],
-      callbackUrl: false,
-      invalidName: false,
-      isLoading: true
+      roleRefError: false,
+      roleRefKind: {},
+      roleRefName: "",
+      schema: {},
+      style: {},
+      title: "",
+      type: "",
+      uiSchema: {}
     };
 
+    this.baseState = this.state;
     this.handleResize = this.handleResize.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.removeItem = this.removeItem.bind(this);
@@ -82,9 +94,7 @@ class RBACFormDialog extends React.Component {
       e.preventDefault();
     }
 
-    this.setState({
-      open: false
-    });
+    this.setState(this.baseState);
   }
 
   handleResize() {
@@ -143,8 +153,8 @@ class RBACFormDialog extends React.Component {
       }
 
       self.setState({
-        open: params.open || false,
-        style: {},
+        open: true,
+        namespace: Session.namespace(),
         isEdit: params.isEdit || false,
         type: params.type || "",
         title: params.title || "",
@@ -170,7 +180,6 @@ class RBACFormDialog extends React.Component {
           label: params.type.replace("Binding", ""),
         },
         roleRefName: params.roleRefName || "",
-        roleRefErrors: false,
         subjects: params.subjects || [{
           kind: {},
           name: {}
@@ -761,7 +770,7 @@ class RBACFormDialog extends React.Component {
 
     let buttons = [
       {
-        type: "close",
+        type: "exit",
         action: () => this.handleClose()
       },
       {

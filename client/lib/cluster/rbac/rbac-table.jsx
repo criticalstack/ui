@@ -1,7 +1,6 @@
 "use strict";
 
 import React from "react";
-import Button from "@material-ui/core/Button";
 import TableBuilder from "../../../shared/table";
 import NoResult from "../../../shared/no-result";
 import LabelEditor from "../../../shared/label-editor";
@@ -10,7 +9,6 @@ import _ from "lodash";
 import moment from "moment";
 import h from "../../helpers";
 import RBACSubtable from "./rbac-subtable";
-import RBACFormDialog from "./rbac-form-dialog";
 import { withRouter } from "react-router";
 import { RBACContext } from "../../../shared/context/rbac";
 
@@ -185,7 +183,6 @@ class RBACTable extends React.Component {
             }
 
             this.setState({
-              isFormOpen: true,
               name: d.metadata.name,
               formData,
               rules,
