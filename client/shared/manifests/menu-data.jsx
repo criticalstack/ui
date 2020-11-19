@@ -816,6 +816,7 @@ menus["rbac-access"] = (d, multi) => {
             key: "Name",
             done: function(store) {
               h.Vent.emit("link", "/cluster/rbac/rolebindings", store);
+              resourceMetadata.RoleBinding.wizard({}, "rolebindings")
             }
           });
         }
@@ -829,6 +830,7 @@ menus["rbac-access"] = (d, multi) => {
             key: "Name",
             done: function(store) {
               h.Vent.emit("link", "/cluster/rbac/clusterrolebindings", store);
+              resourceMetadata.RoleBinding.wizard({}, "clusterrolebindings")
             }
           });
         }
