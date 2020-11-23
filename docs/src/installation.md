@@ -97,7 +97,7 @@ So that you can reach the UI by pointing your browser at [http://localhost:8000]
 
 The [chart values](./chart/values.yaml) do not specify a default user, but the [Tiltfile](./Tiltfile) does for the purpose of local
 development. The email address is `dev@criticalstack.com`, and the initial password is `admin`. See
-[configuration](/configuration.md) for more detail on changing initial credentials.
+[configuration](./configuration.md) for more detail on changing initial credentials.
 
 ### tl;dr
 
