@@ -102,6 +102,26 @@ func (x *Controller) sendMetrics(c echo.Context, query string, start, end time.T
 	})
 }
 
+func (x *Controller) sendRawMetrics(c echo.Context, query string, start, end time.Time) error {
+	var latestTimestamp time.Time
+
+	result, _, err := x.metrics.QueryRange(context.TODO(), query, promv1.Range{
+		Start: start,
+		End:   end,
+		Step:  60 * time.Second,
+	})
+	if err != nil {
+		return err
+	}
+
+	return x.sendJSONSuccess(c, Map{
+		"result": Map{
+			"latestTimestamp": latestTimestamp.UTC().Format("2006-01-02T15:04:05Z"),
+			"metrics":         result,
+		},
+	})
+}
+
 // PodMetrics returns usage metrics for the provided pod/container and metrics
 // type.
 func (x *Controller) PodMetrics(c echo.Context) error {
@@ -146,6 +166,12 @@ func (x *Controller) PodMetrics(c echo.Context) error {
 		query = fmt.Sprintf("sum(container_network_receive_bytes_per_second{%s})", labels)
 	case "/network/rx_errors_rate":
 		query = fmt.Sprintf("sum(container_network_receive_errors_per_second{%s})", labels)
+	case "/swoll/syscall_class_rate":
+		query = fmt.Sprintf("sum(rate(swoll_node_metrics_syscall_count{%s}[5m])) by (class)", labels)
+		return x.sendRawMetrics(c, query, start, end)
+	case "/swoll/syscall_error_class_rate":
+		query = fmt.Sprintf("sum(rate(swoll_node_metrics_syscall_count{%s,err!=\"OK\"}[5m])) by (class)", labels)
+		return x.sendRawMetrics(c, query, start, end)
 	default:
 		return errors.Errorf("invalid metrics name: %#v", metricsName)
 	}
