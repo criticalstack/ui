@@ -9,7 +9,7 @@ class Connectors extends React.Component {
     const config = {
       title: "Connectors",
       endpoint: "connectors",
-      resource: "connectors",
+      resource: "connectors.dex.coreos.com",
       api: "dex.coreos.com/v1",
       events: "Connectors",
       ignoreWebsocket: false,
