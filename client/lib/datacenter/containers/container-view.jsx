@@ -11,6 +11,7 @@ import ContainerTerminal from "../../../shared/websockets/terminal";
 import ContainerLogs from "../../../shared/websockets/logs";
 import ContainerEvents from "../../../shared/websockets/events";
 import ContainerMetrics from "./container-metrics";
+import ContainerSwoll from "./container-swoll";
 
 import MenuMaker from "../../../shared/menu-maker";
 import LabelEditor from "../../../shared/label-editor";
@@ -684,6 +685,13 @@ class ContainerView extends React.Component {
                   </span>
                 </Tab>
               ) : null}
+
+                <Tab>
+                  <span className="tab-label">
+                    <i className="glyphicons glyphicons-brain-ai tab-icon" />
+                    <span>Swoll</span>
+                  </span>
+                </Tab>
             </TabList>
 
             <TabPanel>
@@ -706,6 +714,10 @@ class ContainerView extends React.Component {
                 <ContainerMetrics pod={this.state.params.pod} container={this.state.params.id} />
               </TabPanel>
             ) : null}
+
+            <TabPanel>
+              <ContainerSwoll />
+            </TabPanel>
           </Tabs>
         </div>
       </div>
