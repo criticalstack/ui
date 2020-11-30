@@ -378,4 +378,5 @@ i.container-icon-warn {
   margin: 20px;
   display: grid;
   grid-template-columns: 50% 50%;
+  height: 60px;
 }

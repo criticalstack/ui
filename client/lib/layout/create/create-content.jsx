@@ -41,14 +41,18 @@ class CreateContent extends React.Component {
         style={{
           border: 0,
           padding: "20px",
-          height: "100%",
-          marginBottom: "60px"
+          flexGrow: "1",
+          marginBottom: "0",
+          display: "flex",
+          flexDirection: "column"
         }}
       >
         <Tabs
           className="cs-tabs"
           style={{
-            height: "100%"
+            flexGrow: "1",
+            display: "flex",
+            flexDirection: "column"
           }}
           selectedIndex={this.state.index}
           onSelect={(tab) => this.handleTabClick(tab)}
