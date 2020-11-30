@@ -716,7 +716,7 @@ class ContainerView extends React.Component {
             ) : null}
 
             <TabPanel>
-              <ContainerSwoll />
+              <ContainerSwoll pod={this.state.params.pod} />
             </TabPanel>
           </Tabs>
         </div>
