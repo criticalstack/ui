@@ -18,7 +18,7 @@ class ContainerMetrics extends React.Component {
     var self = this;
     var pod = self.props.pod;
     var container = self.props.container;
-
+    console.log(pod);
     let ns = window.localStorage["csos-namespace"];
 
     var cpuUsageRateUrl = `/metrics/cpu/usage_rate/pods/${pod}?namespace=${ns}&container=${container}`;
