@@ -18,22 +18,6 @@ type Metric struct {
 	Value     string    `json:"value"`
 }
 
-type swollMetrics struct {
-	Class     string `json:"class"`
-	Group     string `json:"group,omitempty"`
-	Syscall   string `json:"syscall,omitempty"`
-	Container string `json:"container,omitempty"`
-	Pod       string `json:"pod,omitempty"`
-	Namespace string `json:"namespace,omitempty"`
-	Error     string
-	Values    []Metric
-}
-
-type swollWrapper struct {
-	Title   string
-	Payload interface{}
-}
-
 func (m *Metric) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		Timestamp string `json:"timestamp"`
@@ -42,80 +26,6 @@ func (m *Metric) MarshalJSON() ([]byte, error) {
 		Timestamp: m.Timestamp.Format("2006-01-02T15:04:05Z"),
 		Value:     m.Value,
 	})
-}
-
-func wrapSwollMetrics(title string, payload interface{}) *swollWrapper {
-	return &swollWrapper{
-		Title:   title,
-		Payload: payload,
-	}
-}
-
-func (x *Controller) getSwollMetrics(container, pod, ns string, start, end time.Time) (*swollWrapper, error) {
-	queries := make([]string, 0)
-	groupby := []string{"syscall", "class", "group", "err"}
-
-	if container != "" {
-		queries = append(queries, fmt.Sprintf("container=\"%s\"", container))
-	} else {
-		groupby = append(groupby, "container")
-	}
-
-	if pod != "" {
-		queries = append(queries, fmt.Sprintf("pod=\"%s\"", pod))
-	} else {
-		groupby = append(groupby, "pod")
-	}
-
-	if ns != "" {
-		queries = append(queries, fmt.Sprintf("namespace=\"%s\"", ns))
-	} else {
-		groupby = append(groupby, "namespace")
-	}
-
-	result, _, err := x.metrics.QueryRange(context.TODO(),
-		fmt.Sprintf("sum(rate(swoll_node_metrics_syscall_count{%s}[5m])) by (%s)", strings.Join(queries, ","), strings.Join(groupby, ",")),
-		promv1.Range{
-			Start: start,
-			End:   end,
-			Step:  60 * time.Second,
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	ret := make([]*swollMetrics, 0)
-
-	for _, stream := range result.(model.Matrix) {
-		syscall := string(stream.Metric["syscall"])
-		errors := string(stream.Metric["err"])
-		class := string(stream.Metric["class"])
-		group := string(stream.Metric["group"])
-		ns := string(stream.Metric["namespace"])
-		ctr := string(stream.Metric["container"])
-
-		ent := &swollMetrics{
-			Class:     class,
-			Group:     group,
-			Syscall:   syscall,
-			Container: ctr,
-			Namespace: ns,
-			Error:     errors,
-			Values:    make([]Metric, 0)}
-		ret = append(ret, ent)
-
-		for _, sample := range stream.Values {
-			ent.Values = append(ent.Values, Metric{
-				Timestamp: parseMillisecondsFromEpoch(int64(sample.Timestamp)),
-				Value:     sample.Value.String(),
-			})
-
-			fmt.Println(sample)
-		}
-	}
-
-	return wrapSwollMetrics("syscall-metrics-total", ret), nil
 }
 
 func parseMillisecondsFromEpoch(n int64) time.Time {
@@ -192,24 +102,176 @@ func (x *Controller) sendMetrics(c echo.Context, query string, start, end time.T
 	})
 }
 
-func (x *Controller) sendRawMetrics(c echo.Context, query string, start, end time.Time) error {
-	var latestTimestamp time.Time
+type swollStats struct {
+	metrics            promv1.API
+	start, end         time.Time
+	ns, pod, container string
+	Metrics            map[string]interface{}
+}
 
-	result, _, err := x.metrics.QueryRange(context.TODO(), query, promv1.Range{
+func newSwollStats(metrics promv1.API, ns, pod, container string) *swollStats {
+	return &swollStats{
+		metrics:   metrics,
+		ns:        ns,
+		pod:       pod,
+		container: container,
+		Metrics:   make(map[string]interface{}),
+	}
+}
+
+type swollMetrics struct {
+	Totals []Metric `json:"totals,omitempty"`
+	Errors []Metric `json:"errors,omitempty"`
+}
+
+func newSwollMetrics() *swollMetrics {
+	return &swollMetrics{
+		Totals: make([]Metric, 0),
+		Errors: make([]Metric, 0),
+	}
+}
+
+func (m *swollMetrics) fill(totals []model.SamplePair, errors []model.SamplePair) {
+	if len(totals) > 0 {
+		for _, val := range totals {
+			m.Totals = append(m.Totals, Metric{
+				Timestamp: parseMillisecondsFromEpoch(int64(val.Timestamp)),
+				Value:     val.Value.String(),
+			})
+		}
+	}
+
+	if len(errors) > 0 {
+		for _, val := range errors {
+			m.Errors = append(m.Errors, Metric{
+				Timestamp: parseMillisecondsFromEpoch(int64(val.Timestamp)),
+				Value:     val.Value.String(),
+			})
+		}
+	}
+}
+
+func (s *swollStats) queryErrors(cond string, rg promv1.Range) map[string]*swollMetrics {
+	pq := fmt.Sprintf("sum(rate(swoll_node_metrics_syscall_count{%s}[5m])) by (err)", cond)
+	res, _, err := s.metrics.QueryRange(context.TODO(), pq, rg)
+	if err != nil {
+		return nil
+	}
+
+	ret := make(map[string]*swollMetrics)
+
+	for _, m := range res.(model.Matrix) {
+		errstr := string(m.Metric["err"])
+		ret[errstr] = newSwollMetrics()
+		ret[errstr].fill(m.Values, nil)
+	}
+
+	return ret
+}
+
+func (s *swollStats) querySingleKey(cond string, rg promv1.Range, key string) map[string]*swollMetrics {
+	// create the total count query
+	pqtotal := fmt.Sprintf("sum(rate(swoll_node_metrics_syscall_count{%s}[5m])) by (%s)", cond, key)
+	res, _, err := s.metrics.QueryRange(context.TODO(), pqtotal, rg)
+	if err != nil {
+		return nil
+	}
+
+	ret := make(map[string]*swollMetrics)
+
+	for _, m := range res.(model.Matrix) {
+		class := string(m.Metric[model.LabelName(key)])
+		metrics := newSwollMetrics()
+		ret[class] = metrics
+
+		metrics.fill(m.Values, nil)
+	}
+
+	// create the error (return != OK) count query
+	var errcond string
+
+	if cond != "" {
+		// we have conditions already, so append with a ','
+		errcond = fmt.Sprintf("%s,err!=\"OK\"", cond)
+	} else {
+		// no conditions passed, set a static conditional here.
+		errcond = "err!=\"OK\""
+	}
+
+	pqerror := fmt.Sprintf("sum(rate(swoll_node_metrics_syscall_count{%s}[5m])) by (%s)", errcond, key)
+	res, _, err = s.metrics.QueryRange(context.TODO(), pqerror, rg)
+	if err != nil {
+		return nil
+	}
+
+	for _, m := range res.(model.Matrix) {
+		class := string(m.Metric[model.LabelName(key)])
+
+		if _, ok := ret[class]; !ok {
+			ret[class] = newSwollMetrics()
+		}
+
+		ret[class].fill(nil, m.Values)
+	}
+
+	return ret
+}
+
+func (s *swollStats) querySyscalls(cond string, rg promv1.Range) map[string]*swollMetrics {
+	return s.querySingleKey(cond, rg, "syscall")
+}
+
+func (s *swollStats) queryClassifications(cond string, rg promv1.Range) map[string]*swollMetrics {
+	return s.querySingleKey(cond, rg, "class")
+}
+
+func (s *swollStats) Query(start, end time.Time) *swollStats {
+	cond := []string{}
+
+	if s.ns != "" {
+		cond = append(cond, fmt.Sprintf("namespace=\"%s\"", s.ns))
+	}
+
+	if s.pod != "" {
+		cond = append(cond, fmt.Sprintf("pod=\"%s\"", s.pod))
+	}
+
+	if s.container != "" {
+		cond = append(cond, fmt.Sprintf("container=\"%s\"", s.container))
+	}
+
+	prange := promv1.Range{
 		Start: start,
 		End:   end,
 		Step:  60 * time.Second,
-	})
+	}
+	conditions := strings.Join(cond, ",")
+
+	s.Metrics["classifications"] = s.queryClassifications(conditions, prange)
+	s.Metrics["errors"] = s.queryErrors(conditions, prange)
+	s.Metrics["syscalls"] = s.querySyscalls(conditions, prange)
+
+	return s
+
+}
+
+func (x *Controller) SwollMetrics(c echo.Context) error {
+	namespace := c.Param("namespace")
+	container := c.Param("container")
+	pod := c.Param("pod")
+
+	start, err := time.Parse("2006-01-02T15:04:05Z", c.QueryParam("start"))
 	if err != nil {
-		return err
+		start = time.Now().UTC().Add(-5 * time.Minute).Truncate(time.Minute)
 	}
 
-	return x.sendJSONSuccess(c, Map{
-		"result": Map{
-			"latestTimestamp": latestTimestamp.UTC().Format("2006-01-02T15:04:05Z"),
-			"metrics":         result,
-		},
-	})
+	end, err := time.Parse("2006-01-02T15:04:05Z", c.QueryParam("end"))
+	if err != nil {
+		end = time.Now().UTC().Truncate(time.Minute)
+	}
+
+	s := newSwollStats(x.metrics, namespace, pod, container)
+	return x.sendJSONSuccess(c, Map{"result": s.Query(start, end)})
 }
 
 // PodMetrics returns usage metrics for the provided pod/container and metrics
@@ -256,18 +318,10 @@ func (x *Controller) PodMetrics(c echo.Context) error {
 		query = fmt.Sprintf("sum(container_network_receive_bytes_per_second{%s})", labels)
 	case "/network/rx_errors_rate":
 		query = fmt.Sprintf("sum(container_network_receive_errors_per_second{%s})", labels)
-	case "/swoll/metrics":
-		metrics, err := x.getSwollMetrics(containerName, podName, namespace, start, end)
-		if err != nil {
-			return err
-		}
-
-		return x.sendJSONSuccess(c, Map{
-			"result": Map{
-				"latestTimestamp": nil,
-				"metrics":         metrics,
-			},
-		})
+	case "/system/syscall_rate":
+		query = fmt.Sprintf("sum(rate(swoll_node_metrics_syscall_count{%s}[5m]))", labels)
+	case "/system/syscall_errors_rate":
+		query = fmt.Sprintf("sum(rate(swoll_node_metrics_syscall_count{%s, err!=\"OK\"}[5m]))", labels)
 	default:
 		return errors.Errorf("invalid metrics name: %#v", metricsName)
 	}
@@ -300,19 +354,6 @@ func (x *Controller) NodeMetrics(c echo.Context) error {
 		query = fmt.Sprintf("node_network_receive_bytes_per_second{kubernetes_node=\"%s\"}", nodeName)
 	case "/network/rx_errors_rate":
 		query = fmt.Sprintf("node_network_receive_errors_per_second{kubernetes_node=\"%s\"}", nodeName)
-	case "/swoll/metrics":
-		metrics, err := x.getSwollMetrics("", "", "", start, end)
-		if err != nil {
-			return err
-		}
-
-		return x.sendJSONSuccess(c, Map{
-			"result": Map{
-				"latestTimestamp": nil,
-				"metrics":         metrics,
-			},
-		})
-
 	default:
 		return errors.Errorf("invalid metrics name: %#v", metricsName)
 	}
