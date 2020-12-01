@@ -1,4 +1,5 @@
 import React from "react";
+import h from "../../helpers";
 import { ResponsiveLine } from '@nivo/line'
 
 class ContainerSwoll extends React.Component {
@@ -8,23 +9,81 @@ class ContainerSwoll extends React.Component {
 
     this.state = {
       pod: props.pod,
-      container: props.container
+      container: props.container,
+      data: [],
+      plot: [],
+      type: "totals",
+      kind: "classifications"
     };
   }
 
-  render() {
+  componentDidMount() {
+    this.getSwollData();
+  };
+
+  processData(data) {
+    const type = this.state.type;
+    const kind = this.state.kind;
+    let result = Object.keys(data[kind]).map((key) => {
+      let entry = {
+        id: key,
+        color: "#ffa",
+        data: []
+      };
+      data[kind][key][type].map((plot) => {
+        entry.data.push({
+          x: plot.timestamp,
+          y: Number(plot.value)
+        });
+
+      });
+      return entry;
+    });
+    console.log(result, "ishere");
+    return result;
+  }
+
+  getSwollData() {
     let self = this;
     let pod = self.props.pod;
     let container = self.props.container;
-    console.log(pod);
 
     let ns = window.localStorage["csos-namespace"];
 
-    let swTotalRateUrl = `/metrics/swoll/metrics/pods/${pod}?namespace=${ns}`;
-    // let swErrorsTotalRateUrl = `/metrics/swoll/total_syscall_errors_rate/pods/${pod}?namespace=${ns}&container=${container}`; 
-    console.log(swTotalRateUrl);
+    let swTotalRateUrl = `/swoll/metrics/namespaces/${ns}/pods/${pod}/containers/${container}`;
+
+    self.tmpRequest = h.fetch({
+      dataType: "json",
+      endpoint: swTotalRateUrl,
+      resUrl: false,
+      success: function(data) {
+        self.tmpRequest = null;
+
+        if (data.context.result) {
+          data = data.context.result;
+        }
+
+        const plot = self.processData(data.Metrics);
+        console.log(plot);
+
+        self.setState({
+          data,
+          plot
+        });
+        console.log(self.state.plot, "isplot");
+      }
+
+    });
+
+  };
+
+
+  render() {
+    let self = this;
+    console.log(self.state.type, "hi");
+    let data = self.state.plot; 
     return (
-      <div className="container-chart-parent">
+      <div className="container-swoll-parent">
         <ResponsiveLine
         data = {data}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
