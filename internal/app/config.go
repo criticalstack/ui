@@ -55,6 +55,7 @@ type Config struct {
 	Address               string        `env:"address"`
 	CertFile              string        `env:"cert_file"`
 	KeyFile               string        `env:"key_file"`
+	DisableSwoll          bool          `env:"disable_swoll"`
 }
 
 func (c *Config) applyDefaults() {
