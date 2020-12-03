@@ -1,3 +1,7 @@
 .container-swoll-parent {
-  height: 500px !important;
+  height: 700px;;
+  width: 100%;
+  max-width: 1000px;
+  min-width: 900px;
+  margin: 20px;
 }

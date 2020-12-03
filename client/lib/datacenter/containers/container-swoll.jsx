@@ -1,6 +1,9 @@
 import React from "react";
 import h from "../../helpers";
-import { ResponsiveLine } from '@nivo/line'
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+import MyResponsiveLine from "../../../shared/nivo-databiz/line"; 
 
 class ContainerSwoll extends React.Component {
 
@@ -77,6 +80,12 @@ class ContainerSwoll extends React.Component {
 
   };
 
+  handleChange(event) {
+    this.setState({
+      kind: event.target.value
+    });
+  };
+
 
   render() {
     let self = this;
@@ -84,70 +93,13 @@ class ContainerSwoll extends React.Component {
     let data = self.state.plot; 
     return (
       <div className="container-swoll-parent">
-        <ResponsiveLine
-        data = {data}
-        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-        xScale={{ type: 'point' }}
-        yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
-        yFormat=" >-.2f"
-        axisTop={null}
-        axisRight={null}
-        axisBottom={{
-          orient: 'bottom',
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: 'timestamp',
-          legendOffset: 36,
-          legendPosition: 'middle'
-        }}
-        axisLeft={{
-          orient: 'left',
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: 'value',
-          legendOffset: -40,
-          legendPosition: 'middle'
-        }}
-        colors={{ scheme: 'dark2' }}
-        lineWidth={5}
-        pointSize={10}
-        pointColor={{ theme: 'background' }}
-        pointBorderWidth={2}
-        pointBorderColor={{ from: 'serieColor' }}
-        pointLabelYOffset={-12}
-        areaBaselineValue={30}
-        areaOpacity={0.3}
-        useMesh={true}
-        legends={[
-          {
-            anchor: 'bottom-right',
-            direction: 'column',
-            justify: false,
-            translateX: 100,
-            translateY: 0,
-            itemsSpacing: 0,
-            itemDirection: 'left-to-right',
-            itemWidth: 80,
-            itemHeight: 20,
-            itemOpacity: 0.75,
-            symbolSize: 12,
-            symbolShape: 'circle',
-            symbolBorderColor: 'rgba(0, 0, 0, .5)',
-            effects: [
-              {
-                on: 'hover',
-                style: {
-                  itemBackground: 'rgba(0, 0, 0, .03)',
-                  itemOpacity: 1
-                }
-              }
-            ]
-          }
-        ]}
-      />
-        </div>
+        <RadioGroup row aria-label="grouping" name="grouping" defaultValue="classifications" onChange={(event) => this.handleChange(event)}>
+          <FormControlLabel value="classifications" control={<Radio />} label="Classifications" labelPlacement="end" />
+          <FormControlLabel value="errors" control={<Radio />} label="Errors" />
+          <FormControlLabel value="syscalls" control={<Radio />} label="System calls" />
+        </RadioGroup>
+        <MyResponsiveLine data={data} />
+      </div>
     );
   }
 }
