@@ -24,6 +24,16 @@ class ContainerSwoll extends React.Component {
     this.getSwollData();
   };
 
+   handleChange(e) {
+    this.setState({
+      kind: e.target.value,
+    }, () => {
+      this.setState({
+        plot: this.processData(this.state.data.Metrics)
+      })
+    });
+  };
+
   processData(data) {
     const type = this.state.type;
     const kind = this.state.kind;
@@ -42,7 +52,6 @@ class ContainerSwoll extends React.Component {
       });
       return entry;
     });
-    console.log(result, "ishere");
     return result;
   }
 
@@ -65,35 +74,26 @@ class ContainerSwoll extends React.Component {
         if (data.context.result) {
           data = data.context.result;
         }
-
         const plot = self.processData(data.Metrics);
-        console.log(plot);
-
         self.setState({
           data,
           plot
         });
-        console.log(self.state.plot, "isplot");
       }
-
-    });
-
-  };
-
-  handleChange(event) {
-    this.setState({
-      kind: event.target.value
     });
   };
-
 
   render() {
-    let self = this;
-    console.log(self.state.type, "hi");
-    let data = self.state.plot; 
+    let kind = this.state.kind;
+    let data = this.state.plot;
     return (
       <div className="container-swoll-parent">
-        <RadioGroup row aria-label="grouping" name="grouping" defaultValue="classifications" onChange={(event) => this.handleChange(event)}>
+        <RadioGroup 
+        row aria-label="grouping" 
+        name="grouping" 
+        defaultValue="classifications" 
+        onChange={(e) => this.handleChange(e)}
+      >
           <FormControlLabel value="classifications" control={<Radio />} label="Classifications" labelPlacement="end" />
           <FormControlLabel value="errors" control={<Radio />} label="Errors" />
           <FormControlLabel value="syscalls" control={<Radio />} label="System calls" />
