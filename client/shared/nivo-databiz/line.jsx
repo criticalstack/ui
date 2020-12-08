@@ -1,65 +1,68 @@
 import React from "react";
-import { ResponsiveLine } from '@nivo/line'
+import { ResponsiveLine } from "@nivo/line";
 
 const MyResponsiveLine = (props) => {
   return (
     <ResponsiveLine
         data={props.data}
-        margin={{ top: 50, right: 100, bottom: 80, left: 80 }}
-        xScale={{ type: 'point' }}
-        yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
+        margin={{ top: 50, right: 130, bottom: 80, left: 80 }}
+        xScale={{ type: "point" }}
+        yScale={{ type: "linear", min: "auto", max: "auto", stacked: true, reverse: false }}
         yFormat=" >-.2f"
         curve="monotoneY"
         axisTop={null}
         axisRight={null}
         axisBottom={{
-            orient: 'bottom',
+            orient: "bottom",
             tickSize: 5,
-            tickPadding: 5,
+            tickPadding: 8,
             tickRotation: 0,
-            legend: 'Timestamp',
-            legendOffset: 40,
-            legendPosition: 'middle'
+            legend: "Timestamp",
+            legendOffset: 50,
+            legendPosition: "middle"
         }}
         axisLeft={{
-            orient: 'left',
+            orient: "left",
             tickSize: 5,
-            tickPadding: 5,
+            tickPadding: 8,
             tickRotation: 0,
-            legend: 'Value',
-            legendOffset: -40,
-            legendPosition: 'middle'
+            legend: "Value",
+            legendOffset: -50,
+            legendPosition: "middle"
         }}
-        colors={{ scheme: 'set2' }}
+        colors={{ scheme: "set3" }}
         pointSize={10}
-        pointColor={{ from: 'color', modifiers: [] }}
+        pointColor={{ from: "color", modifiers: [] }}
         pointBorderWidth={2}
-        pointBorderColor={{ from: 'color', modifiers: [] }}
+        pointBorderColor={{ from: "color", modifiers: [] }}
         pointLabelYOffset={-12}
-        enableArea={false}
+        enableSlices="x"
         areaBaselineValue={20}
         areaOpacity={0.15}
         useMesh={true}
         legends={[
             {
-                anchor: 'right',
-                direction: 'column',
+                anchor: "right",
+                direction: "column",
                 justify: false,
+                overflow: "scroll",
+                top: "regular",
+                bottom: "regular",
                 translateX: 100,
                 translateY: 0,
                 itemsSpacing: 5,
-                itemDirection: 'left-to-right',
+                itemDirection: "left-to-right",
                 itemWidth: 75,
                 itemHeight: 25,
                 itemOpacity: 0.75,
                 symbolSize: 12,
-                symbolShape: 'square',
-                symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                symbolShape: "square",
+                symbolBorderColor: "rgba(0, 0, 0, .5)",
                 effects: [
                     {
-                        on: 'hover',
+                        on: "hover",
                         style: {
-                            itemBackground: 'rgba(0, 0, 0, .03)',
+                            itemBackground: "rgba(0, 0, 0, .03)",
                             itemOpacity: 1
                         }
                     }

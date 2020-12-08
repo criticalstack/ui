@@ -1,9 +1,9 @@
 import React from "react";
 import h from "../../helpers";
-import RadioGroup from '@material-ui/core/RadioGroup';
+import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
-import MyResponsiveLine from "../../../shared/nivo-databiz/line"; 
+import MyResponsiveLine from "../../../shared/nivo-databiz/line";
 
 class ContainerSwoll extends React.Component {
 
@@ -30,7 +30,7 @@ class ContainerSwoll extends React.Component {
     }, () => {
       this.setState({
         plot: this.processData(this.state.data.Metrics)
-      })
+      });
     });
   };
 
@@ -84,14 +84,14 @@ class ContainerSwoll extends React.Component {
   };
 
   render() {
-    let kind = this.state.kind;
     let data = this.state.plot;
     return (
       <div className="container-swoll-parent">
-        <RadioGroup 
-        row aria-label="grouping" 
-        name="grouping" 
-        defaultValue="classifications" 
+        <RadioGroup
+        className="r-options"
+        row aria-label="grouping"
+        name="grouping"
+        defaultValue="classifications"
         onChange={(e) => this.handleChange(e)}
       >
           <FormControlLabel value="classifications" control={<Radio />} label="Classifications" labelPlacement="end" />
