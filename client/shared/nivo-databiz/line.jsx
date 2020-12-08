@@ -1,11 +1,13 @@
 import React from "react";
 import { ResponsiveLine } from "@nivo/line";
+import { ThemeProvider, SvgWrapper } from "@nivo/core";
 
 const MyResponsiveLine = (props) => {
+
   return (
     <ResponsiveLine
         data={props.data}
-        margin={{ top: 50, right: 130, bottom: 80, left: 80 }}
+        margin={{ top: 50, right: 200, bottom: 100, left: 80 }}
         xScale={{ type: "point" }}
         yScale={{ type: "linear", min: "auto", max: "auto", stacked: true, reverse: false }}
         yFormat=" >-.2f"
@@ -30,13 +32,14 @@ const MyResponsiveLine = (props) => {
             legendOffset: -50,
             legendPosition: "middle"
         }}
-        colors={{ scheme: "set3" }}
+        theme={{ background: "#fff"}}
+        colors={{ scheme: "paired" }}
         pointSize={10}
         pointColor={{ from: "color", modifiers: [] }}
         pointBorderWidth={2}
         pointBorderColor={{ from: "color", modifiers: [] }}
         pointLabelYOffset={-12}
-        enableSlices="x"
+        enableSlices={false}
         areaBaselineValue={20}
         areaOpacity={0.15}
         useMesh={true}
@@ -47,7 +50,7 @@ const MyResponsiveLine = (props) => {
                 justify: false,
                 overflow: "scroll",
                 top: "regular",
-                bottom: "regular",
+                bottom: 50,
                 translateX: 100,
                 translateY: 0,
                 itemsSpacing: 5,

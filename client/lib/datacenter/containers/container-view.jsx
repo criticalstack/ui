@@ -688,7 +688,7 @@ class ContainerView extends React.Component {
 
                 <Tab>
                   <span className="tab-label">
-                    <i className="glyphicons glyphicons-brain-ai tab-icon" />
+                    <i className="swollicon swollicon-swoll_icon tab-icon" />
                     <span>Swoll</span>
                   </span>
                 </Tab>

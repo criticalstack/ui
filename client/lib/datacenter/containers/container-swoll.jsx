@@ -40,7 +40,7 @@ class ContainerSwoll extends React.Component {
     let result = Object.keys(data[kind]).map((key) => {
       let entry = {
         id: key,
-        color: "#ffa",
+        color: "",
         data: []
       };
       data[kind][key][type].map((plot) => {
