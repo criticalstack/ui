@@ -127,7 +127,7 @@ const resourceMetadata = {
     doc: "https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
     route: "namespaces",
     wizard: NamespaceCreate,
-		resourceAccess: "namespaces"
+    resourceAccess: "namespaces"
   },
   NetworkPolicy: {
     icon: "csicon csicon-mp-networking",
@@ -159,7 +159,7 @@ const resourceMetadata = {
     doc: "https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims",
     route: "persistentvolumeclaims",
     menu: "persistent-volume-claims",
-    wizard: PVCStorageClassCreate,
+    wizard: PVCStorageClassCreate
   },
   PVCPersistentVolume: {
     icon: "csicon csicon-persistent-volume-claims",
