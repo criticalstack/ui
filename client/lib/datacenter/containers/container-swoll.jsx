@@ -1,5 +1,11 @@
 import React from "react";
 import h from "../../helpers";
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import NativeSelect from "@material-ui/core/NativeSelect";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
@@ -24,13 +30,19 @@ class ContainerSwoll extends React.Component {
     this.getSwollData();
   };
 
-   handleChange(e) {
+  handleChange(e) {
     this.setState({
       kind: e.target.value,
     }, () => {
       this.setState({
         plot: this.processData(this.state.data.Metrics)
       });
+    });
+  };
+
+  handleSelectChange(e) {
+    this.setState({
+      type: e.target.value
     });
   };
 
@@ -83,21 +95,34 @@ class ContainerSwoll extends React.Component {
     });
   };
 
+
+
   render() {
+
     let data = this.state.plot;
+    let classOptions = this.state.kind == "classifications" ? 
+      <FormControl className="s-options">
+        <Select value={this.state.type} onChange={(e) => this.handleSelectChange(e)}>
+          <MenuItem value={"totals"}>Totals</MenuItem>
+          <MenuItem value={"errors"}>Errors</MenuItem>
+        </Select>
+      </FormControl> 
+      : "";
+
     return (
       <div className="container-swoll-parent">
         <RadioGroup
-        className="r-options"
-        row aria-label="grouping"
-        name="grouping"
-        defaultValue="classifications"
-        onChange={(e) => this.handleChange(e)}
+          className="r-options"
+          row aria-label="grouping"
+          name="grouping"
+          defaultValue="classifications"
+          onChange={(e) => this.handleChange(e)}
       >
           <FormControlLabel value="classifications" control={<Radio />} label="Classifications" labelPlacement="end" />
           <FormControlLabel value="errors" control={<Radio />} label="Errors" />
           <FormControlLabel value="syscalls" control={<Radio />} label="System calls" />
         </RadioGroup>
+      {classOptions}
         <MyResponsiveLine data={data} />
       </div>
     );

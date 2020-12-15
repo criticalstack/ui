@@ -1,6 +1,5 @@
 import React from "react";
 import { ResponsiveLine } from "@nivo/line";
-import { ThemeProvider, SvgWrapper } from "@nivo/core";
 
 const MyResponsiveLine = (props) => {
 
