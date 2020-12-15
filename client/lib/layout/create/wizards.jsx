@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { withRouter } from "react-router";
 import { makeStyles } from "@material-ui/core/styles";
 import h from "../../helpers";
 import resourceMetadata from "../../../shared/manifests/resource-metadata";
+import { RBACContext } from "../../../shared/context/rbac";
+import _ from "lodash";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -31,6 +33,10 @@ const useStyles = makeStyles(() => ({
     marginRight: 40,
     transition: ".3s",
     animation: "fadein 1s"
+  },
+  forbidden: {
+    pointerEvents: "none",
+    opacity: ".6"
   },
   entry: {
     position: "relative",
@@ -68,6 +74,7 @@ const useStyles = makeStyles(() => ({
 
 export default withRouter(function Wizards(props) {
   const classes = useStyles();
+  const context = useContext(RBACContext);
   let wizards = [];
   Object.keys(resourceMetadata).filter((key) => {
     if (resourceMetadata[key].hasOwnProperty("wizard")) {
@@ -78,6 +85,7 @@ export default withRouter(function Wizards(props) {
     const resource = resourceMetadata[entry];
     const index = window.location.pathname.split("/").pop();
     let path = resource.hasOwnProperty("menu") ? resource.menu : resource.route;
+    let canCreate = _.get(context.access, [resource.resourceAccess, "create"], true);
     if (resource.hasOwnProperty("path")) {
       path = resource.path;
     }
@@ -87,11 +95,11 @@ export default withRouter(function Wizards(props) {
     const wizard = (
       <div
         key={index}
-        className={`${classes.entryParent} wizard-resource scale`}
+        className={`${classes.entryParent} wizard-resource scale ${canCreate ? "" : classes.forbidden}`}
         style={{
           backgroundColor: thisContext ? "aliceblue" : "none"
         }}
-        onClick={() => resource.wizard(props)}
+        onClick={() => resource.wizard(props, resource.route)}
       >
         <div
           className={classes.entry}

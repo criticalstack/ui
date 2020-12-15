@@ -724,6 +724,8 @@ class SectionEditor extends React.Component {
       delete data.events;
     }
 
+    let resourceAccess = _.get(resourceMetadata, `${this.state.current.kind}.resourceAccess`, "None");
+
     let buttons = {
       create: [
         {
@@ -742,13 +744,14 @@ class SectionEditor extends React.Component {
         },
         {
           type: "create",
+          ...(_.get(this.context.access, [resourceAccess, "create"], true) ? {} : {disabled: true}),
           action: () => this.onSaveCreate()
         }
       ],
       edit: [
         {
           type: "save",
-          ...(_.get(this.context.access, [this.props.resourceAccess, "update"], true) ? {} : {disabled: true}),
+          ...(_.get(this.context.access, [resourceAccess, "update"], true) ? {} : {disabled: true}),
           action: () => this.onSaveEdit()
         }
       ]

@@ -14,6 +14,7 @@ import ConfirmBox from "./confirm-box";
 import FormDialog from "./form-dialog";
 import FormDialogAdvanced from "./form-dialog-advanced";
 import ManifestDialogSimple from "./manifest-dialog-simple";
+import RBACFormDialog from "../cluster/rbac/rbac-form-dialog";
 import FullscreenEditor from "./fullscreen-editor";
 import { withRouter } from "react-router";
 import ThePast from "./the-past";
@@ -102,6 +103,7 @@ class Layout extends React.Component {
               <FormDialogAdvanced />
               <FullscreenEditor />
               <ManifestDialogSimple />
+              <RBACFormDialog />
               <CreateDrawer />
               <SectionDrawer />
             </div>

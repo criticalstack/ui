@@ -24,8 +24,15 @@ class RBACFormDialog extends React.Component {
     super(props);
 
     this.state = {
-      type: props.type,
-      namespace: Session.namespace(),
+      callbackUrl: false,
+      dialogClass: "",
+      formData: {},
+      icon: "",
+      invalidName: false,
+      isEdit: false,
+      isLoading: true,
+      namespace: "",
+      open: false,
       // Roles
       rawResources: [],
       rules: [{
@@ -43,10 +50,17 @@ class RBACFormDialog extends React.Component {
           name: {}
         }
       ],
-      callbackUrl: false,
-      invalidName: false
+      roleRefError: false,
+      roleRefKind: {},
+      roleRefName: "",
+      schema: {},
+      style: {},
+      title: "",
+      type: "",
+      uiSchema: {}
     };
 
+    this.baseState = this.state;
     this.handleResize = this.handleResize.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.removeItem = this.removeItem.bind(this);
@@ -54,41 +68,7 @@ class RBACFormDialog extends React.Component {
 
   componentDidMount() {
     let self = this;
-    let type = this.props.type;
     this.bindEvents();
-
-    if (type === "Role" || type === "ClusterRole") {
-      let csConfig = JSON.parse(localStorage.getItem("cs-config")) || {};
-      let rawResources = [];
-      let result = csConfig.kubernetes.resources;
-
-      result.map(x => {
-        let groupVersion = x.apiVersion;
-        if (groupVersion === "v1") {
-          groupVersion = "";
-        } else {
-          groupVersion = groupVersion.split("/")[0];
-        }
-
-        let resource = {
-          value: x.name,
-          label: x.name,
-          verbs: x.verbs,
-          namespaced: x.namespaced,
-          groupVersion: groupVersion
-        };
-        rawResources.push(resource);
-      });
-      self.setState({
-        rawResources: rawResources || []
-      });
-    } else {
-      if (type === "RoleBinding") {
-        this.fetchFormData("rawRoles");
-      }
-      this.fetchFormData("rawClusterRoles");
-      this.fetchFormData("rawUsers");
-    }
 
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
 
@@ -109,6 +89,14 @@ class RBACFormDialog extends React.Component {
     window.removeEventListener("resize", this.handleResize);
   }
 
+  handleClose(e) {
+    if (typeof e !== "undefined") {
+      e.preventDefault();
+    }
+
+    this.setState(this.baseState);
+  }
+
   handleResize() {
     h.Vent.emit("dialog-body:scroll");
   }
@@ -124,10 +112,51 @@ class RBACFormDialog extends React.Component {
     let self = this;
 
     h.Vent.addListener("rbac:form-dialog:open", function(params) {
+      let type = params.type;
 
       self.setState({
-        style: {},
+        isLoading: true
+      });
+
+      if (type === "Role" || type === "ClusterRole") {
+        let csConfig = JSON.parse(localStorage.getItem("cs-config")) || {};
+        let rawResources = [];
+        let result = csConfig.kubernetes.resources;
+
+        result.map(x => {
+          let groupVersion = x.apiVersion;
+          if (groupVersion === "v1") {
+            groupVersion = "";
+          } else {
+            groupVersion = groupVersion.split("/")[0];
+          }
+
+          let resource = {
+            value: x.name,
+            label: x.name,
+            verbs: x.verbs,
+            namespaced: x.namespaced,
+            groupVersion: groupVersion
+          };
+          rawResources.push(resource);
+        });
+        self.setState({
+          rawResources: rawResources || [],
+          isLoading: false
+        });
+      } else {
+        if (type === "RoleBinding") {
+          self.fetchFormData("rawRoles");
+        }
+        self.fetchFormData("rawClusterRoles");
+        self.fetchFormData("rawUsers");
+      }
+
+      self.setState({
+        open: true,
+        namespace: Session.namespace(),
         isEdit: params.isEdit || false,
+        type: params.type || "",
         title: params.title || "",
         icon: params.icon || "",
         dialogClass: params.dialogClass || "",
@@ -147,11 +176,10 @@ class RBACFormDialog extends React.Component {
         schema: params.schema || {},
         uiSchema: params.uiSchema || {},
         roleRefKind: params.roleRefKind || {
-          value: self.props.type.replace("Binding", ""),
-          label: self.props.type.replace("Binding", ""),
+          value: params.type.replace("Binding", ""),
+          label: params.type.replace("Binding", ""),
         },
         roleRefName: params.roleRefName || "",
-        roleRefErrors: false,
         subjects: params.subjects || [{
           kind: {},
           name: {}
@@ -238,6 +266,10 @@ class RBACFormDialog extends React.Component {
             [dataType]: rawUsers || []
           });
         }
+
+        self.setState({
+          isLoading: false
+        });
       }
     });
   }
@@ -458,7 +490,7 @@ class RBACFormDialog extends React.Component {
       return;
     } else if (self.state.onAction && typeof self.state.onAction === "function") {
       self.state.onAction(form, function() {
-        self.props.closeFormDialog();
+        self.handleClose();
       });
     }
 
@@ -484,10 +516,10 @@ class RBACFormDialog extends React.Component {
       roleRefName,
       roleRefError,
       namespace,
-      invalidName
+      invalidName,
+      type: resourceType
     } = this.state;
 
-    let resourceType = this.props.type;
     let docLink = <a
         className="form-dialog-title-doclink"
         href={_.get(resourceMetadata, `${resourceType}.doc`, false)}
@@ -738,8 +770,8 @@ class RBACFormDialog extends React.Component {
 
     let buttons = [
       {
-        type: "close",
-        action: () => this.props.closeFormDialog()
+        type: "exit",
+        action: () => this.handleClose()
       },
       {
         type: "ok",
@@ -749,7 +781,7 @@ class RBACFormDialog extends React.Component {
 
     return (
       <DialogMaker
-        open={this.props.isFormOpen}
+        open={this.state.open}
         onRequestClose={this.handleClose}
         title={dialogTitle}
         body={body}

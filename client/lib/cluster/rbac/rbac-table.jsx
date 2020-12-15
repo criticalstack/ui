@@ -1,7 +1,6 @@
 "use strict";
 
 import React from "react";
-import Button from "@material-ui/core/Button";
 import TableBuilder from "../../../shared/table";
 import NoResult from "../../../shared/no-result";
 import LabelEditor from "../../../shared/label-editor";
@@ -10,7 +9,6 @@ import _ from "lodash";
 import moment from "moment";
 import h from "../../helpers";
 import RBACSubtable from "./rbac-subtable";
-import RBACFormDialog from "./rbac-form-dialog";
 import { withRouter } from "react-router";
 import { RBACContext } from "../../../shared/context/rbac";
 
@@ -20,143 +18,7 @@ class RBACTable extends React.Component {
 
     this.state = {
       loading: true,
-      isFormOpen: false,
     };
-
-    this.closeFormDialog = this.closeFormDialog.bind(this);
-  }
-
-  componentDidMount() {
-    // if this exists we were redirected from the access page
-    let state = _.get(this.props.history.location, "state");
-    if (typeof state !== "undefined") {
-      this.handleAdd();
-    }
-  }
-
-  closeFormDialog() {
-    this.setState({
-      isFormOpen: false
-    });
-  }
-
-  handleAdd() {
-    let { type } = this.props;
-    if (type === "Role" || type === "ClusterRole") {
-      this.setState({isFormOpen: true}, this.emitAddRole);
-    } else {
-      this.setState({isFormOpen: true}, this.emitAddBinding);
-    }
-  }
-
-  emitAddRole() {
-    let self = this;
-
-    let { type, namespace } = self.props;
-
-    h.Vent.emit("rbac:form-dialog:open", {
-      isEdit: false,
-      ...(type === "Role" ? {
-        title: `Add a ${type} to ${namespace}`,
-        namespace: namespace,
-      } : {
-        title: `Add a ${type}`
-      }),
-      icon: "glyphicons glyphicons-plus",
-      type: type,
-      onAction: function(form, callback) {
-        h.fetch({
-          method: "post",
-          ...(type === "Role" ? {
-            endpoint: h.ns("/roles")
-          } : {
-            endpoint: "/clusterroles",
-          }),
-          body: JSON.stringify(form),
-          success: function(u) {
-
-            let x = u.context.result;
-            h.Vent.emit("notification", {
-              message: `The ${type} ${x.metadata.name} was successfully added`
-            });
-
-            h.Vent.emit("layout:form-dialog:close");
-
-            if (callback && typeof callback === "function") {
-              return callback();
-            }
-            return true;
-          },
-          error: function(a) {
-            h.Vent.emit("request-error:confirm-box", a);
-
-            h.Vent.emit("notification", {
-              message: `Failed to add ${type}`
-            });
-
-            if (callback && typeof callback === "function") {
-              return callback();
-            }
-            return true;
-          }
-        });
-      }
-    });
-  }
-
-  emitAddBinding() {
-    let self = this;
-    let { type, namespace } = self.props;
-
-    h.Vent.emit("rbac:form-dialog:open", {
-      open: true,
-      isEdit: false,
-      ...(type === "RoleBinding" ? {
-        title: `Add a ${type} to ${namespace}`,
-        namespace: namespace,
-      } : {
-        title: `Add a ${type}`
-      }),
-      icon: "glyphicons glyphicons-plus",
-      type: type,
-      onAction: function(form, callback) {
-        h.fetch({
-          method: "post",
-          ...(type === "RoleBinding" ? {
-            endpoint: h.ns("/rolebindings")
-          } : {
-            endpoint: "/clusterrolebindings"
-          }),
-          body: JSON.stringify(form),
-          success: function(u) {
-
-            let x = u.context.result;
-            h.Vent.emit("notification", {
-              message: `The ${type} ${x.metadata.name} was successfully added`
-            });
-
-            h.Vent.emit("layout:form-dialog:close");
-
-            if (callback && typeof callback === "function") {
-              return callback();
-            }
-            return true;
-          },
-          error: function(a) {
-            h.Vent.emit("request-error:confirm-box", a);
-
-            h.Vent.emit("notification", {
-              message: `Failed to add ${type}`
-            });
-
-            if (callback && typeof callback === "function") {
-              return callback();
-            }
-            return true;
-          }
-        });
-      }
-    });
   }
 
   emitEdit() {
@@ -175,6 +37,8 @@ class RBACTable extends React.Component {
 
     h.Vent.emit("rbac:form-dialog:open", {
       isEdit: true,
+      open: true,
+      type,
       title: `Edit ${type} ${name}`,
       icon: "glyphicons glyphicons-pencil",
       // Role
@@ -232,36 +96,6 @@ class RBACTable extends React.Component {
         });
       }
     });
-  }
-
-  controls() {
-    let { type } = this.props;
-
-    let ctrlButtons = (
-      <div>
-        {
-          _.get(this.context.access, [`${this.props.route}.rbac.authorization.k8s.io`, "create"], true) && (
-            <Button
-              disableFocusRipple={true}
-              disableRipple={true}
-              variant="contained"
-              className="dialog-button btn-create"
-              onClick={() => this.handleAdd()}
-            >
-              <i className="glyphicons glyphicons-plus dialog-button-icon btn-create" />
-              Create {type}
-            </Button>
-          )
-        }
-      </div>
-    );
-
-    return (
-      <div
-        className="settings-options">
-        {ctrlButtons}
-      </div>
-    );
   }
 
   createRow(d) {
@@ -349,7 +183,6 @@ class RBACTable extends React.Component {
             }
 
             this.setState({
-              isFormOpen: true,
               name: d.metadata.name,
               formData,
               rules,
@@ -538,23 +371,11 @@ class RBACTable extends React.Component {
       ]
     };
 
-    let tableControls = this.controls();
     let table = this.renderTableOrNoData(head);
 
     return (
       <div>
-        {tableControls}
         {table}
-        {
-          this.state.isFormOpen && (
-            <RBACFormDialog
-              namespace={this.props.namespace}
-              type={this.props.type}
-              isFormOpen={this.state.isFormOpen}
-              closeFormDialog={this.closeFormDialog}
-            />
-          )
-        }
       </div>
     );
   }
