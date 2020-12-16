@@ -267,6 +267,8 @@ func (x *Controller) loadRoutes(e *echo.Echo, https bool) {
 	apiv1.GET("/metrics/:metricsType/:metricsName/pods", x.PodMetrics)
 	apiv1.GET("/metrics/:metricsType/:metricsName/pods/:name", x.PodMetrics)
 
+	apiv1.GET("/metrics/query", x.tempSankeyMetrics)
+
 	// containers
 	apiv1.GET("/namespaces/:namespace/containers", x.ContainersListAll)
 	apiv1.GET("/namespaces/:namespace/pods/:name/containers/:containerName", x.ContainerStatus)
