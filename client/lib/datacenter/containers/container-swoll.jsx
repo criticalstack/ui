@@ -1,11 +1,9 @@
 import React from "react";
 import h from "../../helpers";
-import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
+import ListSubheader from '@material-ui/core/ListSubheader';
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
@@ -100,13 +98,26 @@ class ContainerSwoll extends React.Component {
   render() {
 
     let data = this.state.plot;
-    let classOptions = this.state.kind == "classifications" ? 
+    let classOptions = this.state.kind === "classifications" ? 
       <FormControl className="s-options">
         <Select value={this.state.type} onChange={(e) => this.handleSelectChange(e)}>
           <MenuItem value={"totals"}>Totals</MenuItem>
           <MenuItem value={"errors"}>Errors</MenuItem>
         </Select>
       </FormControl> 
+      : this.state.kind === "syscalls" ?
+      <FormControl className="s-options">
+        <Select value="FileSystem">
+          <ListSubheader>FileSystem</ListSubheader>
+          <MenuItem value={1}>Files</MenuItem>
+          <MenuItem value={2}>Directories</MenuItem>
+          <MenuItem value={3}>Links</MenuItem>
+          <MenuItem value={4}>BasicAttributes</MenuItem>
+          <ListSubheader>Network</ListSubheader>
+          <MenuItem value={5}>Sockets</MenuItem>
+          <MenuItem value={6}>IO</MenuItem> 
+        </Select>
+      </FormControl>
       : "";
 
     return (
