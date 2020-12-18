@@ -80,6 +80,8 @@ import StackApps from "./stackapps/stackapps";
 // Registration
 import Register from "./layout/register";
 
+import TempSankey from "./layout/tempsankey";
+
 let csConfig = JSON.parse(localStorage.getItem("cs-config")) || {};
 let enableMarketplace = _.get(csConfig, "marketplace.enabled", false);
 
@@ -98,6 +100,8 @@ const routes = (
 
         {/* REGISTRATION */}
         <Route exact path="/register/token/:token" component={Register} />
+
+        <Route exact path="/sankey" component={TempSankey} />
 
         <Layout>
           <Switch>

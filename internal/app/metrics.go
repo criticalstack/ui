@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"strings"
 	"time"
 
@@ -73,6 +74,23 @@ func (x *Controller) queryPrometheusMetrics(ctx context.Context, query string, s
 		})
 	}
 	return metrics, nil
+}
+
+// XXX(ktravis): this is super temporary, since it allows access to any metrics in the cluster. Proof of concept, okay?
+func (x *Controller) tempSankeyMetrics(c echo.Context) error {
+	q := c.QueryParam("q")
+	if q == "" {
+		return newStatusError(http.StatusBadRequest, errors.New("parameter 'q' is required"))
+	}
+	t, err := time.Parse("2006-01-02T15:04:05Z", c.QueryParam("t"))
+	if err != nil {
+		t = time.Now().UTC().Add(-5 * time.Minute).Truncate(time.Minute)
+	}
+	result, _, err := x.metrics.Query(c.Request().Context(), q, t)
+	if err != nil {
+		return newError(err)
+	}
+	return x.sendJSONSuccess(c, Map{"result": result})
 }
 
 func (x *Controller) sendMetrics(c echo.Context, query string, start, end time.Time) error {
