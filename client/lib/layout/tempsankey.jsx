@@ -46,11 +46,11 @@ class TempSankey extends React.Component {
 
     const color = d3.scaleOrdinal(d3.schemeTableau10)
 
-    const main = d3.select(this.refs.chart)
+    const main = d3.select("#main")
     const input = main.append("input").attr("id", "query").attr("value", defaultQuery)
     input.on("keydown", (e) => {
       if (e.key != "Enter") return;
-      queryData(defaultHost, e.target.value) 
+      queryData(defaultHost, e.target.value)
     })
     const svg = main.append("svg")
 
@@ -60,8 +60,6 @@ class TempSankey extends React.Component {
       mainWrapper.attr("transform", transform)
     }).filter(e => !e.ctrlKey && !e.button && !e.shiftKey)
     svg.call(zoom)
-
-    const svgDims = () => svg.node().getBoundingClientRect()
 
     const updateSelectedClass = () => {
       if (graph.selectedNodes.length == 0) {
@@ -133,28 +131,20 @@ class TempSankey extends React.Component {
       .on("mouseover", function() { d3.select(this).attr("fill", "#666") })
       .on("mouseout", function() { d3.select(this).attr("fill", "#999") })
 
-    const layers = {
-      // "instance": -1,
-      "namespace": 0,
-      "pod": 0,
-      "class": 1,
-      "group": 1,
-      "syscall": 1,
-      "err": 2,
-    }
-    const linkedCategories = [
-      // ["instance", "namespace"],
-      // ["instance", "pod"],
-      ["namespace", "class"],
-      ["namespace", "group"],
-      ["namespace", "syscall"],
-      ["class", "err"],
-      ["group", "err"],
-      ["syscall", "err"],
-      ["pod", "syscall"],
-      ["pod", "class"],
-      ["pod", "group"],
+    // these are the layers as the user wants to see them
+    const userLayers = [
+      // ["instance"],
+      ["namespace", "pod", "container"],
+      ["class", "group", "syscall"],
+      ["err"],
     ]
+
+    // these are the computed layer ranks and connections
+    const layers = _.fromPairs(_.flatMap(userLayers, (x, i) => x.map(y => [y, i])))
+    const linkedCategories = _.flatMap(userLayers.slice(0, userLayers.length-1), (layer, i) => {
+      const nextLayer = userLayers[i+1]
+       return _.flatMap(layer, l => nextLayer.map(n => [l, n]))
+    })
 
     let mainDragCallback = (e) => {
       let {x, y} = e
@@ -241,13 +231,55 @@ class TempSankey extends React.Component {
           if (d.expanded) { c = d3.color(c); c.opacity = 0.5 }
           return c
         })
-        // .on("mouseover", function() {
-        //   const d = d3.select(this).datum()
-        // })
-        // .on("mouseout", function() {
-        //   _.values(allLinks).forEach(link => link.marked = false)
-        //   doUpdate()
-        // })
+        .on("mouseover", function() {
+          const d = d3.select(this).datum()
+          let t = `<b>${d.category}: ${d.name}</b>
+    <b>count:</b> <span>${d.value.toLocaleString()} (${(100*d.part).toFixed(1)}%)</span>`
+          if (d.children) {
+            t += `
+
+    <b>top ${d.children[0].category}s:</b>
+    ${_.sortBy(d.children, "value").slice(-5).reverse().map(x => `${x.name} <span>${x.value.toLocaleString()}</span>`).join('\n')}`
+          }
+          if (d.incomingLinks.length > 0) {
+            t += `
+
+    <b>top in:</b>
+    ${_.sortBy(d.incomingLinks, "value").slice(-5).reverse().map(x => `${x.src.id} <span>${x.value.toLocaleString()}</span>`).join('\n')}`
+          }
+          if (d.outgoingLinks.length > 0) {
+           t += `
+
+    <b>top out:</b>
+    ${_.sortBy(d.outgoingLinks, "value").slice(-5).reverse().map(x => `${x.dst.id} <span>${x.value.toLocaleString()}</span>`).join('\n')}`
+          }
+          setInspectorText(t)
+          showInspector()
+          if (inspector.fading) {
+            clearTimeout(inspector.fading)
+            inspector.fading = null
+          }
+        })
+        .on("mouseout", function() {
+          inspector.fading = setTimeout(hideInspector, 1000)
+        })
+        .on("contextmenu", function (e) {
+          const d = d3.select(this).datum()
+          log(d)
+          updateCtxMenu(e.clientX, e.clientY, [
+            {text: "add to selection", fn: () => addToSelection([d])},
+            {text: "clear selection", fn: clearSelected},
+            {text: "limit query", fn: () => {
+              let q = `swoll_node_metrics_syscall_count{${d.category}="${d.name}"}`
+              input.attr("value", q)
+              queryData(defaultHost, q) 
+            }},
+          ])
+          e.preventDefault()
+          let assigned = svg.on("click", () => {
+            ctxMenu.g.style("visibility", "hidden")
+          })
+        })
         .on("click", function (e) {
           const el = d3.select(this)
           const d = graph.nodeMap[el.datum().id]
@@ -264,8 +296,6 @@ class TempSankey extends React.Component {
           }
           computeGraph()
         })
-      rect.append("title")
-        .text(d => `${d.name}\n${d.value.toLocaleString()}`)
       rect.attr("opacity", 0)
         .transition()
         .duration(500)
@@ -279,20 +309,21 @@ class TempSankey extends React.Component {
             .attr("x", d => {
               switch (d.layer) {
                 case 0: return -nodePad
-                case 2: return nodeStartWidth+nodePad
+                case userLayers.length-1: return nodeStartWidth+nodePad
                 default: return nodeStartWidth/2
               }
             })
             .attr("y", d => {
               switch (d.layer) {
-                case 1: return -6
-                default: return d.height/2
+                case 0: return d.height/2
+                case userLayers.length-1: return d.height/2
+                default: return -6
               }
             })
             .attr("text-anchor", d => {
               switch (d.layer) {
                 case 0: return "end"
-                case 2: return "start"
+                case userLayers.length-1: return "start"
                 default: return "middle"
               }
             })
@@ -327,8 +358,9 @@ class TempSankey extends React.Component {
             .duration(500)
             .attr("y", d => {
               switch (d.layer) {
-                case 1: return -6
-                default: return d.height/2
+                case 0: return d.height/2
+                case userLayers.length-1: return d.height/2
+                default: return -6
               }
             })
         x.select("text tspan").text(d => ` ${d.value.toLocaleString()}`)
@@ -412,19 +444,12 @@ class TempSankey extends React.Component {
       graph.allNodes = _.flatMap(graph.data, d => {
         let value = parseInt(d.value[1])
         if (value == 0) return []
-        let ns = makeNode({category: "namespace", name: d.metric.namespace, value})
-        let _class = makeNode({category: "class", name: d.metric.class, value})
-        let group = makeNode({category: "group", name: d.metric.group, value}, _class)
-        return [
-          // makeNode({category: "instance", name: d.metric.instance, value}),
-          ns,
-          makeNode({category: "pod", name: d.metric.pod, value}, ns),
-          _class,
-          group,
-          makeNode({category: "syscall", name: d.metric.syscall, value}, group),
-          makeNode({category: "err", name: d.metric.err, value}),
-        ]
+        return _.flatMap(userLayers, layer => {
+          let prev = null
+          return layer.map(category => (prev = makeNode({category, name: d.metric[category], value}, prev)))
+        })
       })
+      graph.nodeMap = {}
       graph.allNodes = _.map(_.values(_.groupBy(graph.allNodes, "id")), dupes => {
         let first = _.first(dupes)
         if (graph.nodeMap[first.id]) {
@@ -494,6 +519,77 @@ class TempSankey extends React.Component {
               })
           })
     }
+
+    const inspector = {
+      div: main.append("div").attr("id", "inspector"),
+      text: "",
+    }
+
+    const setInspectorText = (t) => {
+      inspector.div.html(inspector.text = t)
+    }
+
+    const showInspector = () => {
+      inspector.div.style("opacity", ".8")
+    }
+
+    const hideInspector = () => {
+      inspector.div.style("opacity", "0")
+    }
+
+    const ctxMenu = {
+      g: svg.append("g").attr("id", "context-menu"),
+      lines: [],
+      show: false,
+      x: 0,
+      y: 0,
+      lineHeight: 30,
+    }
+
+    const updateCtxMenu = (x, y, lines) => {
+      ctxMenu.x = x
+      ctxMenu.y = y
+      ctxMenu.lines = lines
+      ctxMenu.g
+        .attr("transform", `translate(${x},${y})`)
+        .style("visibility", "visible")
+      ctxMenu.g.selectAll("g")
+        .data(lines)
+        .join(
+          enter => enter.append("g").call(g => {
+            g.append("rect")
+              .attr("fill", (_, i) => i % 2 == 0 ? "#444" : "#222")
+              .attr("width", 160)
+              .attr("height", ctxMenu.lineHeight)
+            g.append("text")
+              .attr("fill", "#eee")
+              .attr("x", 4)
+              .attr("y", 4+ctxMenu.lineHeight*.5)
+              .text(d => d.text)
+            g
+              // .on("mouseover", function(e){
+              //   d3.select(this).select("rect").attr("fill", (_, i) => i % 2 == 0 ? "#999" : "#333")
+              // })
+              // .on("mouseout", function(e){
+              //   d3.select(this).select("rect").attr("fill", (_, i) => i % 2 == 0 ? "#888" : "#222")
+              // })
+              .on("click", e => {
+                d3.select(e.target).datum().fn()
+              })
+          }),
+          update => update.call(g => {
+            g.select("text")
+              .text(d => d.text)
+            g
+              .on("click", e => {
+                d3.select(e.target).datum().fn()
+              })
+          }),
+        )
+        .attr("transform", (d, i) => `translate(0, ${i * ctxMenu.lineHeight})`)
+        .style("cursor", "pointer")
+    }
+
 
     const queryData = (host=defaultHost, query=defaultQuery) => {
       try {

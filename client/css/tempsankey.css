@@ -32,3 +32,24 @@
   width: 500px;
 }
 
+#main #inspector {
+    border-radius: 4px;
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    display: block;
+    min-width: 384px;
+    background: black;
+    transition: opacity 500ms;
+    color: white;
+    padding: 8px;
+    pointer-events: none;
+    margin: 0;
+    white-space: pre-wrap;
+    opacity: 0;
+}
+
+#main #inspector span {
+    color: #999;
+}
+
