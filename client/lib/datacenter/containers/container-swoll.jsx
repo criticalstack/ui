@@ -7,6 +7,7 @@ import Select from "@material-ui/core/Select";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
+import mappings from "./mappings";
 import MyResponsiveLine from "../../../shared/nivo-databiz/line";
 
 class ContainerSwoll extends React.Component {
@@ -41,6 +42,10 @@ class ContainerSwoll extends React.Component {
   handleSelectChange(e) {
     this.setState({
       type: e.target.value
+    }, () => {
+      this.setState({
+        plot: this.processData(this.state.data.Metrics)
+      });
     });
   };
 
