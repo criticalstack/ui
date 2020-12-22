@@ -21,12 +21,14 @@ class ContainerSwoll extends React.Component {
       data: [],
       plot: [],
       type: "totals",
-      kind: "classifications"
+      kind: "classifications",
+      group: "Files"
     };
   }
 
   componentDidMount() {
     this.getSwollData();
+    this.processMappings(mappings);
   };
 
   handleChange(e) {
@@ -55,7 +57,6 @@ class ContainerSwoll extends React.Component {
     let result = Object.keys(data[kind]).map((key) => {
       let entry = {
         id: key,
-        color: "",
         data: []
       };
       data[kind][key][type].map((plot) => {
@@ -65,10 +66,27 @@ class ContainerSwoll extends React.Component {
         });
 
       });
+
+    console.log(this.state.type);
       return entry;
     });
+
+      console.log(result);
     return result;
   }
+
+   processMappings(data) {
+     const classes = Object.keys(data);
+       console.log(classes);
+       classes.forEach((k) => {
+      let group = data[k];
+       console.log(group);
+       Object.keys(group).forEach((c) => {
+        console.log(group[c]);
+       });
+     });
+     
+  };
 
   getSwollData() {
     let self = this;
@@ -101,7 +119,6 @@ class ContainerSwoll extends React.Component {
 
 
   render() {
-
     let data = this.state.plot;
     let classOptions = this.state.kind === "classifications" ? 
       <FormControl className="s-options">
