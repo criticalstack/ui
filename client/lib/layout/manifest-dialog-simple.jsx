@@ -20,6 +20,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Select from "@material-ui/core/Select";
 
+import HostSelectorMaker from "../../shared/host-selector-maker";
 import EnvVarMaker from "../../shared/env-var-maker";
 import LabelMaker from "../../shared/label-maker";
 import SelectorMaker from "../../shared/selector-maker";
@@ -676,6 +677,20 @@ class ManifestDialogSimple extends React.Component {
             path={v.key}
             reportBack={true}
             format="env-var"
+          />,
+          disableButtons: true
+        });
+      }
+
+      function handleHostSelector() {
+        h.Vent.emit("layout:confirm:open", {
+          open: true,
+          title: "Add Host Selectors",
+          message: <LabelEditor
+            data={self.state.data}
+            path={v.key}
+            reportBack={true}
+            format="string"
           />,
           disableButtons: true
         });
@@ -1350,6 +1365,28 @@ class ManifestDialogSimple extends React.Component {
 
           break;
 
+        case "host-selector":
+
+          let hostSelectorPos = _.get(self.state.data, v.key);
+          let hostSelector = _.size(hostSelectorPos) > 0 ?
+            <HostSelectorMaker data={hostSelectorPos} />
+            :
+            <div className="create-form-text">{v.title}</div>;
+
+          control = (
+            <div
+              className="create-form-labels"
+              onClick={handleHostSelector}>
+              <div className="create-form-labels-left">
+                {hostSelector}
+              </div>
+              <div className="create-form-labels-right">
+                <i className="glyphicons glyphicons-plus" />
+              </div>
+            </div>
+          );
+          break;
+
         case "labels":
           let labelType = v.hasOwnProperty("display") ? v.display : "labels";
           let labelPos = _.get(self.state.data, v.key);
@@ -1569,20 +1606,41 @@ class ManifestDialogSimple extends React.Component {
 
         case "select-multiple":
           let selectedValues = _.get(self.state.data, v.key, []);
-          let smValues = _.get(self.state.exData, v.source, []);
 
-          let selectMenuItemsMulti = smValues.length > 0 ?
-            smValues.map(function(va, vi) {
-              return (
-                <MenuItem
-                  disableRipple={true}
-                  key={vi + 1}
-                  value={va.metadata.name}
-                >
-                  {va.metadata.name}
-                </MenuItem>
-              );
-            }) : "";
+          let smValues;
+          let selectMenuItemsMulti;
+
+          if (v.source === "hard-coded") {
+            smValues = v.data;
+
+            selectMenuItemsMulti = smValues.length > 0 ?
+              smValues.map(function(a, i) {
+                return (
+                  <MenuItem
+                    disableRipple={true}
+                    key={i + 1}
+                    value={a}
+                  >
+                    {a}
+                  </MenuItem>
+                );
+              }) : "";
+          } else {
+            smValues = _.get(self.state.exData, v.source, []);
+
+            selectMenuItemsMulti = smValues.length > 0 ?
+              smValues.map(function(va, vi) {
+                return (
+                  <MenuItem
+                    disableRipple={true}
+                    key={vi + 1}
+                    value={va.metadata.name}
+                  >
+                    {va.metadata.name}
+                  </MenuItem>
+                );
+              }) : "";
+          }
 
           control = (
             <FormControl className="dialog-select">

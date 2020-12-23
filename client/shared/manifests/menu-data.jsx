@@ -1331,6 +1331,21 @@ menus.stackapps = (d, multi) => {
   return menu;
 };
 
+menus["traces"] = (d, multi) => {
+  d.resource = "traces.tools.swoll.criticalstack.com";
+  if (multi) {
+    return [];
+  }
+
+  let menu = [
+    sharedEntry("edit", d),
+    sharedEntry("events", d),
+    sharedEntry("download", d),
+    sharedEntry("delete", d, "traces.tools.swoll.criticalstack.com", "Trace")
+  ];
+  return menu;
+};
+
 menus.verificationkeys = (d, multi) => {
   d.resource = "verificationkeys";
   if (multi) {

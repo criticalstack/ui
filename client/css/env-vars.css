@@ -1,4 +1,4 @@
-div.env-var-container {
+div.env-var-container, .host-selector-container {
   float:left;
   text-align: left;
   margin-top: 4px;
@@ -6,7 +6,7 @@ div.env-var-container {
   display: table;
 }
 
-div.env-var-pair {
+div.env-var-pair, .host-selector-pair {
   height: 20px;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -47,7 +47,7 @@ span.env-var-split {
   float: left;
 }
 
-span.env-var-value {
+span.env-var-value, .host-selector-value {
   max-width: 50px;
   white-space: nowrap;
   overflow: hidden;
@@ -57,7 +57,11 @@ span.env-var-value {
   float: left;
 }
 
-div.env-vars {
+.host-selector-value {
+  margin-left: 12px;
+}
+
+div.env-vars, .host-selector {
   float: left;
   width: 92%;
 }

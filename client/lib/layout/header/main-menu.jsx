@@ -26,12 +26,14 @@ class MainMenu extends React.Component {
     if (csConfig.hasOwnProperty("kubernetes")) {
       enableStackApps = _.find(csConfig.kubernetes.resources, {kind: "StackApp", name: "stackapps"} );
     }
+    let enableSwoll = _.get(csConfig, "swoll.enabled", true);
 
     this.state = {
       location: props.location,
       headerClass: this.setHeaderClass(props.location.pathname),
       enableMarketplace: enableMarketplace,
-      enableStackApps: enableStackApps
+      enableStackApps: enableStackApps,
+      enableSwoll: enableSwoll
     };
   }
 
@@ -71,9 +73,11 @@ class MainMenu extends React.Component {
       if (csConfig.hasOwnProperty("kubernetes")) {
         enableStackApps = _.find(csConfig.kubernetes.resources, {kind: "StackApp", name: "stackapps"} );
       }
+      let enableSwoll = _.get(csConfig, "swoll.enabled", false);
       self.setState({
         enableMarketplace,
-        enableStackApps
+        enableStackApps,
+        enableSwoll
       });
     });
   }
@@ -179,6 +183,17 @@ class MainMenu extends React.Component {
     </NavLink>
     ) : null;
 
+    let swollLink = this.state.enableSwoll ? (
+      <NavLink
+      activeClassName="active"
+      className="header-main-menu-item"
+      to="/swoll"
+    >
+      Swoll
+      <div className="header-main-menu-status"></div>
+    </NavLink>
+    ) : null;
+
     return (
       <div className={headerClass}>
         <div className="header-menu-icon">
@@ -213,6 +228,7 @@ class MainMenu extends React.Component {
           </NavLink>
           {marketplaceLink}
           {stackAppsLink}
+          {swollLink}
         </div>
 
         <div className="header-main-menu-account">
