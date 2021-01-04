@@ -1951,6 +1951,12 @@ kind: WorkerConfiguration`,
           "hostSelector": []
         }
       },
+      exData: [
+        {
+          key: "pods",
+          endpoint: "pods"
+        }
+      ],
       form: [
         {
           title: "Trace Name",
@@ -1985,10 +1991,20 @@ kind: WorkerConfiguration`,
           description: "Matches containers within pods that match these labels",
           reference: "http://kubernetes.io/docs/user-guide/labels/"
         },
+        // {
+          // title: "Host Selector",
+          // key: "spec.hostSelector",
+          // type: "host-selector",
+          // description: "Match specific hostnames (not really the best idea)",
+          // reference: "http://kubernetes.io/docs/user-guide/configuring-containers/#environment-variables-and-variable-expansion"
+        // },
         {
           title: "Host Selector",
           key: "spec.hostSelector",
-          type: "host-selector",
+          type: "select-multiple",
+          source: "pods",
+          path: "spec.containers",
+          placeholder: "Select host selectors",
           description: "Match specific hostnames (not really the best idea)",
           reference: "http://kubernetes.io/docs/user-guide/configuring-containers/#environment-variables-and-variable-expansion"
         },

@@ -1607,7 +1607,7 @@ class ManifestDialogSimple extends React.Component {
         case "select-multiple":
           let selectedValues = _.get(self.state.data, v.key, []);
 
-          let smValues;
+          let smValues = [];
           let selectMenuItemsMulti;
 
           if (v.source === "hard-coded") {
@@ -1625,6 +1625,31 @@ class ManifestDialogSimple extends React.Component {
                   </MenuItem>
                 );
               }) : "";
+          } else if ( v.hasOwnProperty("path")) {
+            let source = _.get(self.state.exData, v.source, []);
+
+            source.forEach( x => {
+              let innerArr = _.get(x, v.path, []);
+              innerArr.forEach( y => {
+                if( !_.includes(smValues, y.name)) {
+                  smValues.push(y.name);
+                }
+              });
+            });
+
+            selectMenuItemsMulti = smValues.length > 0 ?
+              smValues.map(function(a, i) {
+                return (
+                  <MenuItem
+                    disableRipple={true}
+                    key={i + 1}
+                    value={a}
+                  >
+                    {a}
+                  </MenuItem>
+                );
+              }) : "";
+
           } else {
             smValues = _.get(self.state.exData, v.source, []);
 
