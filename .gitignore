@@ -54,6 +54,5 @@ resources/*
 # vim swap files
 .*.sw*
 node_modules
-package-lock.json
 .vagrant
 Vagrantfile
