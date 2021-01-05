@@ -22,6 +22,7 @@ class ContainerSwoll extends React.Component {
       plot: [],
       type: "totals",
       kind: "classifications",
+      classes: [],
       group: "Files"
     };
   }
@@ -75,17 +76,20 @@ class ContainerSwoll extends React.Component {
     return result;
   }
 
-   processMappings(data) {
+  processMappings(data) {
+    let self = this;
      const classes = Object.keys(data);
-       console.log(classes);
        classes.forEach((k) => {
       let group = data[k];
-       console.log(group);
+       console.log(Object.keys(group));
        Object.keys(group).forEach((c) => {
         console.log(group[c]);
        });
      });
-     
+
+    self.setState({
+      classes: classes
+    });
   };
 
   getSwollData() {
@@ -120,6 +124,19 @@ class ContainerSwoll extends React.Component {
 
   render() {
     let data = this.state.plot;
+    let classes = this.state.classes.map((classCat) => {
+      classCat.map((k) => { 
+        let gn = classCat[k];
+        let groupName = (Object.keys(gn));
+        return(
+          <>
+          <ListSubheader>{classCat}</ListSubheader>
+          <MenuItem>{groupName}</MenuItem>
+          </>
+        );
+      });
+    });
+
     let classOptions = this.state.kind === "classifications" ? 
       <FormControl className="s-options">
         <Select value={this.state.type} onChange={(e) => this.handleSelectChange(e)}>
@@ -130,14 +147,7 @@ class ContainerSwoll extends React.Component {
       : this.state.kind === "syscalls" ?
       <FormControl className="s-options">
         <Select value="FileSystem">
-          <ListSubheader>FileSystem</ListSubheader>
-          <MenuItem value={1}>Files</MenuItem>
-          <MenuItem value={2}>Directories</MenuItem>
-          <MenuItem value={3}>Links</MenuItem>
-          <MenuItem value={4}>BasicAttributes</MenuItem>
-          <ListSubheader>Network</ListSubheader>
-          <MenuItem value={5}>Sockets</MenuItem>
-          <MenuItem value={6}>IO</MenuItem> 
+          {classes} 
         </Select>
       </FormControl>
       : "";
