@@ -1935,6 +1935,21 @@ kind: WorkerConfiguration`,
       "provisioner": "",
       "parameters": {}
     },
+    "traces": {
+      "kind": "Trace",
+      "apiVersion": "tools.swoll.criticalstack.com/v1alpha1",
+      "metadata": {
+        "name": "",
+      },
+      "spec": {
+        "syscalls": [],
+        "labelSelector": {
+        },
+        "fieldSelector": {
+        },
+        "hostSelector": []
+      }
+    },
     "trace-simple": {
       "manifest": {
         "kind": "Trace",

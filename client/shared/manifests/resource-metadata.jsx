@@ -246,9 +246,9 @@ const resourceMetadata = {
     menu: "storage-classes",
     wizard: StorageClassCreate
   },
-  SwollTrace: {
+  Trace: {
     icon: "swollicon swollicon-swoll_icon",
-    route: "swoll",
+    route: "traces",
     wizard: TraceCreate
   },
   Rbac: {
