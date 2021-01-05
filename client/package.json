@@ -27,6 +27,7 @@
     "not op_mini all"
   ],
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "build:dev": "npx parcel build --no-minify --out-dir build --public-url /assets/ critical-stack.jsx critical-stack.css index.html",
     "build:prod": "npx parcel build -d build --no-source-maps --public-url /assets/ critical-stack.jsx critical-stack.css index.html",
     "lint": "eslint --ext .js --ext .jsx --cache ."
