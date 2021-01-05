@@ -1667,6 +1667,12 @@ class ManifestDialogSimple extends React.Component {
               }) : "";
           }
 
+          // Prevent menu from jumping upon selection
+          const MenuProps = {
+            variant: "menu",
+            getContentAnchorEl: null
+          };
+
           control = (
             <FormControl className="dialog-select">
               <InputLabel shrink htmlFor={`generic-${v.key}`}>{v.title}</InputLabel>
@@ -1676,6 +1682,7 @@ class ManifestDialogSimple extends React.Component {
                 value={selectedValues}
                 onChange={handleSelect}
                 multiple={true}
+                MenuProps={MenuProps}
                 renderValue={() => {
                   if (selectedValues.length === 0) {
                     return <span style={{ color: "#757575" }}>{v.placeholder}</span>;
