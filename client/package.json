@@ -8,7 +8,9 @@
   "repository": "https://github.com/criticalstack/ui",
   "readme": "https://github.com/criticalstack/ui/blob/main/README.md",
   "resolutions": {
-    "acorn": "^7.1.1"
+    "acorn": "^7.1.1",
+    "node-fetch": "^2.6.1",
+    "minimist": "^1.2.5"
   },
   "babel": {
     "presets": [
@@ -27,7 +29,8 @@
   "scripts": {
     "build:dev": "npx parcel build --no-minify --out-dir build --public-url /assets/ critical-stack.jsx critical-stack.css index.html",
     "build:prod": "npx parcel build -d build --no-source-maps --public-url /assets/ critical-stack.jsx critical-stack.css index.html",
-    "lint": "eslint --ext .js --ext .jsx --cache ."
+    "lint": "eslint --ext .js --ext .jsx --cache .",
+    "preinstall": "npx npm-force-resolutions"
   },
   "staticFiles": {
     "staticPath": [
@@ -108,7 +111,7 @@
     "axe-core": "^4.0.2",
     "babel-eslint": "^10.1.0",
     "clean-css": "^4.2.3",
-    "cypress": "^6.1.0",
+    "cypress": "^3.8.3",
     "cypress-axe": "^0.9.1",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^6.6.0"
