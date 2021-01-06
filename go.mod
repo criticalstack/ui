@@ -31,7 +31,6 @@ require (
 	golang.org/x/tools v0.0.0-20200713160548-f739c553ea89 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
-	gopkg.in/yaml.v2 v2.3.0
 	helm.sh/helm/v3 v3.3.4
 	k8s.io/api v0.18.9
 	k8s.io/apiextensions-apiserver v0.18.9
