@@ -127,12 +127,12 @@ class ContainerSwoll extends React.Component {
     let classes = this.state.classes.map((classCat) => {
         return(
           <>
-          <MenuItem>{groupName}</MenuItem>
+          <ListSubheader>{classCat}</ListSubheader>
           </>
         );
     });
 
-    let classOptions = this.state.kind === "classifications" ? 
+    let classOptions = this.state.kind === "classifications" ?
       <FormControl className="s-options">
         <Select value={this.state.type} onChange={(e) => this.handleSelectChange(e)}>
           <MenuItem value={"totals"}>Totals</MenuItem>
