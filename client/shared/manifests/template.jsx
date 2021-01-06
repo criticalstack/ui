@@ -1979,8 +1979,7 @@ kind: WorkerConfiguration`,
           type: "text",
           test: /^[a-z-][a-z0-9-]{0,24}$/,
           errorMsg: "Name must start with a lowercase letter and contain only lowercase letters, numbers, and '-' between words. It can be no longer than 24 characters.",
-          description: "Name for your new trace",
-          reference: "https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          description: "Name for your new trace"
         },
         {
           title: "syscalls",
@@ -1990,7 +1989,7 @@ kind: WorkerConfiguration`,
           data: syscalls,
           placeholder: "Select syscalls",
           description: "A list of system-calls in which to monitor",
-          reference: "https://criticalstack.github.io/stackapps/stackapps-guide/technicaloverview.html",
+          reference: "https://en.wikipedia.org/wiki/System_call",
         },
         {
           title: "Label Selectors",
@@ -2020,8 +2019,7 @@ kind: WorkerConfiguration`,
           source: "pods",
           path: "spec.containers",
           placeholder: "Select host selectors",
-          description: "Match specific hostnames (not really the best idea)",
-          reference: "http://kubernetes.io/docs/user-guide/configuring-containers/#environment-variables-and-variable-expansion"
+          description: "Matches specific hostnames"
         },
       ]
     }
