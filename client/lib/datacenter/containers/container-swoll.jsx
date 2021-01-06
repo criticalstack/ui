@@ -125,16 +125,11 @@ class ContainerSwoll extends React.Component {
   render() {
     let data = this.state.plot;
     let classes = this.state.classes.map((classCat) => {
-      classCat.map((k) => { 
-        let gn = classCat[k];
-        let groupName = (Object.keys(gn));
         return(
           <>
-          <ListSubheader>{classCat}</ListSubheader>
           <MenuItem>{groupName}</MenuItem>
           </>
         );
-      });
     });
 
     let classOptions = this.state.kind === "classifications" ? 

@@ -1,4 +1,5 @@
 import Session from "../../lib/helpers/session";
+import syscalls from "../../lib/swoll/syscalls";
 
 function templates() {
   var email = Session.user.email.replace(/[\.\@]/g, "-");
@@ -1933,6 +1934,96 @@ kind: WorkerConfiguration`,
       },
       "provisioner": "",
       "parameters": {}
+    },
+    "traces": {
+      "kind": "Trace",
+      "apiVersion": "tools.swoll.criticalstack.com/v1alpha1",
+      "metadata": {
+        "name": "",
+      },
+      "spec": {
+        "syscalls": [],
+        "labelSelector": {
+        },
+        "fieldSelector": {
+        },
+        "hostSelector": []
+      }
+    },
+    "trace-simple": {
+      "manifest": {
+        "kind": "Trace",
+        "apiVersion": "tools.swoll.criticalstack.com/v1alpha1",
+        "metadata": {
+          "name": "",
+        },
+        "spec": {
+          "syscalls": [],
+          "labelSelector": {
+          },
+          "fieldSelector": {
+          },
+          "hostSelector": []
+        }
+      },
+      exData: [
+        {
+          key: "pods",
+          endpoint: "pods"
+        }
+      ],
+      form: [
+        {
+          title: "Trace Name",
+          key: "metadata.name",
+          type: "text",
+          test: /^[a-z-][a-z0-9-]{0,24}$/,
+          errorMsg: "Name must start with a lowercase letter and contain only lowercase letters, numbers, and '-' between words. It can be no longer than 24 characters.",
+          description: "Name for your new trace",
+          reference: "https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+        },
+        {
+          title: "syscalls",
+          key: "spec.syscalls",
+          type: "select-multiple",
+          source: "hard-coded",
+          data: syscalls,
+          placeholder: "Select syscalls",
+          description: "A list of system-calls in which to monitor",
+          reference: "https://criticalstack.github.io/stackapps/stackapps-guide/technicaloverview.html",
+        },
+        {
+          title: "Label Selectors",
+          key: "spec.labelSelector.matchLabels",
+          type: "labels",
+          description: "Matches containers within pods that match these labels",
+          reference: "http://kubernetes.io/docs/user-guide/labels/"
+        },
+        {
+          title: "Field Selectors",
+          key: "spec.fieldSelector.matchLabels",
+          type: "labels",
+          description: "Matches containers within pods that match these labels",
+          reference: "http://kubernetes.io/docs/user-guide/labels/"
+        },
+        // {
+          // title: "Host Selector",
+          // key: "spec.hostSelector",
+          // type: "host-selector",
+          // description: "Match specific hostnames (not really the best idea)",
+          // reference: "http://kubernetes.io/docs/user-guide/configuring-containers/#environment-variables-and-variable-expansion"
+        // },
+        {
+          title: "Host Selector",
+          key: "spec.hostSelector",
+          type: "select-multiple",
+          source: "pods",
+          path: "spec.containers",
+          placeholder: "Select host selectors",
+          description: "Match specific hostnames (not really the best idea)",
+          reference: "http://kubernetes.io/docs/user-guide/configuring-containers/#environment-variables-and-variable-expansion"
+        },
+      ]
     }
   };
 

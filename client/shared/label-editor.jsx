@@ -34,6 +34,10 @@ class LabelEditor extends React.Component {
           return pair;
         });
 
+      } else if ( format === "string") {
+        labels = labelPath.map(function(entry){
+          return entry;
+        });
       } else {
         labels = Object.keys(labelPath).map(function(k) {
           let value = labelPath[k];
@@ -90,19 +94,22 @@ class LabelEditor extends React.Component {
       });
     }
 
-    let labels = self.state.format === "env-var" ? [] : {};
+    let x = self.state.format;
+    let labels = x === "env-var" || x === "string" ? [] : {};
 
     for (let i = 0; i < self.state.labels.length; ++i) {
       let keyvalue = self.state.labels[i].split("=");
       let key = keyvalue[0];
       let value = typeof keyvalue[1] !== "undefined" ? keyvalue[1] : "";
 
-      if (self.state.format === "env-var") {
+      if (x === "env-var") {
         // Environment variables expect this format
         labels.push({
           "name": key,
           "value": value
         });
+      } else if (x === "string") {
+        labels = self.state.labels;
       } else {
         // Labels are just an object of key:values
         labels[key] = value;
@@ -249,8 +256,7 @@ class LabelEditor extends React.Component {
         <div style={{
           float: "right",
           paddingTop: "20px",
-          marginBottom: "-14px",
-          marginRight: "-14px"
+          marginBottom: "-14px"
         }}>
         {buttons}
       </div>
