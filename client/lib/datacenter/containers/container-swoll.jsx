@@ -23,7 +23,6 @@ class ContainerSwoll extends React.Component {
       type: "totals",
       kind: "classifications",
       classes: [],
-      group: "Files"
     };
   }
 
@@ -67,25 +66,19 @@ class ContainerSwoll extends React.Component {
         });
 
       });
-
-    console.log(this.state.type);
       return entry;
     });
-
-      console.log(result);
     return result;
   }
 
   processMappings(data) {
     let self = this;
-     const classes = Object.keys(data);
-       classes.forEach((k) => {
+    const classes = Object.keys(data);
+    classes.forEach((k) => {
       let group = data[k];
-       console.log(Object.keys(group));
-       Object.keys(group).forEach((c) => {
-        console.log(group[c]);
-       });
-     });
+      Object.keys(group).forEach((c) => {
+      });
+    });
 
     self.setState({
       classes: classes
@@ -120,16 +113,14 @@ class ContainerSwoll extends React.Component {
     });
   };
 
-
-
   render() {
     let data = this.state.plot;
     let classes = this.state.classes.map((classCat) => {
-        return(
-          <>
-          <ListSubheader>{classCat}</ListSubheader>
-          </>
-        );
+      return(
+        <>
+        <ListSubheader>{classCat}</ListSubheader>
+        </>
+      );
     });
 
     let classOptions = this.state.kind === "classifications" ?
@@ -150,17 +141,17 @@ class ContainerSwoll extends React.Component {
     return (
       <div className="container-swoll-parent">
         <RadioGroup
-          className="r-options"
-          row aria-label="grouping"
-          name="grouping"
-          defaultValue="classifications"
-          onChange={(e) => this.handleChange(e)}
+        className="r-options"
+        row aria-label="grouping"
+        name="grouping"
+        defaultValue="classifications"
+        onChange={(e) => this.handleChange(e)}
       >
           <FormControlLabel value="classifications" control={<Radio />} label="Classifications" labelPlacement="end" />
           <FormControlLabel value="errors" control={<Radio />} label="Errors" />
           <FormControlLabel value="syscalls" control={<Radio />} label="System calls" />
         </RadioGroup>
-      {classOptions}
+        {classOptions}
         <MyResponsiveLine data={data} />
       </div>
     );
