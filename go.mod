@@ -40,3 +40,5 @@ require (
 	sigs.k8s.io/controller-runtime v0.6.2
 	sigs.k8s.io/yaml v1.2.0
 )
+
+replace github.com/docker/distribution => github.com/docker/distribution v0.0.0-20191216044856-a8371794149d
