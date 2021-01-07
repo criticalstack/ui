@@ -457,7 +457,6 @@ class ContentLoader extends React.Component {
           location={self.props.config.location}
           title={self.props.config.title}
           mode={self.state.editMode}
-          resourceAccess={self.props.config.endpoint}
         />
       );
     } else {
@@ -476,7 +475,7 @@ class ContentLoader extends React.Component {
         <div key="2" className={`content-body-${self.props.config.endpoint}`}>
           {
             self.props.config.hasOwnProperty("endpoint") ? (
-              _.get(self.context.access, [self.props.config.endpoint, "list"], true) ? (self.renderContentOrNoData()) : <Forbidden />
+              _.get(self.context.access, [self.props.config.resource, "list"], true) ? (self.renderContentOrNoData()) : <Forbidden />
             ) : (self.renderContentOrNoData())
           }
         </div>

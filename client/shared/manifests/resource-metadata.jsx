@@ -12,6 +12,7 @@ import NodeWorkerCreate from "../../lib/datacenter/nodes/create";
 import PVCStorageClassCreate from "../../lib/datacenter/persistent-volume-claims/sc-create";
 import PVCPersistentVolumeCreate from "../../lib/datacenter/persistent-volume-claims/pv-create";
 import PodPresetCreate from "../../lib/datacenter/pod-presets/create";
+import RBACCreate from "../../lib/cluster/rbac/create";
 import ResourceQuotaCreate from "../../lib/datacenter/resource-quotas/create";
 import SecretCreate from "../../lib/datacenter/secrets/create";
 import ServiceAccountCreate from "../../lib/datacenter/service-accounts/create";
@@ -30,47 +31,56 @@ const resourceMetadata = {
   ClusterRole: {
     icon: "glyphicons glyphicons-file-lock",
     doc: "https://kubernetes.io/docs/reference/access-authn-authz/rbac/#clusterrole-example",
-    route: "clusterroles"
+    route: "clusterroles",
+    wizard: RBACCreate,
+    resourceAccess: "clusterroles.rbac.authorization.k8s.io"
   },
   ClusterRoleBinding: {
     icon: "glyphicons glyphicons-paired",
     doc: "https://kubernetes.io/docs/reference/access-authn-authz/rbac/#clusterrolebinding-example",
-    route: "clusterrolebindings"
+    route: "clusterrolebindings",
+    wizard: RBACCreate,
+    resourceAccess: "clusterrolebindings.rbac.authorization.k8s.io"
   },
   ConfigMap: {
     icon: "csicon csicon-config-maps",
     doc: "https://kubernetes.io/docs/user-guide/configmap/",
     route: "configmaps",
     menu: "config-maps",
-    wizard: ConfigMapCreate
+    wizard: ConfigMapCreate,
+    resourceAccess: "configmaps"
   },
   Connector: {
     icon: "glyphicons glyphicons-power-cord-plug",
     route: "connectors",
     path: "sso-provider",
     menu: "connectors",
-    wizard: ConnectorCreate
+    wizard: ConnectorCreate,
+    resourceAccess: "connectors.dex.coreos.com"
   },
   CronJob: {
     icon: "csicon csicon-cron-jobs",
     doc: "https://kubernetes.io/docs/user-guide/cron-jobs/",
     route: "cronjobs",
     menu: "cron-jobs",
-    wizard: CronJobCreate
+    wizard: CronJobCreate,
+    resourceAccess: "cronjobs.batch"
   },
   DaemonSet: {
     icon: "csicon csicon-daemon-sets",
     doc: "https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/",
     route: "daemonsets",
     menu: "daemon-sets",
-    wizard: DaemonSetCreate
+    wizard: DaemonSetCreate,
+    resourceAccess: "daemonsets.apps"
   },
   Deployment: {
     icon: "csicon csicon-deployments",
     doc: "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
     route: "deployments",
     menu: "deployments",
-    wizard: DeploymentCreate
+    wizard: DeploymentCreate,
+    resourceAccess: "deployments.apps"
   },
   Endpoints: {
     icon: "csicon csicon-endpoints",
@@ -82,14 +92,16 @@ const resourceMetadata = {
     doc: "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
     route: "horizontalpodautoscalers",
     menu: "horizontal-pod-autoscalers",
-    wizard: HorizontalPodAutoscalerCreate
+    wizard: HorizontalPodAutoscalerCreate,
+    resourceAccess: "horizontalpodautoscalers.autoscaling"
   },
   Ingress: {
     icon: "csicon csicon-ingress",
     doc: "https://kubernetes.io/docs/concepts/services-networking/ingress/",
     route: "ingresses",
     menu: "ingress",
-    wizard: IngressCreate
+    wizard: IngressCreate,
+    resourceAccess: "ingresses.extensions"
   },
   Job: {
     icon: "csicon csicon-jobs",
@@ -102,18 +114,21 @@ const resourceMetadata = {
     doc: "https://kubernetes.io/docs/tasks/configure-pod-container/limit-range/",
     route: "limitranges",
     menu: "limit-ranges",
-    wizard: LimitRangeCreate
+    wizard: LimitRangeCreate,
+    resourceAccess: "limitranges"
   },
   MarketplaceSource: {
     icon: "glyphicons glyphicons-folder-cogwheel",
     route: "sources",
-    wizard: MarketplaceSourceCreate
+    wizard: MarketplaceSourceCreate,
+    resourceAccess: "sources.marketplace.criticalstack.com"
   },
   Namespace: {
     icon: "csicon csicon-namespace",
     doc: "https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
     route: "namespaces",
-    wizard: NamespaceCreate
+    wizard: NamespaceCreate,
+    resourceAccess: "namespaces"
   },
   NetworkPolicy: {
     icon: "csicon csicon-mp-networking",
@@ -125,7 +140,8 @@ const resourceMetadata = {
     icon: "glyphicons glyphicons-vector-path",
     doc: "https://kubernetes.io/docs/concepts/nodes/node/",
     route: "nodes",
-    wizard: NodeWorkerCreate
+    wizard: NodeWorkerCreate,
+    resourceAccess: "nodes"
   },
   PersistentVolume: {
     icon: "csicon csicon-persistent-volumes",
@@ -164,7 +180,8 @@ const resourceMetadata = {
     doc: "https://kubernetes.io/docs/tasks/run-application/podpreset/",
     route: "podpresets",
     menu: "pod-presets",
-    wizard: PodPresetCreate
+    wizard: PodPresetCreate,
+    resourceAccess: "podpresets.settings.k8s.io"
   },
   PodSecurityPolicy: {
     icon: "csicon csicon-pod-security-policies",
@@ -183,24 +200,30 @@ const resourceMetadata = {
     doc: "https://kubernetes.io/docs/concepts/policy/resource-quotas/",
     route: "resourcequotas",
     menu: "resource-quotas",
-    wizard: ResourceQuotaCreate
+    wizard: ResourceQuotaCreate,
+    resourceAccess: "resourcequotas"
   },
   Role: {
     icon: "glyphicons glyphicons-file-lock",
     doc: "https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-example",
-    route: "roles"
+    route: "roles",
+    wizard: RBACCreate,
+    resourceAccess: "roles.rbac.authorization.k8s.io"
   },
   RoleBinding: {
     icon: "glyphicons glyphicons-paired",
     doc: "https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-example",
-    route: "rolebindings"
+    route: "rolebindings",
+    wizard: RBACCreate,
+    resourceAccess: "rolebindings.rbac.authorization.k8s.io"
   },
   Secret: {
     icon: "csicon csicon-secrets",
     doc: "https://kubernetes.io/docs/concepts/configuration/secret/",
     route: "secrets",
     menu: "secrets",
-    wizard: SecretCreate
+    wizard: SecretCreate,
+    resourceAccess: "secrets"
   },
   SecretDocker: {
     doc: "https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials"
@@ -210,14 +233,16 @@ const resourceMetadata = {
     doc: "https://kubernetes.io/docs/concepts/services-networking/service/",
     route: "services",
     menu: "services",
-    wizard: ServiceCreate.newService
+    wizard: ServiceCreate.newService,
+    resourceAccess: "services"
   },
   ServiceAccount: {
     icon: "csicon csicon-service-accounts",
     doc: "https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/",
     route: "serviceaccounts",
     menu: "service-accounts",
-    wizard: ServiceAccountCreate
+    wizard: ServiceAccountCreate,
+    resourceAccess: "serviceaccounts"
   },
   SigningKey: {
     icon: "glyphicons glyphicons-key",
@@ -244,7 +269,8 @@ const resourceMetadata = {
     doc: "https://kubernetes.io/docs/concepts/storage/persistent-volumes/#storageclasses",
     route: "storageclasses",
     menu: "storage-classes",
-    wizard: StorageClassCreate
+    wizard: StorageClassCreate,
+    resourceAccess: "storageclasses.storage.k8s.io"
   },
   Trace: {
     icon: "swollicon swollicon-swoll_icon",
@@ -257,7 +283,8 @@ const resourceMetadata = {
   User: {
     icon: "glyphicons glyphicons-user",
     route: "manage-users",
-    wizard: UserCreate
+    wizard: UserCreate,
+    resourceAccess: "users.criticalstack.com"
   },
   UserRequest: {
     icon: "glyphicons glyphicons-group",

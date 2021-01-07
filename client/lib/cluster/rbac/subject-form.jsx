@@ -34,10 +34,35 @@ class SubjectForm extends React.Component {
     };
   }
 
+  setOptions() {
+    let userOptions = [];
+    let groupOptions = [];
+
+    this.props.rawUsers.forEach(x => {
+      let option = {
+        value: x.Name,
+        label: x.Name
+      };
+      if ( x.Kind === "User") {
+        userOptions.push(option);
+      } else {
+        groupOptions.push(option);
+      }
+    });
+
+    this.setState({
+      userOptions,
+      groupOptions,
+    });
+  }
+
   componentDidMount() {
     let self = this;
     this.fetchNsOptions();
 
+    if (this.props.rawUsers.length > 0) {
+      this.setOptions();
+    }
 
     h.Vent.addListener("dialog-body:scroll", function() {
       self.kind_ref.blur();
@@ -50,26 +75,7 @@ class SubjectForm extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.rawUsers !== prevProps.rawUsers) {
-
-      let userOptions = [];
-      let groupOptions = [];
-
-      this.props.rawUsers.forEach(x => {
-        let option = {
-          value: x.Name,
-          label: x.Name
-        };
-        if ( x.Kind === "User") {
-          userOptions.push(option);
-        } else {
-          groupOptions.push(option);
-        }
-      });
-
-      this.setState({
-        userOptions,
-        groupOptions,
-      });
+      this.setOptions();
     }
 
     let propValue = this.props.subject.kind.value;
