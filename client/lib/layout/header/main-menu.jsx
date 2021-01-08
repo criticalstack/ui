@@ -23,10 +23,11 @@ class MainMenu extends React.Component {
     let csConfig = JSON.parse(localStorage.getItem("cs-config")) || {};
     let enableMarketplace = _.get(csConfig, "marketplace.enabled", false);
     let enableStackApps = false;
+    let enableSwoll = false;
     if (csConfig.hasOwnProperty("kubernetes")) {
       enableStackApps = _.find(csConfig.kubernetes.resources, {kind: "StackApp", name: "stackapps"} );
+      enableSwoll =  _.find(csConfig.kubernetes.resources, {kind: "Trace", name: "traces", apiVersion: "tools.swoll.criticalstack.com/v1alpha1"});
     }
-    let enableSwoll = _.get(csConfig, "swoll.enabled", true);
 
     this.state = {
       location: props.location,
@@ -70,10 +71,11 @@ class MainMenu extends React.Component {
       let csConfig = JSON.parse(localStorage.getItem("cs-config")) || {};
       let enableMarketplace = _.get(csConfig, "marketplace.enabled", false);
       let enableStackApps = false;
+      let enableSwoll = false;
       if (csConfig.hasOwnProperty("kubernetes")) {
         enableStackApps = _.find(csConfig.kubernetes.resources, {kind: "StackApp", name: "stackapps"} );
+        enableSwoll =  _.find(csConfig.kubernetes.resources, {kind: "Trace", name: "traces", apiVersion: "tools.swoll.criticalstack.com/v1alpha1"});
       }
-      let enableSwoll = _.get(csConfig, "swoll.enabled", true);
       self.setState({
         enableMarketplace,
         enableStackApps,
