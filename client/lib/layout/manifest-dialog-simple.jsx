@@ -20,7 +20,6 @@ import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Select from "@material-ui/core/Select";
 
-import HostSelectorMaker from "../../shared/host-selector-maker";
 import EnvVarMaker from "../../shared/env-var-maker";
 import LabelMaker from "../../shared/label-maker";
 import SelectorMaker from "../../shared/selector-maker";
@@ -677,20 +676,6 @@ class ManifestDialogSimple extends React.Component {
             path={v.key}
             reportBack={true}
             format="env-var"
-          />,
-          disableButtons: true
-        });
-      }
-
-      function handleHostSelector() {
-        h.Vent.emit("layout:confirm:open", {
-          open: true,
-          title: "Add Host Selectors",
-          message: <LabelEditor
-            data={self.state.data}
-            path={v.key}
-            reportBack={true}
-            format="string"
           />,
           disableButtons: true
         });
@@ -1363,28 +1348,6 @@ class ManifestDialogSimple extends React.Component {
             />
           );
 
-          break;
-
-        case "host-selector":
-
-          let hostSelectorPos = _.get(self.state.data, v.key);
-          let hostSelector = _.size(hostSelectorPos) > 0 ?
-            <HostSelectorMaker data={hostSelectorPos} />
-            :
-            <div className="create-form-text">{v.title}</div>;
-
-          control = (
-            <div
-              className="create-form-labels"
-              onClick={handleHostSelector}>
-              <div className="create-form-labels-left">
-                {hostSelector}
-              </div>
-              <div className="create-form-labels-right">
-                <i className="glyphicons glyphicons-plus" />
-              </div>
-            </div>
-          );
           break;
 
         case "labels":
