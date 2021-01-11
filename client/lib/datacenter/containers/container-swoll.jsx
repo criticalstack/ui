@@ -1,7 +1,7 @@
 import React from "react";
 import h from "../../helpers";
 import MenuItem from "@material-ui/core/MenuItem";
-import ListSubheader from '@material-ui/core/ListSubheader';
+import ListSubheader from "@material-ui/core/ListSubheader";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -54,27 +54,19 @@ class ContainerSwoll extends React.Component {
   processData(data) {
     const type = this.state.type;
     const kind = this.state.kind;
-    console.log(type, kind);
     const result = Object.keys(data[kind]).map((key) => {
-      console.log(key);
-      // console.log(Object.keys(data[kind]));
-      // console.log(Object.keys(data[kind][key]));
-
-      // this.setState({
-        // type: data[kind][key]
-      // });
       let entry = {
         id: key,
         data: []
       };
       if (data[kind][key].hasOwnProperty("errors")) {
-      data[kind][key][type].map((plot) => {
-        entry.data.push({
-          x: plot.timestamp,
-          y: Number(plot.value)
+        data[kind][key][type].map((plot) => {
+          entry.data.push({
+            x: plot.timestamp,
+            y: Number(plot.value)
+          });
         });
-      });
-    };
+      };
       return entry;
     });
     return result;
@@ -125,7 +117,7 @@ class ContainerSwoll extends React.Component {
   render() {
     let data = this.state.plot;
     let classes = this.state.classes.map((classCat) => {
-      return(
+      return (
         <>
         <ListSubheader>{classCat}</ListSubheader>
         </>
@@ -133,18 +125,18 @@ class ContainerSwoll extends React.Component {
     });
 
     let classOptions = this.state.kind === "classifications" ?
-      <FormControl className="s-options">
+       <FormControl className="s-options">
         <Select value={this.state.type} onChange={(e) => this.handleSelectChange(e)}>
           <MenuItem value={"totals"}>Totals</MenuItem>
           <MenuItem value={"errors"}>Errors</MenuItem>
         </Select>
-      </FormControl> 
+       </FormControl>
       : this.state.kind === "syscalls" ?
-      <FormControl className="s-options">
+       <FormControl className="s-options">
         <Select value="FileSystem">
-          {classes} 
+          {classes}
         </Select>
-      </FormControl>
+       </FormControl>
       : "";
 
     return (
