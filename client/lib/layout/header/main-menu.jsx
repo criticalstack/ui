@@ -26,7 +26,7 @@ class MainMenu extends React.Component {
     let enableSwoll = false;
     if (csConfig.hasOwnProperty("kubernetes")) {
       enableStackApps = _.find(csConfig.kubernetes.resources, {kind: "StackApp", name: "stackapps"} );
-      enableSwoll =  _.find(csConfig.kubernetes.resources, {kind: "Trace", name: "traces", apiVersion: "tools.swoll.criticalstack.com/v1alpha1"});
+      enableSwoll = _.find(csConfig.kubernetes.resources, {kind: "Trace", name: "traces", apiVersion: "tools.swoll.criticalstack.com/v1alpha1"});
     }
 
     this.state = {
@@ -74,7 +74,7 @@ class MainMenu extends React.Component {
       let enableSwoll = false;
       if (csConfig.hasOwnProperty("kubernetes")) {
         enableStackApps = _.find(csConfig.kubernetes.resources, {kind: "StackApp", name: "stackapps"} );
-        enableSwoll =  _.find(csConfig.kubernetes.resources, {kind: "Trace", name: "traces", apiVersion: "tools.swoll.criticalstack.com/v1alpha1"});
+        enableSwoll = _.find(csConfig.kubernetes.resources, {kind: "Trace", name: "traces", apiVersion: "tools.swoll.criticalstack.com/v1alpha1"});
       }
       self.setState({
         enableMarketplace,

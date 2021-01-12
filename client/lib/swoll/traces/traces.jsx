@@ -2,7 +2,6 @@
 
 import React from "react";
 import ContentLoader from "../../layout/content-loader";
-import _ from "lodash";
 import Table from "./table";
 
 class Traces extends React.Component {
