@@ -55,7 +55,7 @@
 
 .create-form-labels-left .labels,
 .create-form-labels-left .selectors,
-.env-vars, .host-selector {
+.env-vars {
   margin-bottom: 20px;
 }
 
