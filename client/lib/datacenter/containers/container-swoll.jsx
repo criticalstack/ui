@@ -54,12 +54,14 @@ class ContainerSwoll extends React.Component {
   processData(data) {
     const type = this.state.type;
     const kind = this.state.kind;
+    console.log(data);
     const result = Object.keys(data[kind]).map((key) => {
       let entry = {
         id: key,
         data: []
       };
-      if (data[kind][key].hasOwnProperty("errors")) {
+      console.log(entry.id);
+      if (data[kind][key].hasOwnProperty("totals")) {
         data[kind][key][type].map((plot) => {
           entry.data.push({
             x: plot.timestamp,
@@ -67,6 +69,7 @@ class ContainerSwoll extends React.Component {
           });
         });
       };
+      console.log(entry);
       return entry;
     });
     return result;
