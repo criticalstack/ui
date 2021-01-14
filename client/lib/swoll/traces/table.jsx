@@ -3,7 +3,6 @@
 import React from "react";
 import TableBuilder from "../../../shared/table";
 import LabelMaker from "../../../shared/label-maker";
-import SelectorMaker from "../../../shared/selector-maker";
 import h from "../../helpers";
 import moment from "moment";
 import _ from "lodash";

@@ -1336,7 +1336,7 @@ menus.stackapps = (d, multi) => {
   return menu;
 };
 
-menus["traces"] = (d, multi) => {
+menus.traces = (d, multi) => {
   d.resource = "traces.tools.swoll.criticalstack.com";
   if (multi) {
     return [];

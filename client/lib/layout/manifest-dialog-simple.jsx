@@ -1577,11 +1577,11 @@ class ManifestDialogSimple extends React.Component {
             smValues = v.data;
 
             selectMenuItemsMulti = smValues.length > 0 ?
-              smValues.map(function(a, i) {
+              smValues.map(function(a, idx) {
                 return (
                   <MenuItem
                     disableRipple={true}
-                    key={i + 1}
+                    key={idx + 1}
                     value={a}
                   >
                     {a}
@@ -1594,18 +1594,18 @@ class ManifestDialogSimple extends React.Component {
             source.forEach( x => {
               let innerArr = _.get(x, v.path, []);
               innerArr.forEach( y => {
-                if( !_.includes(smValues, y.name)) {
+                if ( !_.includes(smValues, y.name)) {
                   smValues.push(y.name);
                 }
               });
             });
 
             selectMenuItemsMulti = smValues.length > 0 ?
-              smValues.map(function(a, i) {
+              smValues.map(function(a, idx) {
                 return (
                   <MenuItem
                     disableRipple={true}
-                    key={i + 1}
+                    key={idx + 1}
                     value={a}
                   >
                     {a}
