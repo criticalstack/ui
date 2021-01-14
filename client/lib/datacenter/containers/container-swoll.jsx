@@ -39,6 +39,12 @@ class ContainerSwoll extends React.Component {
         plot: this.processData(this.state.data.Metrics)
       });
     });
+
+    if (e.target.value === "errors" || e.target.value === "syscalls") {
+      this.setState({
+        type: "totals"
+      });
+    }
   };
 
   handleSelectChange(e) {
@@ -54,8 +60,6 @@ class ContainerSwoll extends React.Component {
   processData(data) {
     const type = this.state.type;
     const kind = this.state.kind;
-    console.log(type, kind);
-    console.log(data);
 
     const result = Object.keys(data[kind]).map((key) => {
       let entry = {
@@ -146,18 +150,18 @@ class ContainerSwoll extends React.Component {
     });
 
     let classOptions = this.state.kind === "classifications" ?
-       <FormControl className="s-options">
+      <FormControl className="s-options">
         <Select value={this.state.type} onChange={(e) => this.handleSelectChange(e)}>
           <MenuItem value={"totals"}>Totals</MenuItem>
           <MenuItem value={"errors"}>Errors</MenuItem>
         </Select>
-       </FormControl>
+      </FormControl>
       : this.state.kind === "syscalls" ?
-       <FormControl className="s-options">
+      <FormControl className="s-options">
         <Select value="FileSystem">
           {classes}
         </Select>
-       </FormControl>
+      </FormControl>
       : "";
 
     return (
