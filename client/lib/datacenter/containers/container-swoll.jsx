@@ -54,26 +54,31 @@ class ContainerSwoll extends React.Component {
   processData(data) {
     const type = this.state.type;
     const kind = this.state.kind;
+    console.log(type, kind);
     console.log(data);
+
     const result = Object.keys(data[kind]).map((key) => {
       let entry = {
         id: key,
         data: []
       };
-      console.log(entry.id);
-      if (data[kind][key].hasOwnProperty("totals")) {
+
+      let hasErr = data[kind][key].hasOwnProperty("errors");
+
+      if (hasErr || type !== "errors") {
         data[kind][key][type].map((plot) => {
           entry.data.push({
             x: plot.timestamp,
             y: Number(plot.value)
           });
         });
-      };
-      console.log(entry);
+      }
+
       return entry;
     });
+
     return result;
-  }
+  };
 
   processMappings(data) {
     let self = this;
@@ -86,6 +91,19 @@ class ContainerSwoll extends React.Component {
 
     self.setState({
       classes: classes
+    });
+  };
+
+  filterF(data) {
+    let plot = [];
+
+    Object.keys(data).filter((a) => {
+      key = data[a];
+      if (mappings.network.includes(key)) {
+        return true;
+      } return false;
+    }).map((matched) => {
+      plot.push(matched);
     });
   };
 
