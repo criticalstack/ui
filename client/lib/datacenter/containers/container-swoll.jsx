@@ -23,12 +23,13 @@ class ContainerSwoll extends React.Component {
       type: "totals",
       kind: "classifications",
       classes: [],
+      group: [],
+      syscallGroup: "Files"
     };
   }
 
   componentDidMount() {
     this.getSwollData();
-    this.processMappings(mappings);
   };
 
   handleChange(e) {
@@ -57,6 +58,16 @@ class ContainerSwoll extends React.Component {
     });
   };
 
+  handleSyschange(e) {
+    this.setState({
+      sysCallGroup: e.target.value
+    }, () => {
+      this.setState({
+        plot: this.processData(this.state.data.Metrics)
+      });
+    });
+  };
+
   processData(data) {
     const type = this.state.type;
     const kind = this.state.kind;
@@ -78,37 +89,39 @@ class ContainerSwoll extends React.Component {
         });
       }
 
+      if (kind === "syscalls") {
+        Object.keys(mappings).map((sysclass) => {
+          Object.keys(mappings[sysclass]).map((sysCallKey) => {
+            let sysName = mappings[sysclass][sysCallKey];
+
+            Object.keys(data[kind]).filter((sysCall) => {
+              let sysKey = data[kind][sysCall];
+              if(sysName.includes(sysCall)) {
+                return true;
+              } else {
+                return false;
+              }
+
+            }).map((matched) => {
+              entry.data.push({
+                x: matched.timestamp,
+                y: Number(matched.value)
+              });
+            });
+
+            let classes = Object.keys(mappings[sysclass]);
+            this.setState({
+              classes: classes,
+            });
+          });
+        });
+      };
+
+
       return entry;
     });
 
     return result;
-  };
-
-  processMappings(data) {
-    let self = this;
-    const classes = Object.keys(data);
-    classes.forEach((k) => {
-      let group = data[k];
-      Object.keys(group).forEach((c) => {
-      });
-    });
-
-    self.setState({
-      classes: classes
-    });
-  };
-
-  filterF(data) {
-    let plot = [];
-
-    Object.keys(data).filter((a) => {
-      key = data[a];
-      if (mappings.network.includes(key)) {
-        return true;
-      } return false;
-    }).map((matched) => {
-      plot.push(matched);
-    });
   };
 
   getSwollData() {
@@ -141,12 +154,12 @@ class ContainerSwoll extends React.Component {
 
   render() {
     let data = this.state.plot;
-    let classes = this.state.classes.map((classCat) => {
-      return (
-        <>
-        <ListSubheader>{classCat}</ListSubheader>
-        </>
-      );
+    let classes = this.state.classes.map((classCat, i) => {
+        return (
+          <>
+          <MenuItem value={i}>{classCat}</MenuItem>
+          </>
+        );
     });
 
     let classOptions = this.state.kind === "classifications" ?
@@ -158,7 +171,7 @@ class ContainerSwoll extends React.Component {
       </FormControl>
       : this.state.kind === "syscalls" ?
       <FormControl className="s-options">
-        <Select value="FileSystem">
+        <Select value={this.state.sysCallGroup} onChange={(e) => this.handleSyschange(e)}>
           {classes}
         </Select>
       </FormControl>
