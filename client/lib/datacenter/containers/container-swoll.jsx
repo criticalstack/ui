@@ -58,15 +58,6 @@ class ContainerSwoll extends React.Component {
     });
   };
 
-  handleSyschange(e) {
-    this.setState({
-      sysCallGroup: e.target.value
-    }, () => {
-      this.setState({
-        plot: this.processData(this.state.data.Metrics)
-      });
-    });
-  };
 
   processData(data) {
     const type = this.state.type;
@@ -88,35 +79,6 @@ class ContainerSwoll extends React.Component {
           });
         });
       }
-
-      if (kind === "syscalls") {
-        Object.keys(mappings).map((sysclass) => {
-          Object.keys(mappings[sysclass]).map((sysCallKey) => {
-            let sysName = mappings[sysclass][sysCallKey];
-
-            Object.keys(data[kind]).filter((sysCall) => {
-              let sysKey = data[kind][sysCall];
-              if(sysName.includes(sysCall)) {
-                return true;
-              } else {
-                return false;
-              }
-
-            }).map((matched) => {
-              entry.data.push({
-                x: matched.timestamp,
-                y: Number(matched.value)
-              });
-            });
-
-            let classes = Object.keys(mappings[sysclass]);
-            this.setState({
-              classes: classes,
-            });
-          });
-        });
-      };
-
 
       return entry;
     });
@@ -154,25 +116,12 @@ class ContainerSwoll extends React.Component {
 
   render() {
     let data = this.state.plot;
-    let classes = this.state.classes.map((classCat, i) => {
-        return (
-          <>
-          <MenuItem value={i}>{classCat}</MenuItem>
-          </>
-        );
-    });
 
     let classOptions = this.state.kind === "classifications" ?
       <FormControl className="s-options">
         <Select value={this.state.type} onChange={(e) => this.handleSelectChange(e)}>
           <MenuItem value={"totals"}>Totals</MenuItem>
           <MenuItem value={"errors"}>Errors</MenuItem>
-        </Select>
-      </FormControl>
-      : this.state.kind === "syscalls" ?
-      <FormControl className="s-options">
-        <Select value={this.state.sysCallGroup} onChange={(e) => this.handleSyschange(e)}>
-          {classes}
         </Select>
       </FormControl>
       : "";
