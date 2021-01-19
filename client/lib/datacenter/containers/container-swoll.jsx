@@ -1,13 +1,11 @@
 import React from "react";
 import h from "../../helpers";
 import MenuItem from "@material-ui/core/MenuItem";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
-import mappings from "./mappings";
 import MyResponsiveLine from "../../../shared/nivo-databiz/line";
 
 class ContainerSwoll extends React.Component {
