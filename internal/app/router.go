@@ -267,6 +267,16 @@ func (x *Controller) loadRoutes(e *echo.Echo, https bool) {
 	apiv1.GET("/metrics/:metricsType/:metricsName/pods", x.PodMetrics)
 	apiv1.GET("/metrics/:metricsType/:metricsName/pods/:name", x.PodMetrics)
 
+	// swoll stuff
+	if !x.config.DisableSwoll {
+		swoll := apiv1.Group("/swoll", jwtmw, x.MustUser, x.ImpersonationClient)
+
+		swoll.GET("/metrics", x.SwollMetrics)
+		swoll.GET("/metrics/namespaces/:namespace", x.SwollMetrics)
+		swoll.GET("/metrics/namespaces/:namespace/pods/:pod", x.SwollMetrics)
+		swoll.GET("/metrics/namespaces/:namespace/pods/:pod/containers/:container", x.SwollMetrics)
+	}
+
 	// containers
 	apiv1.GET("/namespaces/:namespace/containers", x.ContainersListAll)
 	apiv1.GET("/namespaces/:namespace/pods/:name/containers/:containerName", x.ContainerStatus)

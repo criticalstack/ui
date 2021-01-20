@@ -1569,20 +1569,72 @@ class ManifestDialogSimple extends React.Component {
 
         case "select-multiple":
           let selectedValues = _.get(self.state.data, v.key, []);
-          let smValues = _.get(self.state.exData, v.source, []);
 
-          let selectMenuItemsMulti = smValues.length > 0 ?
-            smValues.map(function(va, vi) {
-              return (
-                <MenuItem
-                  disableRipple={true}
-                  key={vi + 1}
-                  value={va.metadata.name}
-                >
-                  {va.metadata.name}
-                </MenuItem>
-              );
-            }) : "";
+          let smValues = [];
+          let selectMenuItemsMulti;
+
+          if (v.source === "hard-coded") {
+            smValues = v.data;
+
+            selectMenuItemsMulti = smValues.length > 0 ?
+              smValues.map(function(a, idx) {
+                return (
+                  <MenuItem
+                    disableRipple={true}
+                    key={idx + 1}
+                    value={a}
+                  >
+                    {a}
+                  </MenuItem>
+                );
+              }) : "";
+          } else if ( v.hasOwnProperty("path")) {
+            let source = _.get(self.state.exData, v.source, []);
+
+            source.forEach( x => {
+              let innerArr = _.get(x, v.path, []);
+              innerArr.forEach( y => {
+                if ( !_.includes(smValues, y.name)) {
+                  smValues.push(y.name);
+                }
+              });
+            });
+
+            selectMenuItemsMulti = smValues.length > 0 ?
+              smValues.map(function(a, idx) {
+                return (
+                  <MenuItem
+                    disableRipple={true}
+                    key={idx + 1}
+                    value={a}
+                  >
+                    {a}
+                  </MenuItem>
+                );
+              }) : "";
+
+          } else {
+            smValues = _.get(self.state.exData, v.source, []);
+
+            selectMenuItemsMulti = smValues.length > 0 ?
+              smValues.map(function(va, vi) {
+                return (
+                  <MenuItem
+                    disableRipple={true}
+                    key={vi + 1}
+                    value={va.metadata.name}
+                  >
+                    {va.metadata.name}
+                  </MenuItem>
+                );
+              }) : "";
+          }
+
+          // Prevent menu from jumping upon selection
+          const MenuProps = {
+            variant: "menu",
+            getContentAnchorEl: null
+          };
 
           control = (
             <FormControl className="dialog-select">
@@ -1593,6 +1645,7 @@ class ManifestDialogSimple extends React.Component {
                 value={selectedValues}
                 onChange={handleSelect}
                 multiple={true}
+                MenuProps={MenuProps}
                 renderValue={() => {
                   if (selectedValues.length === 0) {
                     return <span style={{ color: "#757575" }}>{v.placeholder}</span>;

@@ -23,15 +23,18 @@ class MainMenu extends React.Component {
     let csConfig = JSON.parse(localStorage.getItem("cs-config")) || {};
     let enableMarketplace = _.get(csConfig, "marketplace.enabled", false);
     let enableStackApps = false;
+    let enableSwoll = false;
     if (csConfig.hasOwnProperty("kubernetes")) {
       enableStackApps = _.find(csConfig.kubernetes.resources, {kind: "StackApp", name: "stackapps"} );
+      enableSwoll = _.find(csConfig.kubernetes.resources, {kind: "Trace", name: "traces", apiVersion: "tools.swoll.criticalstack.com/v1alpha1"});
     }
 
     this.state = {
       location: props.location,
       headerClass: this.setHeaderClass(props.location.pathname),
       enableMarketplace: enableMarketplace,
-      enableStackApps: enableStackApps
+      enableStackApps: enableStackApps,
+      enableSwoll: enableSwoll
     };
   }
 
@@ -68,12 +71,15 @@ class MainMenu extends React.Component {
       let csConfig = JSON.parse(localStorage.getItem("cs-config")) || {};
       let enableMarketplace = _.get(csConfig, "marketplace.enabled", false);
       let enableStackApps = false;
+      let enableSwoll = false;
       if (csConfig.hasOwnProperty("kubernetes")) {
         enableStackApps = _.find(csConfig.kubernetes.resources, {kind: "StackApp", name: "stackapps"} );
+        enableSwoll = _.find(csConfig.kubernetes.resources, {kind: "Trace", name: "traces", apiVersion: "tools.swoll.criticalstack.com/v1alpha1"});
       }
       self.setState({
         enableMarketplace,
-        enableStackApps
+        enableStackApps,
+        enableSwoll
       });
     });
   }
@@ -179,6 +185,17 @@ class MainMenu extends React.Component {
     </NavLink>
     ) : null;
 
+    let swollLink = this.state.enableSwoll ? (
+      <NavLink
+      activeClassName="active"
+      className="header-main-menu-item"
+      to="/swoll"
+    >
+      Swoll
+      <div className="header-main-menu-status"></div>
+    </NavLink>
+    ) : null;
+
     return (
       <div className={headerClass}>
         <div className="header-menu-icon">
@@ -213,6 +230,7 @@ class MainMenu extends React.Component {
           </NavLink>
           {marketplaceLink}
           {stackAppsLink}
+          {swollLink}
         </div>
 
         <div className="header-main-menu-account">

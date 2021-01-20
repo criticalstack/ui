@@ -19,6 +19,7 @@ import ServiceAccountCreate from "../../lib/datacenter/service-accounts/create";
 import ServiceCreate from "../../lib/datacenter/services/form";
 import StorageClassCreate from "../../lib/datacenter/storage-classes/create";
 import StackAppCreate from "../../lib/stackapps/create";
+import TraceCreate from "../../lib/swoll/traces/create";
 import UserCreate from "../../lib/settings/general/create";
 
 const resourceMetadata = {
@@ -270,6 +271,11 @@ const resourceMetadata = {
     menu: "storage-classes",
     wizard: StorageClassCreate,
     resourceAccess: "storageclasses.storage.k8s.io"
+  },
+  Trace: {
+    icon: "swollicon swollicon-swoll_icon",
+    route: "traces",
+    wizard: TraceCreate
   },
   Rbac: {
     doc: "https://kubernetes.io/docs/reference/access-authn-authz/rbac/"

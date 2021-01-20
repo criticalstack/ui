@@ -1,0 +1,16 @@
+.container-swoll-parent {
+  height: 700px;;
+  width: 100%;
+  max-width: 1200px;
+  min-width: 700px;
+  margin: 20px;
+}
+
+.r-options {
+  margin-top: 20px !important;
+  margin-bottom: 10px;
+}
+
+.s-options{
+  margin-bottom: 20px !important;
+}

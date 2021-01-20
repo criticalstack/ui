@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'swoll';
+  src:  url('../fonts/swoll.eot');
+  src:  url('../fonts/swoll.eot') format('embedded-opentype'),
+    url('../fonts/swoll.eot') format('truetype'),
+    url('../fonts/swoll.woff') format('woff'),
+    url('../fonts/swoll.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.swollicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  vertical-align: top;
+  speak: none;
+  line-height: 1;
+  font-family: 'swoll' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.swollicon-swoll_icon:before {
+  content: "\e900";
+}

@@ -33,7 +33,6 @@ class LabelEditor extends React.Component {
           let pair = `${key}=${value}`;
           return pair;
         });
-
       } else {
         labels = Object.keys(labelPath).map(function(k) {
           let value = labelPath[k];
@@ -249,8 +248,7 @@ class LabelEditor extends React.Component {
         <div style={{
           float: "right",
           paddingTop: "20px",
-          marginBottom: "-14px",
-          marginRight: "-14px"
+          marginBottom: "-14px"
         }}>
         {buttons}
       </div>

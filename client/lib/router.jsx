@@ -77,6 +77,9 @@ import Marketplace from "./marketplace/marketplace";
 // StackApps
 import StackApps from "./stackapps/stackapps";
 
+// Swoll
+import Traces from "./swoll/traces/traces";
+
 // Registration
 import Register from "./layout/register";
 
@@ -180,6 +183,12 @@ const routes = (
             {/* STACKAPPS */}
             <Route exact path="/stackapps" component={StackApps} />
             <Route path="/stackapps/:type" component={StackApps} />
+
+            {/* SWOLL */}
+            <Route exact path="/swoll" render={() => (
+              <Redirect to="/swoll/traces" />
+            )} />
+            <Route exact path="/swoll/traces" component={Traces}/>
 
             {/* Login */}
             <Route exact path="/login" component={Login} />
