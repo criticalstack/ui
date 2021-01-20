@@ -8,7 +8,9 @@
   "repository": "https://github.com/criticalstack/ui",
   "readme": "https://github.com/criticalstack/ui/blob/main/README.md",
   "resolutions": {
-    "acorn": "^7.1.1"
+    "acorn": "^7.1.1",
+    "node-fetch": "^2.6.1",
+    "minimist": "^1.2.5"
   },
   "babel": {
     "presets": [
@@ -25,6 +27,7 @@
     "not op_mini all"
   ],
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "build:dev": "npx parcel build --no-minify --out-dir build --public-url /assets/ critical-stack.jsx critical-stack.css index.html",
     "build:prod": "npx parcel build -d build --no-source-maps --public-url /assets/ critical-stack.jsx critical-stack.css index.html",
     "lint": "eslint --ext .js --ext .jsx --cache ."
@@ -66,7 +69,7 @@
     "jquery": "^3.5.1",
     "js-yaml": "^3.13.1",
     "jss": "^9.8.7",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "minimatch": "^3.0.4",
     "moment": "^2.15.1",
     "mousetrap": "^1.6.5",
@@ -92,7 +95,7 @@
     "react-event-listener": "^0.6.6",
     "react-flow": "^1.0.3",
     "react-flow-renderer": "^5.3.0",
-    "react-markdown": "^3.2.2",
+    "react-markdown": "^5.0.3",
     "react-router-dom": "^5.1.2",
     "react-select": "^3.0.8",
     "react-sparklines": "^1.7.0",
